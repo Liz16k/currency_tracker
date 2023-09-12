@@ -1,0 +1,18 @@
+# dependencies
+node_modules
+
+# production
+/build
+
+# misc
+.DS_Store
+.env
+
+# linting and git hoocks
+.eslintcache
+.husky
+
+# testing
+coverage
+
+npm-debug.log*
