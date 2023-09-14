@@ -1,26 +1,36 @@
 import React from 'react';
-import { Link, Outlet } from 'react-router-dom';
+import { Link, NavLink, Outlet } from 'react-router-dom';
 
-const Layout = () => (
+import Logo from '../Logo';
+import S from './styled';
+import ThemeSwitcher from './ThemeSwitcher';
+
+const NavBar = () => (
   <>
-    <nav>
-      <ul>
+    <S.Nav>
+      <Link to="/">
+        <Logo />
+      </Link>
+      <S.NavRoutes>
         <li>
-          <Link to="/">Home</Link>
+          <NavLink to="/" className={({ isActive }) => (isActive ? 'active' : '')}>
+            Home
+          </NavLink>
         </li>
         <li>
-          <Link to="/timeline">Timeline</Link>
+          <NavLink to="/timeline">Timeline</NavLink>
         </li>
         <li>
-          <Link to="/bank-card">Bank Card</Link>
+          <NavLink to="/bank-card">Bank Card</NavLink>
         </li>
         <li>
-          <Link to="/contacts">Contacts</Link>
+          <NavLink to="/contacts">Contacts</NavLink>
         </li>
-      </ul>
-    </nav>
+      </S.NavRoutes>
+      <ThemeSwitcher />
+    </S.Nav>
     <Outlet />
   </>
 );
 
-export default Layout;
+export default NavBar;
