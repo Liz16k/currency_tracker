@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link, NavLink, Outlet } from 'react-router-dom';
 
-import Logo from '../Logo';
+import Logo from './Logo';
 import S from './styled';
 import ThemeSwitcher from './ThemeSwitcher';
 

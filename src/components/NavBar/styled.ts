@@ -7,7 +7,8 @@ const Nav = styled.nav`
   height: 6.25rem;
 
   & > :last-child {
-    text-align: end;
+    display: flex;
+    justify-content: flex-end;
   }
 
   & > * {
