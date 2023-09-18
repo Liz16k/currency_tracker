@@ -7,9 +7,25 @@ const baseTheme = {
       headline: '2rem',
     },
   },
+  gradient: { green: '#00CE2C', lightGreen: '#AEDF23', yellow: '#A3DC00' },
 };
 
-const lightTheme = {};
+const lightTheme = {
+  colors: {
+    bg: '#FFFFFF',
+    cardBg: '#898989',
+    primaryText: '#030304',
+    secondaryText: '#D9D9D9',
+    tertiaryText: '#474747',
+    accentText: '#A7B2C3',
+    gradient: baseTheme.gradient,
+  },
+  sizes: {
+    ...baseTheme.sizes,
+    borderWidth: '0.1rem',
+  },
+  transform: 'translateX(-1.25rem)',
+};
 const darkTheme = {
   colors: {
     bg: '#030304',
@@ -18,11 +34,13 @@ const darkTheme = {
     secondaryText: '#D9D9D9',
     tertiaryText: '#898989',
     accentText: '#A7B2C3',
-    gradient: { green: '#00CE2C', lightGreen: '#AEDF23', yellow: '#A3DC00' },
+    gradient: baseTheme.gradient,
   },
   sizes: {
     ...baseTheme.sizes,
+    borderWidth: '0.125rem',
   },
+  transform: 'translateX(0px)',
 };
 
 export { darkTheme, lightTheme };
