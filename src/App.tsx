@@ -2,6 +2,7 @@ import React, { useMemo, useState } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
 
+import Header from './components/Header';
 import NavBar from './components/NavBar';
 import ThemeContext from './Contexts';
 import GlobalStyle from './GlobalStyle';
@@ -28,7 +29,14 @@ const App = () => {
     <ThemeProvider theme={theme === 'dark' ? darkTheme : lightTheme}>
       <ThemeContext.Provider value={themeContextValue}>
         <Routes>
-          <Route element={<NavBar />}>
+          <Route
+            element={(
+              <>
+                <NavBar />
+                <Header />
+              </>
+            )}
+          >
             <Route path="/" element={<Home />} />
             <Route path="/timeline" element={<Timeline />} />
             <Route path="/bank-card" element={<BankCard />} />
