@@ -27,12 +27,16 @@ const NavRoutes = styled.ul`
     color: inherit;
 
     &:hover {
-      color: ${({ theme }) => theme.colors.gradient.green};
+      color: #00ce2c;
     }
     &.active {
+      cursor: default;
       font-weight: 600;
       padding-bottom: 0.5rem;
-      border-bottom: 0.25rem solid ${({ theme }) => theme.colors.gradient.green};
+      border-bottom: 0.25rem solid #00ce2c;
+      &:hover {
+        color: inherit;
+      }
     }
   }
 `;

@@ -1,48 +1,61 @@
 import React from 'react';
 
-const Logo = () => (
-  <svg width="38" height="39" viewBox="0 0 38 39" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path
-      d="M2.33337 2.32532V31.5018C2.33337 34.3508 4.56671 36.6506 7.33337 36.6506H35.6667"
-      stroke="url(#paint0_linear_0_1)"
-      strokeWidth="4.46314"
-      strokeMiterlimit="10"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-    <path
-      d="M7.33337 28.0694L14.9834 18.8702C16.25 17.3599 18.5 17.2569 19.8667 18.6814L21.45 20.3119C22.8167 21.7192 25.0667 21.6334 26.3334 20.1231L34 10.9067"
-      stroke="url(#paint1_linear_0_1)"
-      strokeWidth="4.46314"
-      strokeMiterlimit="10"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-    <defs>
-      <linearGradient
-        id="paint0_linear_0_1"
-        x1="19"
-        y1="2.32532"
-        x2="19"
-        y2="36.6506"
-        gradientUnits="userSpaceOnUse"
-      >
-        <stop stopColor="#2ADD50" />
-        <stop offset="1" stopColor="#AFDD2A" />
-      </linearGradient>
-      <linearGradient
-        id="paint1_linear_0_1"
-        x1="20.6667"
-        y1="10.9067"
-        x2="20.6667"
-        y2="28.0694"
-        gradientUnits="userSpaceOnUse"
-      >
-        <stop stopColor="#2ADD50" />
-        <stop offset="1" stopColor="#AFDD2A" />
-      </linearGradient>
-    </defs>
-  </svg>
+const Logo = ({ width, height }: { width: number, height: number }) => (
+  <div style={{ width, height }}>
+    <svg
+      width="100%"
+      height="100%"
+      viewBox="0 0 40 43"
+      preserveAspectRatio="xMidYMid meet"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <g id="diagram-svgrepo-com 2">
+        <path
+          id="Vector"
+          d="M3.33337 4.32532V33.5018C3.33337 36.3508 5.56671 38.6506 8.33337 38.6506H36.6667"
+          stroke="url(#paint0_linear_1_1045)"
+          strokeWidth="4.46314"
+          strokeMiterlimit="10"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+        <path
+          id="Vector_2"
+          d="M8.33337 30.0694L15.9834 20.8702C17.25 19.3599 19.5 19.2569 20.8667 20.6814L22.45 22.3119C23.8167 23.7192 26.0667 23.6334 27.3334 22.1231L35 12.9067"
+          stroke="url(#paint1_linear_1_1045)"
+          strokeWidth="4.46314"
+          strokeMiterlimit="10"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+      </g>
+      <defs>
+        <linearGradient
+          id="paint0_linear_1_1045"
+          x1="20"
+          y1="4.32532"
+          x2="20"
+          y2="38.6506"
+          gradientUnits="userSpaceOnUse"
+        >
+          <stop stopColor="#2ADD50" />
+          <stop offset="1" stopColor="#AFDD2A" />
+        </linearGradient>
+        <linearGradient
+          id="paint1_linear_1_1045"
+          x1="21.6667"
+          y1="12.9067"
+          x2="21.6667"
+          y2="30.0694"
+          gradientUnits="userSpaceOnUse"
+        >
+          <stop stopColor="#2ADD50" />
+          <stop offset="1" stopColor="#AFDD2A" />
+        </linearGradient>
+      </defs>
+    </svg>
+  </div>
 );
 
 export default Logo;

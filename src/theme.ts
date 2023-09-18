@@ -3,11 +3,11 @@ const baseTheme = {
     font: {
       label: '1.25rem',
       body: '1.5rem',
-      title: '1.75rem',
-      headline: '2rem',
+      title: '4.75rem',
+      headline: '5.65rem',
     },
   },
-  gradient: { green: '#00CE2C', lightGreen: '#AEDF23', yellow: '#A3DC00' },
+  gradient: { first: '#030304', second: '#184F2840', third: '#030304' },
 };
 
 const lightTheme = {
@@ -18,7 +18,7 @@ const lightTheme = {
     secondaryText: '#D9D9D9',
     tertiaryText: '#474747',
     accentText: '#A7B2C3',
-    gradient: baseTheme.gradient,
+    quoteText: '#474747',
   },
   sizes: {
     ...baseTheme.sizes,
@@ -34,6 +34,7 @@ const darkTheme = {
     secondaryText: '#D9D9D9',
     tertiaryText: '#898989',
     accentText: '#A7B2C3',
+    quoteText: '#FFFFFF',
     gradient: baseTheme.gradient,
   },
   sizes: {

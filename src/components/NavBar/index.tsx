@@ -9,7 +9,7 @@ const NavBar = () => (
   <>
     <S.Nav>
       <Link to="/">
-        <Logo />
+        <Logo width={38} height={39} />
       </Link>
       <S.NavRoutes>
         <li>
