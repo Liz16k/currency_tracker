@@ -2,8 +2,10 @@ import React, { useMemo, useState } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
 
+import Footer from './components/Footer';
 import Header from './components/Header';
 import NavBar from './components/NavBar';
+import UpdateStatus from './components/UpdateStatus';
 import ThemeContext from './Contexts';
 import GlobalStyle from './GlobalStyle';
 import BankCard from './pages/BankCard';
@@ -34,6 +36,8 @@ const App = () => {
               <>
                 <NavBar />
                 <Header />
+                <UpdateStatus lastUpdate="11:52" />
+                <Footer />
               </>
             )}
           >

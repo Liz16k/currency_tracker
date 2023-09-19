@@ -22,6 +22,7 @@
     "simple-import-sort/imports": "error",
     "simple-import-sort/exports": "error",
     "linebreak-style": 0,
+    "react/jsx-one-expression-per-line": "off",
     "@typescript-eslint/explicit-function-return-type": "off",
     "@typescript-eslint/no-var-requires": "off",
     "react/function-component-definition": [
