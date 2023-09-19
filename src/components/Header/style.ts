@@ -20,7 +20,6 @@ const Caption = styled.div`
     background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    color: white;
   }
   h2 {
     font-size: ${({ theme }) => theme.sizes.font.headline};
