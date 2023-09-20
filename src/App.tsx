@@ -2,10 +2,7 @@ import React, { useMemo, useState } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
 
-import Footer from './components/Footer';
-import Header from './components/Header';
-import NavBar from './components/NavBar';
-import UpdateStatus from './components/UpdateStatus';
+import Layout from './components/Layout';
 import ThemeContext from './Contexts';
 import GlobalStyle from './GlobalStyle';
 import BankCard from './pages/BankCard';
@@ -31,16 +28,7 @@ const App = () => {
     <ThemeProvider theme={theme === 'dark' ? darkTheme : lightTheme}>
       <ThemeContext.Provider value={themeContextValue}>
         <Routes>
-          <Route
-            element={(
-              <>
-                <NavBar />
-                <Header />
-                <UpdateStatus lastUpdate="11:52" />
-                <Footer />
-              </>
-            )}
-          >
+          <Route element={<Layout />}>
             <Route path="/" element={<Home />} />
             <Route path="/timeline" element={<Timeline />} />
             <Route path="/bank-card" element={<BankCard />} />

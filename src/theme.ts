@@ -14,6 +14,7 @@ const lightTheme = {
   colors: {
     bg: '#FFFFFF',
     cardBg: '#898989',
+    cardBorder: '#474747',
     primaryText: '#030304',
     secondaryText: '#D9D9D9',
     tertiaryText: '#474747',
@@ -22,14 +23,15 @@ const lightTheme = {
   },
   sizes: {
     ...baseTheme.sizes,
-    borderWidth: '0.1rem',
+    borderWidth: '0.05rem',
   },
   transform: 'translateX(-1.25rem)',
 };
 const darkTheme = {
   colors: {
     bg: '#030304',
-    cardBg: '#474747',
+    cardBg: '#202025',
+    cardBorder: '#474747',
     primaryText: '#FFFFFF',
     secondaryText: '#D9D9D9',
     tertiaryText: '#898989',
