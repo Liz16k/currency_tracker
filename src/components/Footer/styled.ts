@@ -2,9 +2,10 @@ import styled from 'styled-components';
 
 const FooterWrapper = styled.div`
   display: flex;
-  justify-content: space-between;
+  justify-content: space-evenly;
   gap: 4rem;
   padding: 2rem 0;
+  margin-top: 6rem;
   & > div {
     max-width: 30rem;
     h4 {
@@ -25,9 +26,11 @@ const FooterWrapper = styled.div`
   }
   nav {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-evenly;
     align-items: flex-start;
     width: 100%;
+    max-width: 30rem;
+
     li {
       list-style: none;
       margin: 0.8rem 0;
