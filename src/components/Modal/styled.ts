@@ -17,16 +17,22 @@ const ModalContent = styled.div`
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-  width: 26rem;
-  height: 12rem;
+  width: 32rem;
+  height: 16rem;
   padding: 1rem 3rem;
   background-color: white;
   border: 1px solid;
   display: flex;
+  flex-direction: column;
   justify-content: space-evenly;
   align-items: center;
   background-color: ${({ theme }) => theme.colors.bg};
   border-radius: 0.6rem;
+  & > div {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+  }
 `;
 
 export default { ModalWrapper, ModalContent };
