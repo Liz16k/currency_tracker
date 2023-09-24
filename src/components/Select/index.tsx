@@ -37,7 +37,7 @@ const Select = ({
               onClick={() => {
                 handleChange(value);
               }}
-              active={value === currentValue}
+              $active={value === currentValue ? 'true' : ''}
               key={value}
             >
               {value}

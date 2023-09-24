@@ -37,7 +37,7 @@ const DropdownStyle = styled.div`
   overflow: auto;
 `;
 
-const DropdownItem = styled.div<{ active?: boolean }>`
+const DropdownItem = styled.div<{ $active?: string }>`
   display: flex;
   align-items: center;
   width: 90%;
@@ -48,7 +48,7 @@ const DropdownItem = styled.div<{ active?: boolean }>`
   border-radius: 0.3rem;
   cursor: pointer;
 
-  ${(p) => (p.active ?? false)
+  ${(p: any) => p.$active === 'true'
     && `
       color: #00BC4F;
       font-weight: 600;
