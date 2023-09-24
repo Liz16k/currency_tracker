@@ -39,12 +39,13 @@ async function fetchExchangeRate({ from, to }: Record<string, string>) {
       '5. Exchange Rate': rate,
       '6. Last Refreshed': lastUpdate,
     } = rawData;
-    return {
+    const data: { fromCode: string, toCode: string, rate: number, lastUpdate: string } = {
       fromCode,
       toCode,
       rate,
       lastUpdate,
     };
+    return data;
   } catch (error) {
     console.error(error);
   }
