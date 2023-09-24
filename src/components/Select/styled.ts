@@ -6,6 +6,7 @@ const SelectWrapper = styled.div`
 `;
 
 const SelectLabelButton = styled.button`
+  font-size: 1.2rem;
   padding: 0.3rem 0.5rem;
   min-width: 5rem;
   background-color: ${({ theme }) => theme.colors.bg};

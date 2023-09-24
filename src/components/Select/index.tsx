@@ -2,8 +2,15 @@ import React, { useState } from 'react';
 
 import S from './styled';
 
-const Select = ({ label, values }: { label: string, values: string[] }) => {
-  const [currentValue, setCurrentValue] = useState('');
+const Select = ({
+  values,
+  onChange,
+  currentValue,
+}: {
+  values: string[]
+  onChange: (value: string) => void
+  currentValue: string
+}) => {
   const [open, setOpen] = useState(false);
 
   const handleOpen = () => {
@@ -12,18 +19,16 @@ const Select = ({ label, values }: { label: string, values: string[] }) => {
   const handleClose = () => {
     setOpen(false);
   };
-  const handleChangeValue = (value: string): void => {
-    setCurrentValue(value);
-  };
+
   const handleChange = (value: string) => {
-    handleChangeValue(value);
+    onChange(value);
     handleClose();
   };
 
   return (
     <S.SelectWrapper>
       <S.SelectLabelButton onClick={handleOpen}>
-        {currentValue === '' ? label : currentValue}
+        {currentValue === '' ? 'select' : currentValue}
       </S.SelectLabelButton>
       {open && (
         <S.DropdownStyle>

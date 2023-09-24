@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { createPortal } from 'react-dom';
 
 import Card from '../Card';
-import Modal from '../Modal';
+import CurrencyModal from './CurrencyModal';
 import QuotesWrapper from './styled';
 
 const Quotes = ({ quotes }: any) => {
@@ -30,7 +30,10 @@ const Quotes = ({ quotes }: any) => {
         })}
       </QuotesWrapper>
       {modal.isShow
-        && createPortal(<Modal cardData={modal.modalData} onClose={modalClose} />, document.body)}
+        && createPortal(
+          <CurrencyModal from={modal.modalData.name} onClose={modalClose} />,
+          document.body,
+        )}
     </>
   );
 };
