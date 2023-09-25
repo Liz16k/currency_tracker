@@ -7,7 +7,7 @@ const Wrapper = styled.div`
   display: flex;
   align-items: center;
   gap: 2rem;
-  color: ${({ theme }) => theme.colors.secondaryText};
+  color: ${({ theme }) => theme.colors.primaryText};
   font-size: 1.8rem;
   border: 0.07rem solid ${({ theme }) => theme.colors.cardBorder};
   border-radius: 0.5rem;

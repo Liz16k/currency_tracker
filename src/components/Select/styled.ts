@@ -23,6 +23,7 @@ const SelectLabelButton = styled.button`
 `;
 
 const DropdownStyle = styled.div`
+  z-index: 1000;
   position: absolute;
   top: 0;
   left: 0;
