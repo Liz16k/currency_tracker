@@ -6,7 +6,7 @@ import Layout from './components/Layout';
 import ThemeContext from './Contexts';
 import GlobalStyle from './GlobalStyle';
 import BankCard from './pages/BankCard';
-import Contacts from './pages/Contacts';
+import Contacts from './pages/Contact';
 import Home from './pages/Home';
 import Timeline from './pages/Timeline/Timeline';
 import { darkTheme, lightTheme } from './theme';
