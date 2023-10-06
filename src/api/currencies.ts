@@ -13,7 +13,7 @@ async function fetchCurrencyData(
 ) {
   try {
     const params = new URLSearchParams({
-      apikey: '2ZEUR77Q6R5FX8UQ',
+      apikey: '',
       function: dataType,
       ...extraParams,
     });

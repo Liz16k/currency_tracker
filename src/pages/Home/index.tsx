@@ -6,7 +6,7 @@ import HomeWrapper from './styled';
 
 async function fetchCurrencies(currencies: string[]) {
   const params = new URLSearchParams({
-    app_id: 'cf87a4edd0e246cbbdef0540756237ef',
+    app_id: '',
     symbols: currencies.join(','),
   }).toString();
   const response = await fetch(`https://openexchangerates.org/api/latest.json?${params}`);

@@ -19,6 +19,10 @@ body {
   background-color: ${({ theme }) => theme.colors.bg};
   color: ${({ theme }) => theme.colors.primaryText}
 }
+
+.map {
+  height: 30rem;
+}
 `;
 
 export default GlobalStyle;
