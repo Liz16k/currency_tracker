@@ -23,6 +23,10 @@ body {
 .map {
   height: 30rem;
 }
+
+.marker-popup-content {
+  color: black;
+}
 `;
 
 export default GlobalStyle;

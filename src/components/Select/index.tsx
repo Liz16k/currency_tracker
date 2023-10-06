@@ -1,3 +1,5 @@
+/* eslint-disable react/require-default-props */
+/* eslint-disable max-len */
 import React, { useState } from 'react';
 
 import S from './styled';
@@ -6,10 +8,14 @@ const Select = ({
   values,
   onChange,
   currentValue,
+  onClickOption,
+  onFocus,
 }: {
   values: string[]
   onChange: (value: string) => void
   currentValue: string
+  onClickOption?: (value: string) => void
+  onFocus?: () => void
 }) => {
   const [open, setOpen] = useState(false);
 
@@ -20,22 +26,30 @@ const Select = ({
     setOpen(false);
   };
 
-  const handleChange = (value: string) => {
+  const handleClick = (value: string) => {
     onChange(value);
+    if (onClickOption !== undefined) onClickOption(value);
     handleClose();
+  };
+
+  const handleChange = (e: any) => {
+    onChange(e.target.value);
   };
 
   return (
     <S.SelectWrapper>
-      <S.SelectLabelButton onClick={handleOpen}>
-        {currentValue === '' ? 'select' : currentValue}
-      </S.SelectLabelButton>
+      <S.SelectLabelInput
+        value={currentValue}
+        onClick={handleOpen}
+        onChange={handleChange}
+        onFocus={onFocus}
+      />
       {open && (
         <S.DropdownStyle>
           {values.map((value) => (
             <S.DropdownItem
               onClick={() => {
-                handleChange(value);
+                handleClick(value);
               }}
               $active={value === currentValue ? 'true' : ''}
               key={value}

@@ -5,8 +5,9 @@ const SelectWrapper = styled.div`
   margin: 0;
 `;
 
-const SelectLabelButton = styled.button`
+const SelectLabelInput = styled.input`
   font-size: 1.2rem;
+  margin-bottom: 1rem;
   padding: 0.3rem 0.5rem;
   min-width: 5rem;
   background-color: ${({ theme }) => theme.colors.bg};
@@ -25,10 +26,11 @@ const SelectLabelButton = styled.button`
 const DropdownStyle = styled.div`
   z-index: 1000;
   position: absolute;
-  top: 0;
+  top: 2rem;
   left: 0;
+  margin-top: 1rem;
   max-height: 40vmax;
-  min-width: 10rem;
+  width: fit-content;
   padding: 0.4rem;
   display: flex;
   flex-direction: column;
@@ -64,6 +66,6 @@ const DropdownItem = styled.div<{ $active?: string }>`
 export default {
   DropdownItem,
   DropdownStyle,
-  SelectLabelButton,
+  SelectLabelInput,
   SelectWrapper,
 };

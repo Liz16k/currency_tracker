@@ -24,7 +24,7 @@ const MapComponent = ({ points }: { points: IBankPoint[] }) => {
       points.forEach((point: any) => {
         new Marker({ color: 'red' })
           .setLngLat(point.geometry.coordinates)
-          .setPopup(new Popup({ offset: 25 }).setHTML(`<p>${point.properties.address_line2}</p>`))
+          .setPopup(new Popup({ offset: 25, className: 'marker-popup-content' }).setHTML(`<p>${point.properties.address_line2}<p>${point.available_currencies}</p></p>`))
           .addTo(map);
       });
 

@@ -78,7 +78,6 @@ const CurrencyModal = ({ onClose, from }: any) => {
       <Currency>
         <Select
           onChange={(value) => {
-            console.log(value);
             setToCurrency(value);
           }}
           currentValue={toCurrency}

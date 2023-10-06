@@ -2,6 +2,7 @@ import { type LngLatLike } from 'mapbox-gl';
 
 const key = '';
 const limit = 25;
+export const mockSuggestions = ['USD', 'EUR', 'GBP', 'AUD', 'CAD'];
 
 const fetchGeolocation = async () => {
   const response = await fetch(`https://api.geoapify.com/v1/ipinfo?apiKey=${key}`);
@@ -32,14 +33,24 @@ const fetchPlaceId = async (place: string) => {
   return json.results[0].place_id;
 };
 
-const fetchBanks = async () => {
+function generateRandomCurrencies(currencies = mockSuggestions) {
+  const randomCount = Math.floor(Math.random() * (currencies.length + 1));
+  const shuffledCurrencies = currencies.sort(() => Math.random() - 0.5);
+  return shuffledCurrencies.slice(0, randomCount);
+}
+
+const fetchBanks = async (): Promise<IBankPoint[]> => {
   const { city, country } = await fetchGeolocation();
   const placeId = await fetchPlaceId(`${city}, ${country}`);
   const response = await fetch(
     `https://api.geoapify.com/v2/places?categories=service.financial&filter=place:${placeId}&limit=${limit}&apiKey=${key}`,
   );
   const json: any = await response.json();
-  return json.features;
+  const points = json.features.map((p: Omit<IBankPoint, 'available_currencies'>) => {
+    const availableCurrencies = generateRandomCurrencies();
+    return { ...p, available_currencies: availableCurrencies };
+  });
+  return points;
 };
 
 interface ICoordinates {
@@ -62,6 +73,7 @@ interface IBankPoint {
   place_id: string
   reference: string
   types: string[]
+  available_currencies: string[]
 }
 
 export { fetchBanks, fetchGeolocation, fetchPlaceId };
