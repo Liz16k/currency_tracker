@@ -1,5 +1,4 @@
-/* eslint-disable max-len */
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import Select from '../../components/Select';
 
@@ -13,16 +12,14 @@ const FilterSelect = ({
   const [inputValue, setInputValue] = useState('');
   const [suggestions, setSuggestions] = useState(values);
 
-  const updateSuggestions = () => {
+  useEffect(() => {
+    // eslint-disable-next-line max-len
     const filteredSuggestions = values.filter((hint: string) => hint.toLowerCase().includes(inputValue.toLowerCase()));
-    setSuggestions(() => filteredSuggestions);
-  };
-
-  // TODO: fix elastic search
+    setSuggestions(filteredSuggestions);
+  }, [inputValue, values]);
 
   const handleChange = (value: string) => {
     setInputValue(value);
-    updateSuggestions();
   };
 
   const handleClickOption = (value: string) => {
@@ -33,7 +30,6 @@ const FilterSelect = ({
 
   const handleFocus = () => {
     setInputValue('');
-    updateSuggestions();
   };
 
   return (

@@ -32,11 +32,6 @@ const ModalContent = styled.div`
     display: flex;
     align-items: center;
     gap: 2rem;
-  }
-  & > p {
-    margin: 4rem 0;
-    align-self: flex-start;
-  }
 `;
 
 export default { ModalWrapper, ModalContent };

@@ -1,15 +1,20 @@
 import styled from 'styled-components';
 
 const SelectWrapper = styled.div`
+  width: 12rem;
   position: relative;
-  margin: 0;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `;
 
 const SelectLabelInput = styled.input`
   font-size: 1.2rem;
   margin-bottom: 1rem;
   padding: 0.3rem 0.5rem;
-  min-width: 5rem;
+  width: 80%;
+  text-align: center;
   background-color: ${({ theme }) => theme.colors.bg};
   color: #00bc4f;
   align-items: center;
@@ -21,13 +26,16 @@ const SelectLabelInput = styled.input`
   &:hover {
     background-color: ${({ theme }) => theme.colors.cardBg};
   }
+  &::placeholder {
+    text-align: center;
+  }
 `;
 
 const DropdownStyle = styled.div`
   z-index: 1000;
   position: absolute;
   top: 2rem;
-  left: 0;
+  margin: 0 auto;
   margin-top: 1rem;
   max-height: 40vmax;
   width: fit-content;
@@ -43,7 +51,6 @@ const DropdownStyle = styled.div`
 const DropdownItem = styled.div<{ $active?: string }>`
   display: flex;
   align-items: center;
-  width: 90%;
   margin: 0.15rem 0;
   padding: 0.3rem 0.5rem;
   font-size: 0.9rem;

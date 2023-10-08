@@ -43,6 +43,7 @@ const Select = ({
         onClick={handleOpen}
         onChange={handleChange}
         onFocus={onFocus}
+        placeholder="choose option"
       />
       {open && (
         <S.DropdownStyle>
