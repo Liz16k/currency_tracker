@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/label-has-associated-control */
+/* eslint-disable @typescript-eslint/strict-boolean-expressions */
 /* eslint-disable @typescript-eslint/no-shadow */
 import React, { useEffect, useState } from 'react';
 
@@ -9,10 +11,10 @@ import S from './styled';
 
 interface DailyData {
   datetime: string
-  open: number
-  high: number
   low: number
+  open: number
   close: number
+  high: number
 }
 
 type DailyDataTuple = [string, number, number, number, number];
@@ -20,6 +22,9 @@ const intervals = ['DAILY', 'WEEKLY', 'MONTHLY'];
 
 const Timeline = () => {
   const [chartData, setChartData] = useState<DailyDataTuple[]>([]);
+  const [userData, setUserData] = useState<Record<string, string>>({
+    datetime: '', open: '', close: '', low: '', high: '',
+  });
   const [{ from, to, interval }, setSelectedCurrencies] = useState<{
     from: string
     to: string
@@ -40,7 +45,7 @@ const Timeline = () => {
       if (data != null) {
         const shortData: DailyDataTuple[] = data.map((record) => {
           const {
-            datetime, open, high, low, close,
+            datetime, low, open, close, high,
           } = record;
           return [datetime, low, open, close, high];
         });
@@ -50,6 +55,30 @@ const Timeline = () => {
     };
     void loadData();
   }, [from, to, interval]);
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setUserData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+
+    const newDataPoint: DailyDataTuple = [
+      userData.datetime,
+      +userData.low,
+      +userData.open,
+      +userData.close,
+      +userData.high,
+    ];
+
+    const newChartData: DailyDataTuple[] = [...chartData.slice(1), newDataPoint];
+
+    setChartData(newChartData);
+    setUserData({
+      datetime: '', open: '', close: '', low: '', high: '',
+    });
+  };
 
   return (
     <S.TimelineWrapper>
@@ -89,8 +118,55 @@ const Timeline = () => {
           />
         </div>
       </S.SelectBar>
-
       <CandlestickChart data={chartData} />
+      <form onSubmit={handleSubmit}>
+        <div>
+          <label>Datetime:</label>
+          <S.Input
+            name="datetime"
+            value={userData.datetime}
+            onChange={handleInputChange}
+            placeholder="01-01"
+            title="Введите дату в формате xx-xx (где x - число от 0 до 9)"
+            pattern="^(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$"
+            maxLength={5}
+          />
+        </div>
+        <div>
+          <label>Open:</label>
+          <S.Input
+            name="open"
+            value={userData.open}
+            onChange={handleInputChange}
+          />
+        </div>
+        <div>
+          <label>Close:</label>
+          <S.Input
+            name="close"
+            value={userData.close}
+            onChange={handleInputChange}
+          />
+        </div>
+        <div>
+          <label>Low:</label>
+          <S.Input
+            name="low"
+            value={userData.low}
+            onChange={handleInputChange}
+          />
+        </div>
+        <div>
+          <label>High:</label>
+          <S.Input
+            name="high"
+            value={userData.high}
+            onChange={handleInputChange}
+            required
+          />
+        </div>
+        <button type="submit">Submit</button>
+      </form>
     </S.TimelineWrapper>
   );
 };

@@ -80,7 +80,7 @@ async function fetchTimeseries(
           close: +close,
           high: +high,
         };
-      });
+      }).reverse();
   } catch (error) {
     console.error(error);
   }
