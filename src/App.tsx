@@ -3,7 +3,7 @@ import { Route, Routes } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
 
 import Layout from './components/Layout';
-import ThemeContext from './Contexts';
+import { LastUpdateProvider, ThemeContext } from './Contexts';
 import GlobalStyle from './GlobalStyle';
 import BankCard from './pages/BankCard';
 import Contacts from './pages/Contact';
@@ -25,20 +25,22 @@ const App = () => {
   );
 
   return (
-    <ThemeProvider theme={theme === 'dark' ? darkTheme : lightTheme}>
-      <ThemeContext.Provider value={themeContextValue}>
-        <Routes>
-          <Route element={<Layout />}>
-            <Route path="/" element={<Home />} />
-            <Route path="/timeline" element={<Timeline />} />
-            <Route path="/bank-card" element={<BankCard />} />
-            <Route path="/contacts" element={<Contacts />} />
-            <Route path="*" element={<h2>Page not Found</h2>} />
-          </Route>
-        </Routes>
-        <GlobalStyle />
-      </ThemeContext.Provider>
-    </ThemeProvider>
+    <LastUpdateProvider>
+      <ThemeProvider theme={theme === 'dark' ? darkTheme : lightTheme}>
+        <ThemeContext.Provider value={themeContextValue}>
+          <Routes>
+            <Route element={<Layout />}>
+              <Route path="/" element={<Home />} />
+              <Route path="/timeline" element={<Timeline />} />
+              <Route path="/bank-card" element={<BankCard />} />
+              <Route path="/contacts" element={<Contacts />} />
+              <Route path="*" element={<h2>Page not Found</h2>} />
+            </Route>
+          </Routes>
+          <GlobalStyle />
+        </ThemeContext.Provider>
+      </ThemeProvider>
+    </LastUpdateProvider>
   );
 };
 

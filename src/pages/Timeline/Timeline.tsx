@@ -1,10 +1,11 @@
 /* eslint-disable @typescript-eslint/no-shadow */
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 
 import { fetchTimeseries } from '../../api/currencies';
 import CandlestickChart from '../../components/Chart';
 import Select from '../../components/Select/index';
 import currenciest from '../../constants';
+import { LastUpdateContext } from '../../Contexts';
 import S from './styled';
 
 interface DailyData {
@@ -30,6 +31,8 @@ const Timeline = () => {
     interval: intervals[0] as 'DAILY' | 'WEEKLY' | 'MONTHLY',
   });
 
+  const { setLastUpdate } = useContext(LastUpdateContext);
+
   useEffect(() => {
     const loadData = async () => {
       const data: DailyData[] | undefined = await fetchTimeseries(interval, {
@@ -49,6 +52,10 @@ const Timeline = () => {
       }
     };
     void loadData();
+
+    const event = new Date();
+    setLastUpdate(event.toLocaleTimeString('it-IT'));
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [from, to, interval]);
 
   return (

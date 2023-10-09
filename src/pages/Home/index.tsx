@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 
 import Quotes from '../../components/Quotes';
 import currenciesList from '../../constants';
+import { LastUpdateContext } from '../../Contexts';
 import HomeWrapper from './styled';
 
 async function fetchCurrencies(currencies: string[]) {
@@ -16,13 +17,18 @@ async function fetchCurrencies(currencies: string[]) {
 
 const Home = () => {
   const [currencies, setCurrencies] = useState([]);
+  const { setLastUpdate } = useContext(LastUpdateContext);
 
   useEffect(() => {
     const loadCurrencies = async () => {
       setCurrencies(await fetchCurrencies(currenciesList));
     };
     void loadCurrencies();
+    const event = new Date();
+    setLastUpdate(event.toLocaleTimeString('it-IT'));
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
   return (
     <HomeWrapper>
       <h3>1 USD:</h3>

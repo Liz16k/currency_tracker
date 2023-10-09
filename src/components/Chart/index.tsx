@@ -1,7 +1,7 @@
 import React, { memo, useContext } from 'react';
 import { Chart } from 'react-google-charts';
 
-import ThemeContext from '../../Contexts';
+import { ThemeContext } from '../../Contexts';
 
 const CandlestickChart = ({ data }: any) => {
   const { theme } = useContext(ThemeContext);
