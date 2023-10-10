@@ -9,7 +9,9 @@ const QuotesWrapper = styled.div`
 
 const Currency = styled.div`
   display: flex;
+  height: 60%;
   flex-direction: column;
+  justify-content: space-between;
   h3 {
     padding: 0.16rem 0.5rem;
     font-size: 1.2rem;
