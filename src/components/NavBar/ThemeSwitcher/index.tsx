@@ -11,7 +11,7 @@ const ThemeSwitcher = () => {
   return (
     <S.SwitchWrapper>
       <S.SwitchInput onChange={handleSwitch} checked={theme === 'light'} />
-      <S.SwitchSlider />
+      <S.SwitchSlider data-testid="switcher" />
     </S.SwitchWrapper>
   );
 };

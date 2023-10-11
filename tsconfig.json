@@ -10,5 +10,7 @@
     "moduleResolution": "Node",
     "strict": true,
   },
-  "types": ["node", "jest", "@testing-library/jest-dom"]
+  "types": ["node", "jest", "@testing-library/jest-dom"],
+  "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.js", "src/**/*.jsx"],
+  "exclude": ["node_modules"]
 }
