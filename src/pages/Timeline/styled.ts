@@ -4,11 +4,61 @@ const TimelineWrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
+  form {
+    z-index: 10;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+    button {
+      appearance: none;
+      height: fit-content;
+      width: fit-content;
+      padding: 0.25rem 0.75rem;
+      font: inherit;
+      background-color: ${({ theme }) => theme.colors.cardBg};
+      color: ${({ theme }) => theme.colors.primaryText};
+      border-radius: 0.5rem;
+      cursor: pointer;
+  }
+  }
 `;
 
 const SelectBar = styled.div`
   display: flex;
   justify-content: center;
+  gap: 1rem;
+  text-align: center;
 `;
 
-export default { TimelineWrapper, SelectBar };
+const Input = styled.input.attrs(({
+  type, name, onChange, value, required, placeholder, pattern, maxLength,
+}) => ({
+  type: type ?? 'text',
+  name,
+  value,
+  onChange,
+  pattern,
+  maxLength,
+  required: required ?? true,
+  placeholder: placeholder ?? '0.000',
+
+}))`
+  &[type='number']::-webkit-inner-spin-button,
+  &[type='number']::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+  margin-left: 0.5rem;
+  appearance: none;
+  font: inherit;
+  background-color: ${({ theme }) => theme.colors.bg};
+  color: ${({ theme }) => theme.colors.primaryText};
+  width: 5rem;
+  padding: 0.25rem 0.5rem;
+  border: 0.1rem solid ${({ theme }) => theme.colors.primaryText};
+  border-radius: 0.5rem;
+
+`;
+
+export default { TimelineWrapper, SelectBar, Input };
