@@ -1,7 +1,3 @@
-// eslint-disable-next-line
-
-import 'mapbox-gl/dist/mapbox-gl.css';
-
 import { Map, Marker, Popup } from 'mapbox-gl';
 import React, { useEffect, useRef } from 'react';
 

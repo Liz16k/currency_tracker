@@ -3,4 +3,5 @@ module.exports = {
   collectCoverageFrom: ['src/**/*.{ts,tsx}'],
   coverageDirectory: 'coverage',
   testEnvironment: 'jsdom',
+  modulePathIgnorePatterns: ["__mocks__"],
 };

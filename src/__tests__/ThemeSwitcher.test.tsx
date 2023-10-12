@@ -10,7 +10,8 @@ import ThemeSwitcher from '../components/NavBar/ThemeSwitcher';
 import { ThemeContext } from '../Contexts';
 import GlobalStyle from '../GlobalStyle';
 import { darkTheme, lightTheme } from '../theme';
-import { fakeContextValue } from './mockData';
+// eslint-disable-next-line jest/no-mocks-import
+import { fakeContextValue } from './__mocks__';
 
 const renderWithProviders = (component: any, theme?: any, contextValue?: any) => render(
   <ThemeProvider theme={theme === 'light' ? lightTheme : darkTheme}>

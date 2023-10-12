@@ -8,7 +8,8 @@ import { ThemeProvider } from 'styled-components';
 import CurrencyModal from '../components/Quotes/CurrencyModal';
 import { ThemeContext } from '../Contexts';
 import GlobalStyle from '../GlobalStyle';
-import { fakeContextValue, fakeLightTheme } from './mockData';
+// eslint-disable-next-line jest/no-mocks-import
+import { fakeContextValue, fakeLightTheme } from './__mocks__';
 
 const renderWithProviders = (component: any, theme?: any, contextValue?: any) => render(
   <ThemeProvider theme={theme ?? fakeLightTheme}>

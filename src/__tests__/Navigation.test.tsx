@@ -11,9 +11,10 @@ import App from '../App';
 import NavBar from '../components/NavBar';
 import { ThemeContext } from '../Contexts';
 import GlobalStyle from '../GlobalStyle';
-import { fakeContextValue, fakeLightTheme } from './mockData';
+// eslint-disable-next-line jest/no-mocks-import
+import { fakeContextValue, fakeLightTheme } from './__mocks__';
 
-const renderWithProviders = (component: any, theme: any, contextValue: any) => render(
+const renderWithProviders = (component: any, theme?: any, contextValue?: any) => render(
   <ThemeProvider theme={theme ?? fakeLightTheme}>
     <ThemeContext.Provider value={contextValue ?? fakeContextValue}>
       <GlobalStyle />
@@ -31,8 +32,6 @@ describe('Navigation', () => {
       <Router location={history.location} navigator={history}>
         <NavBar />
       </Router>,
-      fakeLightTheme,
-      fakeContextValue,
     );
 
     pages.forEach((p) => {
@@ -45,7 +44,7 @@ describe('Navigation', () => {
     renderWithProviders((
       <MemoryRouter initialEntries={['/timeline']}>
         <NavBar />
-      </MemoryRouter>), fakeLightTheme, fakeContextValue);
+      </MemoryRouter>));
 
     const timelineLink = screen.getByText('Timeline');
     expect(timelineLink).toHaveClass('active');
@@ -55,7 +54,7 @@ describe('Navigation', () => {
     renderWithProviders((
       <MemoryRouter initialEntries={['/timeline']}>
         <NavBar />
-      </MemoryRouter>), fakeLightTheme, fakeContextValue);
+      </MemoryRouter>));
 
     const timelineLink = screen.getByText('Timeline');
     expect(timelineLink).toHaveClass('active');
@@ -67,7 +66,7 @@ describe('Navigation', () => {
     renderWithProviders((
       <Router location={history.location} navigator={history}>
         <NavBar />
-      </Router>), fakeLightTheme, fakeContextValue);
+      </Router>));
 
     expect(history.location.pathname).toBe('/');
 
