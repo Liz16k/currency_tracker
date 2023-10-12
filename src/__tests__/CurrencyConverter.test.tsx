@@ -42,7 +42,7 @@ describe('Currency converter', () => {
     renderWithProviders(<CurrencyModal from="USD" />);
     const [fromInput, toInput]: any = screen.getAllByPlaceholderText('0');
 
-    await userEvent.type(toInput, '30');
-    expect(fromInput.value).toBe('20');
+    await userEvent.type(fromInput, '20');
+    expect(toInput.value).toBe('30');
   });
 });

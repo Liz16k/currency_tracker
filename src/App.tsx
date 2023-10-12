@@ -8,7 +8,7 @@ import GlobalStyle from './GlobalStyle';
 import BankCard from './pages/BankCard';
 import Contacts from './pages/Contact';
 import Home from './pages/Home';
-import Timeline from './pages/Timeline/Timeline';
+import Timeline from './pages/Timeline';
 import { darkTheme, lightTheme } from './theme';
 
 const App = () => {
