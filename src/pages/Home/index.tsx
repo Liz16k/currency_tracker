@@ -14,7 +14,7 @@ const Home: React.FC = () => {
   useEffect(() => {
     const loadCurrencies = async () => {
       const fetchedCurrencies = await fetchCurrencies(currenciesList);
-      setCurrencies(fetchedCurrencies);
+      if (fetchedCurrencies != null) setCurrencies(fetchedCurrencies);
     };
     void loadCurrencies();
     const event = new Date();

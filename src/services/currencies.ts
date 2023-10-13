@@ -6,13 +6,17 @@ import { ALPHAVENTAGE_KEY, OPENEXCHANGERATE_KEY } from '@utils/envrionment';
 import { type RawDailyData } from './types';
 
 async function fetchCurrencies(currencies: string[]) {
-  const params = new URLSearchParams({ symbols: currencies.join(',') });
-  if (OPENEXCHANGERATE_KEY != null) params.set('app_id', OPENEXCHANGERATE_KEY);
+  try {
+    const params = new URLSearchParams({ symbols: currencies.join(',') });
+    if (OPENEXCHANGERATE_KEY != null) params.set('app_id', OPENEXCHANGERATE_KEY);
 
-  // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
-  const response = await fetch(`https://openexchangerates.org/api/latest.json?${params}`);
-  const data = await response.json();
-  return data.rates;
+    // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
+    const response = await fetch(`https://openexchangerates.org/api/latest.json?${params}`);
+    const data = await response.json();
+    return data?.rates;
+  } catch (error) {
+    throw new Error(`Failed to fetch currencies: ${(error as Error).message}`);
+  }
 }
 
 async function fetchCurrencyData(
@@ -35,7 +39,7 @@ async function fetchCurrencyData(
     const data = await fetch(url);
     return await data.json();
   } catch (error) {
-    console.error(error);
+    throw new Error(`Failed to fetch currency data: ${(error as Error).message}`);
   }
 }
 
@@ -45,7 +49,10 @@ async function fetchExchangeRate({ from, to }: Record<string, string>) {
       from_currency: from,
       to_currency: to,
     });
-    const rawData = await response['Realtime Currency Exchange Rate'];
+    const rawData = await response?.['Realtime Currency Exchange Rate'];
+    if (rawData == null) {
+      throw new Error('Exchange rate data is empty');
+    }
     const {
       '1. From_Currency Code': fromCode,
       '3. To_Currency Code': toCode,
@@ -60,7 +67,7 @@ async function fetchExchangeRate({ from, to }: Record<string, string>) {
     };
     return data;
   } catch (error) {
-    console.error(error);
+    throw new Error(`Error fetching exchange rate: ${(error as Error).message}`);
   }
 }
 
@@ -80,10 +87,10 @@ async function fetchTimeseries(
     });
     const toSentenseCase = (s: string) => s.charAt(0).toUpperCase() + s.slice(1).toLowerCase();
 
-    const rawData: Record<string, RawDailyData> = await response[
+    const rawData: Record<string, RawDailyData> = await response?.[
       `Time Series FX (${toSentenseCase(interval)})`
     ];
-
+    if (rawData == null) return [];
     return Object.entries(rawData)
       .slice(0, 30)
       .map(([datetime, data]) => {
@@ -100,7 +107,7 @@ async function fetchTimeseries(
         };
       }).reverse();
   } catch (error) {
-    console.error(error);
+    throw new Error(`Failed to fetch data for chart: ${(error as Error).message}`);
   }
 }
 

@@ -18,12 +18,8 @@ class BankCard extends Component<{}, MapState> {
   }
 
   async componentDidMount() {
-    try {
-      const points = await fetchBanks();
-      this.setState({ data: points });
-    } catch (error) {
-      console.error(error);
-    }
+    const points = await fetchBanks();
+    if (points != null) this.setState({ data: points });
   }
 
   componentDidUpdate(prevProps: {}, prevState: MapState) {
