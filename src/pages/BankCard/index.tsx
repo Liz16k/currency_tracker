@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-import { fetchBanks, type IBankPoint, mockSuggestions } from '../../api/geoapify';
+import { fetchBanks, type IBankPoint, mockSuggestions } from '../../services/geoapify';
 import FilterSelect from './FilterSelect';
 import MapComponent from './Map';
 

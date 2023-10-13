@@ -5,7 +5,7 @@ import 'mapbox-gl/dist/mapbox-gl.css';
 import { Map, Marker, Popup } from 'mapbox-gl';
 import React, { useEffect, useRef } from 'react';
 
-import { fetchGeolocation, type IBankPoint } from '../../api/geoapify';
+import { fetchGeolocation, type IBankPoint } from '../../services/geoapify';
 
 const MapComponent = ({ points }: { points: IBankPoint[] }) => {
   const mapContainer: any = useRef(null);

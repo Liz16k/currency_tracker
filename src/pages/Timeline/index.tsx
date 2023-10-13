@@ -3,11 +3,11 @@
 /* eslint-disable @typescript-eslint/no-shadow */
 import React, { useContext, useEffect, useState } from 'react';
 
-import { fetchTimeseries } from '../../api/currencies';
 import CandlestickChart from '../../components/Chart';
 import Select from '../../components/Select/index';
-import currenciest from '../../constants';
-import { LastUpdateContext } from '../../Contexts';
+import { fetchTimeseries } from '../../services/currencies';
+import { currencies } from '../../utils/constants';
+import { LastUpdateContext } from '../../utils/Contexts';
 import S from './styled';
 
 interface DailyData {
@@ -31,8 +31,8 @@ const Timeline = () => {
     to: string
     interval: 'DAILY' | 'WEEKLY' | 'MONTHLY'
   }>({
-    from: currenciest[0],
-    to: currenciest[1],
+    from: currencies[0],
+    to: currencies[1],
     interval: intervals[0] as 'DAILY' | 'WEEKLY' | 'MONTHLY',
   });
 
@@ -97,7 +97,7 @@ const Timeline = () => {
               setSelectedCurrencies(({ to, interval }) => ({ to, interval, from: value }));
             }}
             currentValue={from}
-            values={currenciest}
+            values={currencies}
           />
         </div>
         <div>
@@ -107,7 +107,7 @@ const Timeline = () => {
               setSelectedCurrencies(({ from, interval }) => ({ from, interval, to: value }));
             }}
             currentValue={to}
-            values={currenciest}
+            values={currencies}
           />
         </div>
         <div>

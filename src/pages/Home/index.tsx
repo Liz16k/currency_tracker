@@ -1,8 +1,8 @@
 import React, { useContext, useEffect, useState } from 'react';
 
 import Quotes from '../../components/Quotes';
-import currenciesList from '../../constants';
-import { LastUpdateContext } from '../../Contexts';
+import { currencies as currenciesList } from '../../utils/constants';
+import { LastUpdateContext } from '../../utils/Contexts';
 import HomeWrapper from './styled';
 
 async function fetchCurrencies(currencies: string[]) {

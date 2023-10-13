@@ -23,7 +23,6 @@ const ModalContent = styled.div`
   background-color: white;
   border: 1px solid;
   display: flex;
-  /* flex-direction: column; */
   justify-content: space-evenly;
   align-items: center;
   background-color: ${({ theme }) => theme.colors.bg};
@@ -32,6 +31,7 @@ const ModalContent = styled.div`
     display: flex;
     align-items: center;
     gap: 2rem;
+  }
 `;
 
 export default { ModalWrapper, ModalContent };

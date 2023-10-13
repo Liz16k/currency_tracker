@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { Outlet } from 'react-router-dom';
 
-import { LastUpdateContext } from '../Contexts';
+import { LastUpdateContext } from '../utils/Contexts';
 import Footer from './Footer';
 import Header from './Header';
 import NavBar from './NavBar';

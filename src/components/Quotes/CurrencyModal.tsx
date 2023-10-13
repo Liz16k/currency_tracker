@@ -2,15 +2,14 @@ import React, {
   type ChangeEvent, type FocusEvent, useEffect, useState,
 } from 'react';
 
-import { fetchExchangeRate } from '../../api/currencies';
+import { fetchExchangeRate } from '../../services/currencies';
+import { currencies } from '../../utils/constants';
 import Modal from '../Modal';
 import Select from '../Select';
 import { Currency } from './styled';
 
-const currenciest = ['EUR', 'AUD', 'CAD', 'UAH', 'PLN', 'CNY', 'GBP'];
-
 const CurrencyModal = ({ onClose, from }: any) => {
-  const [toCurrency, setToCurrency] = useState(currenciest[0]);
+  const [toCurrency, setToCurrency] = useState(currencies[0]);
   const [exchangeValues, setExchangeValues] = useState<{ from: number | '', to: number | '' }>({
     from: '',
     to: '',
@@ -81,7 +80,7 @@ const CurrencyModal = ({ onClose, from }: any) => {
             setToCurrency(value);
           }}
           currentValue={toCurrency}
-          values={currenciest}
+          values={currencies}
         />
         <input
           type="number"

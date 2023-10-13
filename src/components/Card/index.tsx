@@ -1,18 +1,7 @@
 import React from 'react';
 
+import { symbols } from '../../utils/constants';
 import S from './styled';
-
-export const symbols: any = {
-  RUB: '₽',
-  BYN: 'Br',
-  PLN: 'zł',
-  AUD: '$',
-  CAD: '$',
-  EUR: '€',
-  UAH: '₴',
-  CNY: '¥',
-  GBP: '£',
-};
 
 const Card = ({ name, value }: any) => {
   const symbolNative = symbols[name];
