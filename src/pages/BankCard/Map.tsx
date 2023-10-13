@@ -1,6 +1,7 @@
 import 'mapbox-gl/dist/mapbox-gl.css';
 
 import { fetchGeolocation } from '@services/geoapify';
+import { MAPBOX_KEY } from '@utils/envrionment';
 import { Map, Marker, Popup } from 'mapbox-gl';
 import React, { useEffect, useRef } from 'react';
 
@@ -13,7 +14,7 @@ const MapComponent: React.FC<MapComponentProps> = ({ points }) => {
     const fetchData = async () => {
       const { location } = await fetchGeolocation();
       const map = new Map({
-        accessToken: '',
+        accessToken: MAPBOX_KEY,
         container: mapContainer.current as HTMLElement,
         style: 'mapbox://styles/mapbox/streets-v12',
         center: location,

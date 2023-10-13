@@ -1,14 +1,15 @@
 /* eslint-disable consistent-return */
 
 import { type Interval } from '@pages/Timeline/types';
+import { ALPHAVENTAGE_KEY, OPENEXCHANGERATE_KEY } from '@utils/envrionment';
 
 import { type RawDailyData } from './types';
 
 async function fetchCurrencies(currencies: string[]) {
-  const params = new URLSearchParams({
-    app_id: '',
-    symbols: currencies.join(','),
-  }).toString();
+  const params = new URLSearchParams({ symbols: currencies.join(',') });
+  if (OPENEXCHANGERATE_KEY != null) params.set('app_id', OPENEXCHANGERATE_KEY);
+
+  // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
   const response = await fetch(`https://openexchangerates.org/api/latest.json?${params}`);
   const data = await response.json();
   return data.rates;
@@ -25,11 +26,9 @@ async function fetchCurrencyData(
   },
 ) {
   try {
-    const params = new URLSearchParams({
-      apikey: '',
-      function: dataType,
-      ...extraParams,
-    });
+    const params = new URLSearchParams({ function: dataType, ...extraParams });
+    if (ALPHAVENTAGE_KEY != null) params.set('apikey', ALPHAVENTAGE_KEY);
+
     const baseUrl = 'https://www.alphavantage.co/query?';
     const queryString = params.toString();
     const url = `${baseUrl}${queryString}`;

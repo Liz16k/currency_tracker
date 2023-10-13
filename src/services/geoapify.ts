@@ -1,8 +1,9 @@
+import { GEOAPIFY_API_KEY } from '@utils/envrionment';
 import genRandomCurrencyList from '@utils/genRandomCurrencyList';
 
 import { type IBankPoint, type IGeoData } from './types';
 
-const key = '';
+const key = GEOAPIFY_API_KEY;
 const limit = 25;
 
 const fetchGeolocation = async (): Promise<IGeoData> => {
