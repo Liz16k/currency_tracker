@@ -13,7 +13,7 @@ const baseTheme = {
 const lightTheme = {
   colors: {
     bg: '#FFFFFF',
-    cardBg: '#898989',
+    cardBg: '#fff',
     cardBorder: '#474747',
     primaryText: '#030304',
     secondaryText: '#D9D9D9',

@@ -1,19 +1,26 @@
-import React from 'react';
+import { LastUpdateContext } from '@utils/Contexts';
+import React, { useContext } from 'react';
 import { Outlet } from 'react-router-dom';
 
+import ErrorBoundary from './ErrorBoundary';
 import Footer from './Footer';
 import Header from './Header';
 import NavBar from './NavBar';
 import UpdateStatus from './UpdateStatus';
 
-const Layout = () => (
-  <>
-    <NavBar />
-    <Header />
-    <UpdateStatus lastUpdate="11:52" />
-    <Outlet />
-    <Footer />
-  </>
-);
+const Layout = () => {
+  const { lastUpdate } = useContext(LastUpdateContext);
+  return (
+    <>
+      <NavBar />
+      <Header />
+      <ErrorBoundary>
+        <UpdateStatus lastUpdate={lastUpdate} />
+        <Outlet />
+      </ErrorBoundary>
+      <Footer />
+    </>
+  );
+};
 
 export default Layout;

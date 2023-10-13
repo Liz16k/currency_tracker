@@ -19,6 +19,19 @@ body {
   background-color: ${({ theme }) => theme.colors.bg};
   color: ${({ theme }) => theme.colors.primaryText}
 }
+
+h1 {
+  text-align: center;
+  padding: 3rem;
+}
+
+.map {
+  height: 30rem;
+}
+
+.marker-popup-content {
+  color: black;
+}
 `;
 
 export default GlobalStyle;
