@@ -20,6 +20,11 @@ body {
   color: ${({ theme }) => theme.colors.primaryText}
 }
 
+h1 {
+  text-align: center;
+  padding: 3rem;
+}
+
 .map {
   height: 30rem;
 }

@@ -14,7 +14,7 @@ const Navigation = () => (
       <Route path="/timeline" element={<Timeline />} />
       <Route path="/bank-card" element={<BankCard />} />
       <Route path="/contacts" element={<Contacts />} />
-      <Route path="*" element={<h2>Page not Found</h2>} />
+      <Route path="*" element={<h1>Page not Found</h1>} />
     </Route>
   </Routes>
 );

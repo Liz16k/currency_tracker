@@ -4,6 +4,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 
 import CandlestickChart from '../../components/Chart';
+import ErrorBoundary from '../../components/ErrorBoundary';
 import Select from '../../components/Select/index';
 import { fetchTimeseries } from '../../services/currencies';
 import { currencies, intervals } from '../../utils/constants';
@@ -111,7 +112,9 @@ const Timeline = () => {
           />
         </div>
       </S.SelectBar>
-      <CandlestickChart data={chartData} />
+      <ErrorBoundary fallbackUI={<h1>Chart cannot be drawn</h1>}>
+        <CandlestickChart data={chartData} />
+      </ErrorBoundary>
       <form onSubmit={handleSubmit}>
         <div>
           <label>Datetime:</label>

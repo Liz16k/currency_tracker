@@ -20,10 +20,10 @@ const MapComponent: React.FC<MapComponentProps> = ({ points }) => {
         zoom: 12,
       });
 
-      points.forEach((point: any) => {
+      points.forEach(({ geometry, properties, available_currencies }: any) => {
         new Marker({ color: 'red' })
-          .setLngLat(point.geometry.coordinates)
-          .setPopup(new Popup({ offset: 25, className: 'marker-popup-content' }).setHTML(`<p>${point.properties.address_line2}<p>${point.available_currencies}</p></p>`))
+          .setLngLat(geometry.coordinates)
+          .setPopup(new Popup({ offset: 25, className: 'marker-popup-content' }).setHTML(`<p>${properties.address_line2}<p>${available_currencies}</p></p>`))
           .addTo(map);
       });
 

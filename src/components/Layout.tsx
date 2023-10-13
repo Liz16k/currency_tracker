@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import { Outlet } from 'react-router-dom';
 
 import { LastUpdateContext } from '../utils/Contexts';
+import ErrorBoundary from './ErrorBoundary';
 import Footer from './Footer';
 import Header from './Header';
 import NavBar from './NavBar';
@@ -13,8 +14,10 @@ const Layout = () => {
     <>
       <NavBar />
       <Header />
-      <UpdateStatus lastUpdate={lastUpdate} />
-      <Outlet />
+      <ErrorBoundary>
+        <UpdateStatus lastUpdate={lastUpdate} />
+        <Outlet />
+      </ErrorBoundary>
       <Footer />
     </>
   );
