@@ -1,6 +1,6 @@
+import Select from '@components/Select';
 import React, { useEffect, useState } from 'react';
 
-import Select from '../../components/Select';
 import type { FilterSelectProps } from './types';
 
 const FilterSelect = ({

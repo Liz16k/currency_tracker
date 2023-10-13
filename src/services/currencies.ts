@@ -1,6 +1,7 @@
 /* eslint-disable consistent-return */
 
-import { type Interval } from '../pages/Timeline/types';
+import { type Interval } from '@pages/Timeline/types';
+
 import { type RawDailyData } from './types';
 
 async function fetchCurrencies(currencies: string[]) {

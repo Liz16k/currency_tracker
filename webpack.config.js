@@ -4,6 +4,8 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const prod = process.env.NODE_ENV === 'production';
 const mode = prod ? 'production' : 'development';
 
+const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
+
 module.exports = {
   mode,
   entry: './src/index.tsx',
@@ -27,6 +29,9 @@ module.exports = {
         use: ['style-loader', 'css-loader'],
       },
     ],
+  },
+  resolve: {
+    plugins: [new TsconfigPathsPlugin()],
   },
   devtool: prod ? undefined : 'source-map',
   plugins: [

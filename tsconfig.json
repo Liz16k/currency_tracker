@@ -9,6 +9,12 @@
     "allowSyntheticDefaultImports": true,
     "moduleResolution": "Node",
     "strict": true,
+    "paths": {
+      "@components/*": ["./src/components/*"],
+      "@utils/*": ["./src/utils/*"],
+      "@pages/*": ["./src/pages/*"],
+      "@services/*": ["./src/services/*"],  
+    }
   },
   "types": ["node", "jest", "@testing-library/jest-dom"]
 }

@@ -1,4 +1,4 @@
-import { type IBankPoint } from '../../services/types';
+import { type IBankPoint } from '@services/types';
 
 interface FilterSelectProps {
   onChange: (value: string) => void

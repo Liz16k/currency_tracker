@@ -1,13 +1,13 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable @typescript-eslint/ban-types */
+import CandlestickChart from '@components/Chart';
+import ErrorBoundary from '@components/ErrorBoundary';
+import Select from '@components/Select';
+import { fetchTimeseries } from '@services/currencies';
+import { currencies, intervals } from '@utils/constants';
+import { LastUpdateContext, type LastUpdateContextType } from '@utils/Contexts';
 import React, { type ChangeEvent, Component, type FormEvent } from 'react';
 
-import CandlestickChart from '../../components/Chart';
-import ErrorBoundary from '../../components/ErrorBoundary';
-import Select from '../../components/Select';
-import { fetchTimeseries } from '../../services/currencies';
-import { currencies, intervals } from '../../utils/constants';
-import { LastUpdateContext, type LastUpdateContextType } from '../../utils/Contexts';
 import S from './styled';
 import { type DailyData, type DailyDataTuple, type ISelectedCurrencies } from './types';
 

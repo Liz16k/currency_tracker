@@ -1,4 +1,5 @@
-import genRandomCurrencyList from '../utils/genRandomCurrencyList';
+import genRandomCurrencyList from '@utils/genRandomCurrencyList';
+
 import { type IBankPoint, type IGeoData } from './types';
 
 const key = '';

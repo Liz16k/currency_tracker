@@ -1,11 +1,10 @@
+import Layout from '@components/Layout';
+import BankCard from '@pages/BankCard';
+import Contacts from '@pages/Contact';
+import Home from '@pages/Home';
+import Timeline from '@pages/Timeline';
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
-
-import Layout from '../components/Layout';
-import BankCard from '../pages/BankCard';
-import Contacts from '../pages/Contact';
-import Home from '../pages/Home';
-import Timeline from '../pages/Timeline';
 
 const Navigation = () => (
   <Routes>

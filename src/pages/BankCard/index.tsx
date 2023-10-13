@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/ban-types */
+import { fetchBanks } from '@services/geoapify';
+import { currencies } from '@utils/constants';
+import { LastUpdateContext, type LastUpdateContextType } from '@utils/Contexts';
 import React, { Component } from 'react';
 
-import { fetchBanks } from '../../services/geoapify';
-import { currencies } from '../../utils/constants';
-import { LastUpdateContext, type LastUpdateContextType } from '../../utils/Contexts';
 import FilterSelect from './FilterSelect';
 import MapComponent from './Map';
 import { type MapState } from './types';

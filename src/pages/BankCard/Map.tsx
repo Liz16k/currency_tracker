@@ -1,9 +1,9 @@
 import 'mapbox-gl/dist/mapbox-gl.css';
 
+import { fetchGeolocation } from '@services/geoapify';
 import { Map, Marker, Popup } from 'mapbox-gl';
 import React, { useEffect, useRef } from 'react';
 
-import { fetchGeolocation } from '../../services/geoapify';
 import { type MapComponentProps } from './types';
 
 const MapComponent: React.FC<MapComponentProps> = ({ points }) => {

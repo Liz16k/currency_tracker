@@ -1,8 +1,7 @@
+import { type DailyDataTuple } from '@pages/Timeline/types';
+import { ThemeContext } from '@utils/Contexts';
 import React, { memo, useContext } from 'react';
 import { Chart } from 'react-google-charts';
-
-import { type DailyDataTuple } from '../../pages/Timeline/types';
-import { ThemeContext } from '../../utils/Contexts';
 
 const CandlestickChart = ({ data }: { data: DailyDataTuple[] }) => {
   const { theme } = useContext(ThemeContext);

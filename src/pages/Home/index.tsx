@@ -1,14 +1,15 @@
+import Quotes from '@components/Quotes';
+import { fetchCurrencies } from '@services/currencies';
+import { currencies as currenciesList } from '@utils/constants';
+import { LastUpdateContext } from '@utils/Contexts';
+import { type LastUpdateContextType } from '@utils/Contexts';
 import React, { useContext, useEffect, useState } from 'react';
 
-import Quotes from '../../components/Quotes';
-import { fetchCurrencies } from '../../services/currencies';
-import { currencies as currenciesList } from '../../utils/constants';
-import { LastUpdateContext } from '../../utils/Contexts';
 import HomeWrapper from './styled';
 
 const Home: React.FC = () => {
   const [currencies, setCurrencies] = useState<Record<string, number>>({});
-  const { setLastUpdate } = useContext(LastUpdateContext);
+  const { setLastUpdate }: LastUpdateContextType = useContext(LastUpdateContext);
 
   useEffect(() => {
     const loadCurrencies = async () => {

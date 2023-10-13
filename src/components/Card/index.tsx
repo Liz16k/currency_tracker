@@ -1,6 +1,6 @@
+import { symbols } from '@utils/constants';
 import React from 'react';
 
-import { symbols } from '../../utils/constants';
 import S from './styled';
 import type CardProps from './types';
 

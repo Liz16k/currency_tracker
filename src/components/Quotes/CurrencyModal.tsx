@@ -1,9 +1,9 @@
+import { fetchExchangeRate } from '@services/currencies';
+import { currencies } from '@utils/constants';
 import React, {
   type ChangeEvent, type FocusEvent, useEffect, useState,
 } from 'react';
 
-import { fetchExchangeRate } from '../../services/currencies';
-import { currencies } from '../../utils/constants';
 import Modal from '../Modal';
 import Select from '../Select';
 import { Currency } from './styled';
