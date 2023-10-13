@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 
-import { fetchBanks, type IBankPoint, mockSuggestions } from '../../services/geoapify';
+import { fetchBanks } from '../../services/geoapify';
+import { type IBankPoint } from '../../services/types';
+import { currencies } from '../../utils/constants';
 import FilterSelect from './FilterSelect';
 import MapComponent from './Map';
 
@@ -26,11 +28,10 @@ const BankCard = () => {
 
   return (
     <>
-      <FilterSelect values={mockSuggestions} onChange={setCurrency} />
+      <FilterSelect values={currencies} onChange={setCurrency} />
       <MapComponent points={data} />
     </>
   );
 };
 
 export default BankCard;
-export type { IBankPoint };

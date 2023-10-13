@@ -1,19 +1,16 @@
 import React, { useEffect, useState } from 'react';
 
 import Select from '../../components/Select';
+import type { FilterSelectProps } from './types';
 
 const FilterSelect = ({
   onChange,
   values,
-}: {
-  onChange: (value: string) => void
-  values: string[]
-}) => {
+}: FilterSelectProps) => {
   const [inputValue, setInputValue] = useState('');
   const [suggestions, setSuggestions] = useState(values);
 
   useEffect(() => {
-    // eslint-disable-next-line max-len
     const filteredSuggestions = values.filter((hint: string) => hint.toLowerCase().includes(inputValue.toLowerCase()));
     setSuggestions(filteredSuggestions);
   }, [inputValue, values]);

@@ -1,21 +1,20 @@
-// eslint-disable-next-line
-
 import 'mapbox-gl/dist/mapbox-gl.css';
 
 import { Map, Marker, Popup } from 'mapbox-gl';
 import React, { useEffect, useRef } from 'react';
 
-import { fetchGeolocation, type IBankPoint } from '../../services/geoapify';
+import { fetchGeolocation } from '../../services/geoapify';
+import { type MapComponentProps } from './types';
 
-const MapComponent = ({ points }: { points: IBankPoint[] }) => {
-  const mapContainer: any = useRef(null);
+const MapComponent: React.FC<MapComponentProps> = ({ points }) => {
+  const mapContainer = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const fetchData = async () => {
       const { location } = await fetchGeolocation();
       const map = new Map({
         accessToken: '',
-        container: mapContainer.current,
+        container: mapContainer.current as HTMLElement,
         style: 'mapbox://styles/mapbox/streets-v12',
         center: location,
         zoom: 12,

@@ -7,19 +7,15 @@ import { currencies } from '../../utils/constants';
 import Modal from '../Modal';
 import Select from '../Select';
 import { Currency } from './styled';
+import { type CurrencyModalProps, type IExchangeRate, type IExchangeValue } from './types';
 
-const CurrencyModal = ({ onClose, from }: any) => {
+const CurrencyModal: React.FC<CurrencyModalProps> = ({ onClose, from }) => {
   const [toCurrency, setToCurrency] = useState(currencies[0]);
-  const [exchangeValues, setExchangeValues] = useState<{ from: number | '', to: number | '' }>({
+  const [exchangeValues, setExchangeValues] = useState<IExchangeValue>({
     from: '',
     to: '',
   });
-  const [exchangeRate, setExchangeRate] = useState<{
-    fromCode: string
-    toCode: string
-    rate: number
-    lastUpdate: string
-  }>({
+  const [exchangeRate, setExchangeRate] = useState<IExchangeRate>({
     rate: 1,
     fromCode: from,
     toCode: from,
@@ -53,7 +49,6 @@ const CurrencyModal = ({ onClose, from }: any) => {
   }, [from, toCurrency]);
 
   useEffect(() => {
-    // eslint-disable-next-line @typescript-eslint/no-shadow
     setExchangeValues(({ from }) => ({
       from,
       to: +(+from * exchangeRate.rate).toFixed(4),

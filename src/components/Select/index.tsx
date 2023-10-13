@@ -1,21 +1,10 @@
-/* eslint-disable react/require-default-props */
-/* eslint-disable max-len */
 import React, { useState } from 'react';
 
 import S from './styled';
+import { type SelectProps } from './types';
 
-const Select = ({
-  values,
-  onChange,
-  currentValue,
-  onClickOption,
-  onFocus,
-}: {
-  values: string[]
-  onChange: (value: string) => void
-  currentValue: string
-  onClickOption?: (value: string) => void
-  onFocus?: () => void
+const Select: React.FC<SelectProps> = ({
+  values, onChange, currentValue, onClickOption, onFocus,
 }) => {
   const [open, setOpen] = useState(false);
 
@@ -32,7 +21,7 @@ const Select = ({
     handleClose();
   };
 
-  const handleChange = (e: any) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     onChange(e.target.value);
   };
 

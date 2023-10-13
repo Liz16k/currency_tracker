@@ -2,8 +2,9 @@ import React from 'react';
 
 import { symbols } from '../../utils/constants';
 import S from './styled';
+import type CardProps from './types';
 
-const Card = ({ name, value }: any) => {
+const Card = ({ name, value }: CardProps) => {
   const symbolNative = symbols[name];
   return (
     <S.Wrapper className="card" key={symbolNative} id={name}>

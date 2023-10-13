@@ -1,4 +1,6 @@
-import React, { createContext, useMemo, useState } from 'react';
+import React, {
+  createContext, type ReactNode, useMemo, useState,
+} from 'react';
 
 interface ThemeContextType {
   theme: string
@@ -17,7 +19,7 @@ const LastUpdateContext = createContext<LastUpdateContextType>({
   setLastUpdate: () => {},
 });
 
-export const LastUpdateProvider = ({ children }: any) => {
+export const LastUpdateProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [lastUpdate, setLastUpdate] = useState<string>('');
   const contextValue = useMemo(() => ({ lastUpdate, setLastUpdate }), [lastUpdate]);
 

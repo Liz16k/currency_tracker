@@ -1,9 +1,10 @@
 import React, { memo, useContext } from 'react';
 import { Chart } from 'react-google-charts';
 
+import { type DailyDataTuple } from '../../pages/Timeline/types';
 import { ThemeContext } from '../../utils/Contexts';
 
-const CandlestickChart = ({ data }: any) => {
+const CandlestickChart = ({ data }: { data: DailyDataTuple[] }) => {
   const { theme } = useContext(ThemeContext);
   const mainColor = theme === 'dark' ? '#FFFFFF' : '#030304';
   const titleStyle = {

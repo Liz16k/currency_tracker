@@ -1,6 +1,6 @@
 const currencies = ['EUR', 'AUD', 'CAD', 'UAH', 'PLN', 'CNY', 'GBP'];
 
-const symbols: any = {
+const symbols: Record<string, string> = {
   RUB: '₽',
   BYN: 'Br',
   PLN: 'zł',
@@ -12,4 +12,6 @@ const symbols: any = {
   GBP: '£',
 };
 
-export { currencies, symbols };
+const intervals = ['DAILY', 'WEEKLY', 'MONTHLY'];
+
+export { currencies, intervals, symbols };

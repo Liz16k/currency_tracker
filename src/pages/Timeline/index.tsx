@@ -6,34 +6,20 @@ import React, { useContext, useEffect, useState } from 'react';
 import CandlestickChart from '../../components/Chart';
 import Select from '../../components/Select/index';
 import { fetchTimeseries } from '../../services/currencies';
-import { currencies } from '../../utils/constants';
+import { currencies, intervals } from '../../utils/constants';
 import { LastUpdateContext } from '../../utils/Contexts';
 import S from './styled';
-
-interface DailyData {
-  datetime: string
-  low: number
-  open: number
-  close: number
-  high: number
-}
-
-type DailyDataTuple = [string, number, number, number, number];
-const intervals = ['DAILY', 'WEEKLY', 'MONTHLY'];
+import { type DailyData, type DailyDataTuple, type ISelectedCurrencies } from './types';
 
 const Timeline = () => {
   const [chartData, setChartData] = useState<DailyDataTuple[]>([]);
   const [userData, setUserData] = useState<Record<string, string>>({
     datetime: '', open: '', close: '', low: '', high: '',
   });
-  const [{ from, to, interval }, setSelectedCurrencies] = useState<{
-    from: string
-    to: string
-    interval: 'DAILY' | 'WEEKLY' | 'MONTHLY'
-  }>({
+  const [{ from, to, interval }, setSelectedCurrencies] = useState<ISelectedCurrencies>({
     from: currencies[0],
     to: currencies[1],
-    interval: intervals[0] as 'DAILY' | 'WEEKLY' | 'MONTHLY',
+    interval: intervals[0],
   });
 
   const { setLastUpdate } = useContext(LastUpdateContext);

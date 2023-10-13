@@ -1,5 +1,17 @@
 /* eslint-disable consistent-return */
-type RawDailyData = Record<string, Record<string, string>>;
+
+import { type Interval } from '../pages/Timeline/types';
+import { type RawDailyData } from './types';
+
+async function fetchCurrencies(currencies: string[]) {
+  const params = new URLSearchParams({
+    app_id: '',
+    symbols: currencies.join(','),
+  }).toString();
+  const response = await fetch(`https://openexchangerates.org/api/latest.json?${params}`);
+  const data = await response.json();
+  return data.rates;
+}
 
 async function fetchCurrencyData(
   dataType: 'FX_DAILY' | 'FX_WEEKLY' | 'FX_MONTHLY' | 'CURRENCY_EXCHANGE_RATE',
@@ -17,10 +29,11 @@ async function fetchCurrencyData(
       function: dataType,
       ...extraParams,
     });
-    // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
-    const url = `https://www.alphavantage.co/query?${params}`;
-    const data: any = await fetch(url);
-    return data.json();
+    const baseUrl = 'https://www.alphavantage.co/query?';
+    const queryString = params.toString();
+    const url = `${baseUrl}${queryString}`;
+    const data = await fetch(url);
+    return await data.json();
   } catch (error) {
     console.error(error);
   }
@@ -52,11 +65,16 @@ async function fetchExchangeRate({ from, to }: Record<string, string>) {
 }
 
 async function fetchTimeseries(
-  interval: 'DAILY' | 'WEEKLY' | 'MONTHLY',
+  interval: Interval,
   { from = 'USD', to = 'EUR' },
 ) {
   try {
-    const response = await fetchCurrencyData(`FX_${interval}`, {
+    const prefMap: any = {
+      DAILY: 'FX_DAILY',
+      WEEKLY: 'FX_WEEKLY',
+      MONTHLY: 'FX_MONTHLY',
+    };
+    const response = await fetchCurrencyData(prefMap[interval], {
       from_symbol: from,
       to_symbol: to,
     });
@@ -86,4 +104,6 @@ async function fetchTimeseries(
   }
 }
 
-export { fetchCurrencyData, fetchExchangeRate, fetchTimeseries };
+export {
+  fetchCurrencies, fetchCurrencyData, fetchExchangeRate, fetchTimeseries,
+};
