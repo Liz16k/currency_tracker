@@ -9,4 +9,9 @@ interface MapComponentProps {
   points: IBankPoint[]
 }
 
-export type { FilterSelectProps, MapComponentProps };
+interface MapState {
+  currency: string
+  data: IBankPoint[] | []
+}
+
+export type { FilterSelectProps, MapComponentProps, MapState };

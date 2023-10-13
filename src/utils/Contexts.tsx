@@ -30,4 +30,4 @@ export const LastUpdateProvider: React.FC<{ children: ReactNode }> = ({ children
   );
 };
 
-export { LastUpdateContext, ThemeContext };
+export { LastUpdateContext, type LastUpdateContextType, ThemeContext };
