@@ -9,7 +9,7 @@ import Select from '../Select';
 import { Currency } from './styled';
 import { type CurrencyModalProps, type IExchangeRate, type IExchangeValue } from './types';
 
-const CurrencyModal: React.FC<CurrencyModalProps> = ({ onClose, from }) => {
+const CurrencyModal: React.FC<CurrencyModalProps> = ({ onClose = () => {}, from }) => {
   const [toCurrency, setToCurrency] = useState(currencies[0]);
   const [exchangeValues, setExchangeValues] = useState<IExchangeValue>({
     from: '',

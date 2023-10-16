@@ -3,18 +3,17 @@
 import '@testing-library/jest-dom';
 import 'jest-styled-components';
 
+import Timeline from '@pages/Timeline';
 import {
   render, screen, waitFor,
 } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import { ThemeContext } from '@utils/Contexts';
+import { darkTheme, lightTheme } from '@utils/theme';
 import React from 'react';
 import { ThemeProvider } from 'styled-components';
 
-import CandlestickChart from '../components/Chart/index';
-import { ThemeContext } from '../Contexts';
 import GlobalStyle from '../GlobalStyle';
-import Timeline from '../pages/Timeline';
-import { darkTheme, lightTheme } from '../theme';
 // eslint-disable-next-line jest/no-mocks-import
 import { fakeContextValue } from './__mocks__';
 
@@ -27,7 +26,7 @@ const renderWithProviders = (component: any, theme?: any, contextValue?: any) =>
   </ThemeProvider>,
 );
 
-jest.mock('../api/currencies', () => ({
+jest.mock('../services/currencies', () => ({
   fetchTimeseries: jest.fn(async () => Promise.resolve([{
     datetime: '01.01',
     low: 2.21,
@@ -93,20 +92,5 @@ describe('Timeline (candlestick graphic)', () => {
         expect(select).toHaveValue(mockValues[i]);
       });
     });
-  });
-
-  test.skip('Chart test', async () => {
-    const data = [
-      ['01.01', 2.21, 2.33, 2.34, 2.36],
-      ['01.02', 2.11, 2.15, 2.34, 2.36],
-      ['01.03', 2.21, 2.31, 2.25, 2.36],
-      ['01.04', 2.13, 2.21, 2.34, 2.36],
-      ['01.05', 2.13, 2.15, 2.24, 2.26],
-    ];
-
-    const { getByTestId } = renderWithProviders(<CandlestickChart data={[['day', 'l', 'o', 'c', 'h'], ...data]} />);
-
-    const chart = getByTestId('chart');
-    expect(chart).toBeInTheDocument();
   });
 });

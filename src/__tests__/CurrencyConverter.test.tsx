@@ -1,12 +1,12 @@
 import '@testing-library/jest-dom';
 
+import CurrencyModal from '@components/Quotes/CurrencyModal';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import { ThemeContext } from '@utils/Contexts';
 import React from 'react';
 import { ThemeProvider } from 'styled-components';
 
-import CurrencyModal from '../components/Quotes/CurrencyModal';
-import { ThemeContext } from '../Contexts';
 import GlobalStyle from '../GlobalStyle';
 // eslint-disable-next-line jest/no-mocks-import
 import { fakeContextValue, fakeLightTheme } from './__mocks__';
@@ -20,7 +20,7 @@ const renderWithProviders = (component: any, theme?: any, contextValue?: any) =>
   </ThemeProvider>,
 );
 
-jest.mock('../api/currencies', () => ({
+jest.mock('../services/currencies', () => ({
   fetchExchangeRate: jest.fn(async () => Promise.resolve({
     rate: 1.5,
     fromCode: 'USD',

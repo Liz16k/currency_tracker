@@ -2,6 +2,7 @@ import '@testing-library/jest-dom';
 
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import { ThemeContext } from '@utils/Contexts';
 import { createMemoryHistory } from 'history';
 import React from 'react';
 import { MemoryRouter, Router } from 'react-router-dom';
@@ -9,7 +10,6 @@ import { ThemeProvider } from 'styled-components';
 
 import App from '../App';
 import NavBar from '../components/NavBar';
-import { ThemeContext } from '../Contexts';
 import GlobalStyle from '../GlobalStyle';
 // eslint-disable-next-line jest/no-mocks-import
 import { fakeContextValue, fakeLightTheme } from './__mocks__';
@@ -22,6 +22,8 @@ const renderWithProviders = (component: any, theme?: any, contextValue?: any) =>
     </ThemeContext.Provider>
   </ThemeProvider>,
 );
+
+jest.mock('mapbox-gl/dist/mapbox-gl.css', () => '');
 
 describe('Navigation', () => {
   const pages = ['Home', 'Timeline', 'Bank Card', 'Contacts'];

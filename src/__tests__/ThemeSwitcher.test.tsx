@@ -3,13 +3,13 @@ import 'jest-styled-components';
 
 import { render } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import { ThemeContext } from '@utils/Contexts';
+import { darkTheme, lightTheme } from '@utils/theme';
 import React from 'react';
 import { ThemeProvider } from 'styled-components';
 
 import ThemeSwitcher from '../components/NavBar/ThemeSwitcher';
-import { ThemeContext } from '../Contexts';
 import GlobalStyle from '../GlobalStyle';
-import { darkTheme, lightTheme } from '../theme';
 // eslint-disable-next-line jest/no-mocks-import
 import { fakeContextValue } from './__mocks__';
 

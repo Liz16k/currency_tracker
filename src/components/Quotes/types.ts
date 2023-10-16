@@ -16,7 +16,7 @@ interface QuotesProps {
   quotes: Record<string, number>
 }
 interface CurrencyModalProps {
-  onClose: () => void
+  onClose?: () => void
   from: string
 }
 
