@@ -41504,7 +41504,7 @@ var ThemeSwitcher = function () {
     };
     return (react__WEBPACK_IMPORTED_MODULE_1___default().createElement(_styled__WEBPACK_IMPORTED_MODULE_2__["default"].SwitchWrapper, null,
         react__WEBPACK_IMPORTED_MODULE_1___default().createElement(_styled__WEBPACK_IMPORTED_MODULE_2__["default"].SwitchInput, { onChange: handleSwitch, checked: theme === 'light' }),
-        react__WEBPACK_IMPORTED_MODULE_1___default().createElement(_styled__WEBPACK_IMPORTED_MODULE_2__["default"].SwitchSlider, null)));
+        react__WEBPACK_IMPORTED_MODULE_1___default().createElement(_styled__WEBPACK_IMPORTED_MODULE_2__["default"].SwitchSlider, { "data-testid": "switcher" })));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (ThemeSwitcher);
 
@@ -41689,18 +41689,18 @@ var __generator = (undefined && undefined.__generator) || function (thisArg, bod
 
 
 var CurrencyModal = function (_a) {
-    var onClose = _a.onClose, from = _a.from;
-    var _b = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(_utils_constants__WEBPACK_IMPORTED_MODULE_1__.currencies[0]), toCurrency = _b[0], setToCurrency = _b[1];
-    var _c = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)({
+    var _b = _a.onClose, onClose = _b === void 0 ? function () { } : _b, from = _a.from;
+    var _c = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(_utils_constants__WEBPACK_IMPORTED_MODULE_1__.currencies[0]), toCurrency = _c[0], setToCurrency = _c[1];
+    var _d = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)({
         from: '',
         to: '',
-    }), exchangeValues = _c[0], setExchangeValues = _c[1];
-    var _d = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)({
+    }), exchangeValues = _d[0], setExchangeValues = _d[1];
+    var _e = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)({
         rate: 1,
         fromCode: from,
         toCode: from,
         lastUpdate: 'today',
-    }), exchangeRate = _d[0], setExchangeRate = _d[1];
+    }), exchangeRate = _e[0], setExchangeRate = _e[1];
     var handleChangeValue = function (e) {
         var _a = e.target, name = _a.name, value = _a.value;
         if (name === 'from') {
