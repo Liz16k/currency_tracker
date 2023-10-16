@@ -1,49 +1,109 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
-/* eslint-disable @typescript-eslint/strict-boolean-expressions */
-/* eslint-disable @typescript-eslint/no-shadow */
-import React, { useContext, useEffect, useState } from 'react';
+/* eslint-disable @typescript-eslint/ban-types */
+import CandlestickChart from '@components/Chart';
+import ErrorBoundary from '@components/ErrorBoundary';
+import Select from '@components/Select';
+import { fetchTimeseries } from '@services/currencies';
+import { currencies, intervals } from '@utils/constants';
+import { LastUpdateContext, type LastUpdateContextType } from '@utils/Contexts';
+import React, { type ChangeEvent, Component, type FormEvent } from 'react';
 
-import { fetchTimeseries } from '../../api/currencies';
-import CandlestickChart from '../../components/Chart';
-import Select from '../../components/Select/index';
-import currenciest from '../../constants';
-import { LastUpdateContext } from '../../Contexts';
 import S from './styled';
+import { type DailyData, type DailyDataTuple, type ISelectedCurrencies } from './types';
 
-interface DailyData {
-  datetime: string
-  low: number
-  open: number
-  close: number
-  high: number
+interface TimelineState {
+  chartData: DailyDataTuple[]
+  userData: {
+    datetime: string
+    open: string
+    close: string
+    low: string
+    high: string
+  }
+  selectedCurrencies: ISelectedCurrencies
 }
 
-type DailyDataTuple = [string, number, number, number, number];
-const intervals = ['DAILY', 'WEEKLY', 'MONTHLY'];
+class Timeline extends Component<{}, TimelineState> {
+  constructor(props: any) {
+    super(props);
+    this.state = {
+      chartData: [],
+      userData: {
+        datetime: '', open: '', close: '', low: '', high: '',
+      },
+      selectedCurrencies: {
+        from: currencies[0],
+        to: currencies[1],
+        interval: intervals[0],
+      },
+    };
+  }
 
-const Timeline = () => {
-  const [chartData, setChartData] = useState<DailyDataTuple[]>([]);
-  const [userData, setUserData] = useState<Record<string, string>>({
-    datetime: '', open: '', close: '', low: '', high: '',
-  });
-  const [{ from, to, interval }, setSelectedCurrencies] = useState<{
-    from: string
-    to: string
-    interval: 'DAILY' | 'WEEKLY' | 'MONTHLY'
-  }>({
-    from: currenciest[0],
-    to: currenciest[1],
-    interval: intervals[0] as 'DAILY' | 'WEEKLY' | 'MONTHLY',
-  });
+  componentDidMount() {
+    void this.loadData();
+  }
 
-  const { setLastUpdate } = useContext(LastUpdateContext);
+  componentDidUpdate(prevProps: {}, prevState: TimelineState) {
+    const { selectedCurrencies: { from, to, interval } } = this.state;
+    const { from: prevFrom, to: prevTo, interval: prevInterval } = prevState.selectedCurrencies;
 
-  useEffect(() => {
-    const loadData = async () => {
-      const data: DailyData[] | undefined = await fetchTimeseries(interval, {
-        from,
-        to,
-      });
+    if (prevFrom !== from || prevTo !== to || prevInterval !== interval) {
+      void this.loadData();
+    }
+  }
+
+  handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    this.setState((prevState) => ({
+      userData: { ...prevState.userData, [name]: value },
+    }));
+  };
+
+  handleSubmit = (e: FormEvent) => {
+    e.preventDefault();
+    this.setState((prevState) => {
+      const {
+        datetime, low, open, close, high,
+      } = prevState.userData;
+
+      const newDataPoint: DailyDataTuple = [
+        datetime,
+        +low,
+        +open,
+        +close,
+        +high,
+      ];
+
+      const newChartData: DailyDataTuple[] = [...prevState.chartData.slice(1), newDataPoint];
+
+      return {
+        chartData: newChartData,
+        userData: {
+          datetime: '',
+          open: '',
+          close: '',
+          low: '',
+          high: '',
+        },
+      };
+    });
+  };
+
+  setLastUpdate = () => {
+    const { setLastUpdate } = this.context as LastUpdateContextType;
+    setLastUpdate((new Date()).toLocaleTimeString('it-IT'));
+  };
+
+  async loadData() {
+    const { selectedCurrencies } = this.state;
+    try {
+      const data: DailyData[] | undefined = await fetchTimeseries(
+        selectedCurrencies.interval,
+        {
+          from: selectedCurrencies.from,
+          to: selectedCurrencies.to,
+        },
+      );
 
       if (data != null) {
         const shortData: DailyDataTuple[] = data.map((record) => {
@@ -53,129 +113,126 @@ const Timeline = () => {
           return [datetime, low, open, close, high];
         });
 
-        setChartData(shortData);
+        this.setState({ chartData: shortData });
+        this.setLastUpdate();
       }
-    };
-    void loadData();
+    } catch (error) {
+      console.error(error);
+    }
+  }
 
-    const event = new Date();
-    setLastUpdate(event.toLocaleTimeString('it-IT'));
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [from, to, interval]);
+  render() {
+    const { selectedCurrencies, chartData, userData } = this.state;
+    return (
+      <S.TimelineWrapper>
+        <S.SelectBar>
+          <div>
+            from:
+            <Select
+              onChange={(value) => {
+                this.setState((prevState) => ({
+                  selectedCurrencies: {
+                    ...prevState.selectedCurrencies,
+                    from: value,
+                  },
+                }));
+              }}
+              currentValue={selectedCurrencies.from}
+              values={currencies}
+            />
+          </div>
+          <div>
+            to:
+            <Select
+              onChange={(value) => {
+                this.setState((prevState) => ({
+                  selectedCurrencies: {
+                    ...prevState.selectedCurrencies,
+                    to: value,
+                  },
+                }));
+              }}
+              currentValue={selectedCurrencies.to}
+              values={currencies}
+            />
+          </div>
+          <div>
+            Interval
+            <Select
+              onChange={(value) => {
+                this.setState((prevState) => ({
+                  selectedCurrencies: {
+                    ...prevState.selectedCurrencies,
+                    interval: value as 'DAILY' | 'WEEKLY' | 'MONTHLY',
+                  },
+                }));
+              }}
+              currentValue={selectedCurrencies.interval}
+              values={intervals}
+            />
+          </div>
+        </S.SelectBar>
+        <ErrorBoundary fallbackUI={<h1>Chart cannot be drawn</h1>}>
+          <CandlestickChart data={chartData} />
+        </ErrorBoundary>
+        <form onSubmit={this.handleSubmit}>
+          <div>
+            <label htmlFor="datetime">Datetime:</label>
+            <S.Input
+              id="datetime"
+              name="datetime"
+              value={userData.datetime}
+              onChange={this.handleInputChange}
+              placeholder="01-01"
+              title="Введите дату в формате xx-xx (где x - число от 0 до 9)"
+              pattern="^(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$"
+              maxLength={5}
+            />
+          </div>
+          <div>
+            <label htmlFor="open">Open:</label>
+            <S.Input
+              id="open"
+              name="open"
+              value={userData.open}
+              onChange={this.handleInputChange}
+            />
+          </div>
+          <div>
+            <label htmlFor="close">Close:</label>
+            <S.Input
+              id="close"
+              name="close"
+              value={userData.close}
+              onChange={this.handleInputChange}
+            />
+          </div>
+          <div>
+            <label htmlFor="low">Low:</label>
+            <S.Input
+              id="low"
+              name="low"
+              value={userData.low}
+              onChange={this.handleInputChange}
+            />
+          </div>
+          <div>
+            <label htmlFor="high">High:</label>
+            <S.Input
+              id="high"
+              name="high"
+              value={userData.high}
+              onChange={this.handleInputChange}
+              required
+            />
+          </div>
+          <button type="submit">Submit</button>
+        </form>
+      </S.TimelineWrapper>
+    );
+  }
+}
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setUserData((prev) => ({ ...prev, [name]: value }));
-  };
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-
-    const newDataPoint: DailyDataTuple = [
-      userData.datetime,
-      +userData.low,
-      +userData.open,
-      +userData.close,
-      +userData.high,
-    ];
-
-    const newChartData: DailyDataTuple[] = [...chartData.slice(1), newDataPoint];
-
-    setChartData(newChartData);
-    setUserData({
-      datetime: '', open: '', close: '', low: '', high: '',
-    });
-  };
-
-  return (
-    <S.TimelineWrapper>
-      <S.SelectBar>
-        <div>
-          from:
-          <Select
-            onChange={(value) => {
-              setSelectedCurrencies(({ to, interval }) => ({ to, interval, from: value }));
-            }}
-            currentValue={from}
-            values={currenciest}
-          />
-        </div>
-        <div>
-          to:
-          <Select
-            onChange={(value) => {
-              setSelectedCurrencies(({ from, interval }) => ({ from, interval, to: value }));
-            }}
-            currentValue={to}
-            values={currenciest}
-          />
-        </div>
-        <div>
-          Interval
-          <Select
-            onChange={(value) => {
-              setSelectedCurrencies(({ from, to }) => ({
-                from,
-                to,
-                interval: value as 'DAILY' | 'WEEKLY' | 'MONTHLY',
-              }));
-            }}
-            currentValue={interval}
-            values={intervals}
-          />
-        </div>
-      </S.SelectBar>
-      <CandlestickChart data={chartData} />
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label>Datetime:</label>
-          <S.Input
-            name="datetime"
-            value={userData.datetime}
-            onChange={handleInputChange}
-            placeholder="01-01"
-            title="Введите дату в формате xx-xx (где x - число от 0 до 9)"
-            pattern="^(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$"
-            maxLength={5}
-          />
-        </div>
-        <div>
-          <label>Open:</label>
-          <S.Input
-            name="open"
-            value={userData.open}
-            onChange={handleInputChange}
-          />
-        </div>
-        <div>
-          <label>Close:</label>
-          <S.Input
-            name="close"
-            value={userData.close}
-            onChange={handleInputChange}
-          />
-        </div>
-        <div>
-          <label>Low:</label>
-          <S.Input
-            name="low"
-            value={userData.low}
-            onChange={handleInputChange}
-          />
-        </div>
-        <div>
-          <label>High:</label>
-          <S.Input
-            name="high"
-            value={userData.high}
-            onChange={handleInputChange}
-            required
-          />
-        </div>
-        <button type="submit">Submit</button>
-      </form>
-    </S.TimelineWrapper>
-  );
-};
+Timeline.contextType = LastUpdateContext;
 
 export default Timeline;

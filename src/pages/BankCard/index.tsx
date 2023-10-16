@@ -1,36 +1,60 @@
-import React, { useEffect, useState } from 'react';
+/* eslint-disable @typescript-eslint/ban-types */
+import { fetchBanks } from '@services/geoapify';
+import { currencies } from '@utils/constants';
+import { LastUpdateContext, type LastUpdateContextType } from '@utils/Contexts';
+import React, { Component } from 'react';
 
-import { fetchBanks, type IBankPoint, mockSuggestions } from '../../api/geoapify';
 import FilterSelect from './FilterSelect';
 import MapComponent from './Map';
+import { type MapState } from './types';
 
-const BankCard = () => {
-  const [currency, setCurrency] = useState('');
-  const [data, setData] = useState<IBankPoint[] | []>([]);
-
-  useEffect(() => {
-    const loadData = async () => {
-      const points = await fetchBanks();
-      setData(points);
+class BankCard extends Component<{}, MapState> {
+  constructor(props: any) {
+    super(props);
+    this.state = {
+      currency: '',
+      data: [],
     };
-    void loadData();
-  }, []);
+  }
 
-  useEffect(() => {
-    if (currency !== '') {
-      const filteredData = data.filter((point) => point.available_currencies.includes(currency));
-      setData(filteredData);
+  async componentDidMount() {
+    const points = await fetchBanks();
+    if (points != null) this.setState({ data: points });
+  }
+
+  componentDidUpdate(prevProps: {}, prevState: MapState) {
+    const { currency } = this.state;
+    if (prevState.currency !== currency) {
+      const { currency, data } = this.state;
+      if (currency !== '') {
+        const filteredData = data.filter(
+          ({ available_currencies }: { available_currencies: string[] }) => available_currencies.includes(currency),
+        );
+        this.setState({ data: filteredData });
+      }
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [currency]);
+    this.setLastUpdate();
+  }
 
-  return (
-    <>
-      <FilterSelect values={mockSuggestions} onChange={setCurrency} />
-      <MapComponent points={data} />
-    </>
-  );
-};
+  setLastUpdate = () => {
+    const { setLastUpdate } = this.context as LastUpdateContextType;
+    setLastUpdate((new Date()).toLocaleTimeString('it-IT'));
+  };
+
+  handleCurrencyChange = (currency: string) => {
+    this.setState({ currency });
+  };
+
+  render() {
+    const { data } = this.state;
+    return (
+      <>
+        <FilterSelect values={currencies} onChange={this.handleCurrencyChange} />
+        <MapComponent points={data} />
+      </>
+    );
+  }
+}
+BankCard.contextType = LastUpdateContext;
 
 export default BankCard;
-export type { IBankPoint };

@@ -1,26 +1,30 @@
+import 'mapbox-gl/dist/mapbox-gl.css';
+
+import { fetchGeolocation } from '@services/geoapify';
+import { MAPBOX_KEY } from '@utils/envrionment';
 import { Map, Marker, Popup } from 'mapbox-gl';
 import React, { useEffect, useRef } from 'react';
 
-import { fetchGeolocation, type IBankPoint } from '../../api/geoapify';
+import { type MapComponentProps } from './types';
 
-const MapComponent = ({ points }: { points: IBankPoint[] }) => {
-  const mapContainer: any = useRef(null);
+const MapComponent: React.FC<MapComponentProps> = ({ points }) => {
+  const mapContainer = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const fetchData = async () => {
       const { location } = await fetchGeolocation();
       const map = new Map({
-        accessToken: '',
-        container: mapContainer.current,
+        accessToken: MAPBOX_KEY,
+        container: mapContainer.current as HTMLElement,
         style: 'mapbox://styles/mapbox/streets-v12',
         center: location,
         zoom: 12,
       });
 
-      points.forEach((point: any) => {
+      points.forEach(({ geometry, properties, available_currencies }: any) => {
         new Marker({ color: 'red' })
-          .setLngLat(point.geometry.coordinates)
-          .setPopup(new Popup({ offset: 25, className: 'marker-popup-content' }).setHTML(`<p>${point.properties.address_line2}<p>${point.available_currencies}</p></p>`))
+          .setLngLat(geometry.coordinates)
+          .setPopup(new Popup({ offset: 25, className: 'marker-popup-content' }).setHTML(`<p>${properties.address_line2}<p>${available_currencies}</p></p>`))
           .addTo(map);
       });
 

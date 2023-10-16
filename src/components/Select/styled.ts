@@ -58,7 +58,7 @@ const DropdownItem = styled.div<{ $active?: string }>`
   border-radius: 0.3rem;
   cursor: pointer;
 
-  ${(p: any) => p.$active === 'true'
+  ${(p) => p.$active === 'true'
     && `
       color: #00BC4F;
       font-weight: 600;

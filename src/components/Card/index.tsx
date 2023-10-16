@@ -1,20 +1,10 @@
+import { symbols } from '@utils/constants';
 import React from 'react';
 
 import S from './styled';
+import type CardProps from './types';
 
-export const symbols: any = {
-  RUB: '₽',
-  BYN: 'Br',
-  PLN: 'zł',
-  AUD: '$',
-  CAD: '$',
-  EUR: '€',
-  UAH: '₴',
-  CNY: '¥',
-  GBP: '£',
-};
-
-const Card = ({ name, value }: any) => {
+const Card = ({ name, value }: CardProps) => {
   const symbolNative = symbols[name];
   return (
     <S.Wrapper className="card" key={symbolNative} id={name}>

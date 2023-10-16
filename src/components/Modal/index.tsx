@@ -1,11 +1,12 @@
-import React from 'react';
+import React, { type MouseEvent } from 'react';
 
 import S from './styled';
+import type ModalProps from './types';
 
-const Modal = ({ onClose, children }: any) => {
-  const handleClick = (e: any) => {
+const Modal: React.FC<ModalProps> = ({ onClose, children }) => {
+  const handleClick = (e: MouseEvent<HTMLDivElement>) => {
     e.stopPropagation();
-    if (e.target.closest('#modal') === null) {
+    if ((e.target as HTMLElement).closest('#modal') === null) {
       onClose();
     }
   };
