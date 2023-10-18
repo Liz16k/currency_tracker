@@ -1,31 +1,35 @@
 import Quotes from '@components/Quotes';
 import { fetchCurrencies } from '@services/currencies';
+import { useQuery } from '@tanstack/react-query';
 import { currencies as currenciesList } from '@utils/constants';
 import { LastUpdateContext } from '@utils/Contexts';
 import { type LastUpdateContextType } from '@utils/Contexts';
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect } from 'react';
 
 import HomeWrapper from './styled';
 
 const Home: React.FC = () => {
-  const [currencies, setCurrencies] = useState<Record<string, number>>({});
   const { setLastUpdate }: LastUpdateContextType = useContext(LastUpdateContext);
 
+  const {
+    dataUpdatedAt,
+    isLoading,
+    data,
+  } = useQuery({
+    queryKey: ['currencies', currenciesList],
+    queryFn: async () => fetchCurrencies(currenciesList),
+    retryDelay: (attempt) => Math.min(attempt > 1 ? 2 ** attempt * 1000 : 1000, 30 * 1000),
+    staleTime: 1e3 * 60,
+  });
+
   useEffect(() => {
-    const loadCurrencies = async () => {
-      const fetchedCurrencies = await fetchCurrencies(currenciesList);
-      if (fetchedCurrencies != null) setCurrencies(fetchedCurrencies);
-    };
-    void loadCurrencies();
-    const event = new Date();
+    const event = new Date(dataUpdatedAt);
     setLastUpdate(event.toLocaleTimeString('it-IT'));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [dataUpdatedAt, setLastUpdate]);
 
   return (
     <HomeWrapper>
-      <h3>1 USD:</h3>
-      <Quotes quotes={currencies} />
+      { isLoading ? <h3>Loading...</h3> : <><h3>1 USD:</h3><Quotes quotes={data} /></>}
     </HomeWrapper>
   );
 };

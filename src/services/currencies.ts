@@ -2,6 +2,7 @@
 
 import { type Interval } from '@pages/Timeline/types';
 import { ALPHAVENTAGE_KEY, OPENEXCHANGERATE_KEY } from '@utils/envrionment';
+import memoizeOne from 'memoize-one';
 
 import { type RawDailyData } from './types';
 
@@ -36,7 +37,8 @@ async function fetchCurrencyData(
     const baseUrl = 'https://www.alphavantage.co/query?';
     const queryString = params.toString();
     const url = `${baseUrl}${queryString}`;
-    const data = await fetch(url);
+    const memoizedFetch = memoizeOne(async (url) => fetch(url));
+    const data = await memoizedFetch(url);
     return await data.json();
   } catch (error) {
     throw new Error(`Failed to fetch currency data: ${(error as Error).message}`);

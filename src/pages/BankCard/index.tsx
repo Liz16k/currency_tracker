@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/ban-types */
 import { fetchBanks } from '@services/geoapify';
 import { currencies } from '@utils/constants';
-import { LastUpdateContext, type LastUpdateContextType } from '@utils/Contexts';
 import React, { Component } from 'react';
 
 import FilterSelect from './FilterSelect';
@@ -33,13 +32,7 @@ class BankCard extends Component<{}, MapState> {
         this.setState({ data: filteredData });
       }
     }
-    this.setLastUpdate();
   }
-
-  setLastUpdate = () => {
-    const { setLastUpdate } = this.context as LastUpdateContextType;
-    setLastUpdate((new Date()).toLocaleTimeString('it-IT'));
-  };
 
   handleCurrencyChange = (currency: string) => {
     this.setState({ currency });
@@ -55,6 +48,5 @@ class BankCard extends Component<{}, MapState> {
     );
   }
 }
-BankCard.contextType = LastUpdateContext;
 
 export default BankCard;

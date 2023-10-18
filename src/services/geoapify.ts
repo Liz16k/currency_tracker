@@ -1,5 +1,6 @@
 import { GEOAPIFY_API_KEY } from '@utils/envrionment';
 import genRandomCurrencyList from '@utils/genRandomCurrencyList';
+import memoizeOne from 'memoize-one';
 
 import { type IBankPoint, type IGeoData } from './types';
 
@@ -26,7 +27,7 @@ const fetchGeolocation = async (): Promise<IGeoData> => {
   }
 };
 
-const fetchPlaceId = async (place: string): Promise<string> => {
+const fetchPlaceId = memoizeOne(async (place: string): Promise<string> => {
   try {
     const query = encodeURIComponent(place);
     const response = await fetch(
@@ -37,11 +38,12 @@ const fetchPlaceId = async (place: string): Promise<string> => {
   } catch (error) {
     throw new Error(`Error fetching place ID: ${(error as Error).message}`);
   }
-};
+});
 
-const fetchBanks = async (): Promise<IBankPoint[]> => {
+const fetchBanks = memoizeOne(async (): Promise<IBankPoint[]> => {
   try {
-    const { city, country } = await fetchGeolocation();
+    const memoizedFetchGeolocation = memoizeOne(fetchGeolocation);
+    const { city, country } = await memoizedFetchGeolocation();
     const placeId = await fetchPlaceId(`${city}, ${country}`);
     const response = await fetch(
       `https://api.geoapify.com/v2/places?categories=service.financial&filter=place:${placeId}&limit=${limit}&apiKey=${key}`,
@@ -56,6 +58,6 @@ const fetchBanks = async (): Promise<IBankPoint[]> => {
   } catch (error) {
     throw new Error(`Error fetching banks: ${(error as Error).message}`);
   }
-};
+});
 
 export { fetchBanks, fetchGeolocation, fetchPlaceId };
