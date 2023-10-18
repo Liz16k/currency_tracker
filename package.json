@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "main": "./src/index.tsx",
+  "homepage": "https://liz16k.github.io/currency_tracker",
   "scripts": {
     "start": "webpack serve --port 3000 --open",
     "build": "NODE_ENV=production webpack",

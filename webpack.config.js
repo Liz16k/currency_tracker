@@ -13,7 +13,8 @@ module.exports = {
   output: {
     path: path.join(__dirname, 'dist'),
     filename: 'bundle.js',
-    publicPath: '/',
+    publicPath: '/currency_tracker/',
+    clean: true,
   },
   module: {
     rules: [
@@ -38,6 +39,7 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({
       template: './public/index.html',
+      filename: 'index.html'
     }),
     new Dotenv(),
 
