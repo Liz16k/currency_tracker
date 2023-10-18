@@ -42941,7 +42941,7 @@ var Navigation = function () { return (react__WEBPACK_IMPORTED_MODULE_5___defaul
         react__WEBPACK_IMPORTED_MODULE_5___default().createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_6__.Route, { path: "/timeline", element: react__WEBPACK_IMPORTED_MODULE_5___default().createElement(_pages_Timeline__WEBPACK_IMPORTED_MODULE_4__["default"], null) }),
         react__WEBPACK_IMPORTED_MODULE_5___default().createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_6__.Route, { path: "/bank-card", element: react__WEBPACK_IMPORTED_MODULE_5___default().createElement(_pages_BankCard__WEBPACK_IMPORTED_MODULE_1__["default"], null) }),
         react__WEBPACK_IMPORTED_MODULE_5___default().createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_6__.Route, { path: "/contacts", element: react__WEBPACK_IMPORTED_MODULE_5___default().createElement(_pages_Contact__WEBPACK_IMPORTED_MODULE_2__["default"], null) }),
-        react__WEBPACK_IMPORTED_MODULE_5___default().createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_6__.Route, { path: "*", element: react__WEBPACK_IMPORTED_MODULE_5___default().createElement("h1", null, "Page not Found") })))); };
+        react__WEBPACK_IMPORTED_MODULE_5___default().createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_6__.Route, { path: "/*", element: react__WEBPACK_IMPORTED_MODULE_5___default().createElement("h1", null, "Page not Found") })))); };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Navigation);
 
 
