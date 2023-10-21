@@ -9,6 +9,7 @@ import { LastUpdateContext, type LastUpdateContextType } from '@utils/Contexts';
 import React, { type ChangeEvent, Component, type FormEvent } from 'react';
 
 import S from './styled';
+import SuccessMessage from './SuccessMsg';
 import { type DailyData, type DailyDataTuple, type ISelectedCurrencies } from './types';
 
 interface TimelineState {
@@ -24,6 +25,10 @@ interface TimelineState {
 }
 
 class Timeline extends Component<{}, TimelineState> {
+  userCandleCount = 0;
+
+  onChartSubs: Array<() => void> = [];
+
   constructor(props: any) {
     super(props);
     this.state = {
@@ -75,6 +80,12 @@ class Timeline extends Component<{}, TimelineState> {
       ];
 
       const newChartData: DailyDataTuple[] = [...prevState.chartData.slice(1), newDataPoint];
+      this.userCandleCount += 1;
+
+      if (this.userCandleCount === 2) {
+        this.notifyChartBuilt();
+        this.userCandleCount = 0;
+      }
 
       return {
         chartData: newChartData,
@@ -92,6 +103,18 @@ class Timeline extends Component<{}, TimelineState> {
   setLastUpdate = () => {
     const { setLastUpdate } = this.context as LastUpdateContextType;
     setLastUpdate((new Date()).toLocaleTimeString('it-IT'));
+  };
+
+  subscribeOnChartBuilt = (callback: () => void) => {
+    this.onChartSubs.push(callback);
+  };
+
+  unsubscribeFromChartBuilt = (callback: () => void) => {
+    this.onChartSubs = this.onChartSubs.filter((subscriber) => subscriber !== callback);
+  };
+
+  notifyChartBuilt = () => {
+    this.onChartSubs.forEach((subscriber: () => void) => { subscriber(); });
   };
 
   async loadData() {
@@ -175,6 +198,10 @@ class Timeline extends Component<{}, TimelineState> {
         <ErrorBoundary fallbackUI={<h1>Chart cannot be drawn</h1>}>
           <CandlestickChart data={chartData} />
         </ErrorBoundary>
+        <SuccessMessage
+          subscribe={this.subscribeOnChartBuilt}
+          unsubscribe={this.unsubscribeFromChartBuilt}
+        />
         <form onSubmit={this.handleSubmit}>
           <div>
             <label htmlFor="datetime">Datetime:</label>
