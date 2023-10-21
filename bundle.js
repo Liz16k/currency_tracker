@@ -42603,6 +42603,71 @@ var templateObject_1;
 
 /***/ }),
 
+/***/ "./src/pages/Timeline/SuccessMsg.tsx":
+/*!*******************************************!*\
+  !*** ./src/pages/Timeline/SuccessMsg.tsx ***!
+  \*******************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _styled__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./styled */ "./src/pages/Timeline/styled.ts");
+var __extends = (undefined && undefined.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        if (typeof b !== "function" && b !== null)
+            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+
+
+var SuccessMessage = /** @class */ (function (_super) {
+    __extends(SuccessMessage, _super);
+    function SuccessMessage(props) {
+        var _this = _super.call(this, props) || this;
+        _this.handleThirtyCandlesBuilt = function () {
+            _this.setState(({ successMessage: 'График успешно построен!' }));
+            setTimeout(function () {
+                _this.setState(function () { return ({ successMessage: null }); });
+            }, 5000);
+        };
+        _this.state = {
+            successMessage: null,
+        };
+        return _this;
+    }
+    SuccessMessage.prototype.componentDidMount = function () {
+        var subscribe = this.props.subscribe;
+        subscribe(this.handleThirtyCandlesBuilt);
+    };
+    SuccessMessage.prototype.componentWillUnmount = function () {
+        var unsubscribe = this.props.unsubscribe;
+        unsubscribe(this.handleThirtyCandlesBuilt);
+    };
+    SuccessMessage.prototype.render = function () {
+        var successMessage = this.state.successMessage;
+        return (react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_styled__WEBPACK_IMPORTED_MODULE_1__["default"].Message, { "$isShow": successMessage != null ? 'true' : '' }, successMessage !== null && successMessage !== void 0 ? successMessage : 'msg'));
+    };
+    return SuccessMessage;
+}(react__WEBPACK_IMPORTED_MODULE_0__.Component));
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (SuccessMessage);
+
+
+/***/ }),
+
 /***/ "./src/pages/Timeline/index.tsx":
 /*!**************************************!*\
   !*** ./src/pages/Timeline/index.tsx ***!
@@ -42623,6 +42688,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_6__);
 /* harmony import */ var _styled__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./styled */ "./src/pages/Timeline/styled.ts");
+/* harmony import */ var _SuccessMsg__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./SuccessMsg */ "./src/pages/Timeline/SuccessMsg.tsx");
 var __extends = (undefined && undefined.__extends) || (function () {
     var extendStatics = function (d, b) {
         extendStatics = Object.setPrototypeOf ||
@@ -42704,10 +42770,13 @@ var __spreadArray = (undefined && undefined.__spreadArray) || function (to, from
 
 
 
+
 var Timeline = /** @class */ (function (_super) {
     __extends(Timeline, _super);
     function Timeline(props) {
         var _this = _super.call(this, props) || this;
+        _this.userCandleCount = 0;
+        _this.onChartSubs = [];
         _this.handleInputChange = function (e) {
             var _a = e.target, name = _a.name, value = _a.value;
             _this.setState(function (prevState) {
@@ -42729,6 +42798,11 @@ var Timeline = /** @class */ (function (_super) {
                     +high,
                 ];
                 var newChartData = __spreadArray(__spreadArray([], prevState.chartData.slice(1), true), [newDataPoint], false);
+                _this.userCandleCount += 1;
+                if (_this.userCandleCount === 2) {
+                    _this.notifyChartBuilt();
+                    _this.userCandleCount = 0;
+                }
                 return {
                     chartData: newChartData,
                     userData: {
@@ -42744,6 +42818,15 @@ var Timeline = /** @class */ (function (_super) {
         _this.setLastUpdate = function () {
             var setLastUpdate = _this.context.setLastUpdate;
             setLastUpdate((new Date()).toLocaleTimeString('it-IT'));
+        };
+        _this.subscribeOnChartBuilt = function (callback) {
+            _this.onChartSubs.push(callback);
+        };
+        _this.unsubscribeFromChartBuilt = function (callback) {
+            _this.onChartSubs = _this.onChartSubs.filter(function (subscriber) { return subscriber !== callback; });
+        };
+        _this.notifyChartBuilt = function () {
+            _this.onChartSubs.forEach(function (subscriber) { subscriber(); });
         };
         _this.state = {
             chartData: [],
@@ -42830,6 +42913,7 @@ var Timeline = /** @class */ (function (_super) {
                         }, currentValue: selectedCurrencies.interval, values: _utils_constants__WEBPACK_IMPORTED_MODULE_4__.intervals }))),
             react__WEBPACK_IMPORTED_MODULE_6___default().createElement(_components_ErrorBoundary__WEBPACK_IMPORTED_MODULE_1__["default"], { fallbackUI: react__WEBPACK_IMPORTED_MODULE_6___default().createElement("h1", null, "Chart cannot be drawn") },
                 react__WEBPACK_IMPORTED_MODULE_6___default().createElement(_components_Chart__WEBPACK_IMPORTED_MODULE_0__["default"], { data: chartData })),
+            react__WEBPACK_IMPORTED_MODULE_6___default().createElement(_SuccessMsg__WEBPACK_IMPORTED_MODULE_8__["default"], { subscribe: this.subscribeOnChartBuilt, unsubscribe: this.unsubscribeFromChartBuilt }),
             react__WEBPACK_IMPORTED_MODULE_6___default().createElement("form", { onSubmit: this.handleSubmit },
                 react__WEBPACK_IMPORTED_MODULE_6___default().createElement("div", null,
                     react__WEBPACK_IMPORTED_MODULE_6___default().createElement("label", { htmlFor: "datetime" }, "Datetime:"),
@@ -42873,14 +42957,16 @@ var __makeTemplateObject = (undefined && undefined.__makeTemplateObject) || func
     return cooked;
 };
 
-var TimelineWrapper = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].div(templateObject_1 || (templateObject_1 = __makeTemplateObject(["\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  form {\n    z-index: 10;\n    display: flex;\n    justify-content: center;\n    flex-wrap: wrap;\n    gap: 1rem;\n    button {\n      appearance: none;\n      height: fit-content;\n      width: fit-content;\n      padding: 0.25rem 0.75rem;\n      font: inherit;\n      background-color: ", ";\n      color: ", ";\n      border-radius: 0.5rem;\n      cursor: pointer;\n  }\n  }\n"], ["\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  form {\n    z-index: 10;\n    display: flex;\n    justify-content: center;\n    flex-wrap: wrap;\n    gap: 1rem;\n    button {\n      appearance: none;\n      height: fit-content;\n      width: fit-content;\n      padding: 0.25rem 0.75rem;\n      font: inherit;\n      background-color: ", ";\n      color: ", ";\n      border-radius: 0.5rem;\n      cursor: pointer;\n  }\n  }\n"])), function (_a) {
+var TimelineWrapper = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].div(templateObject_1 || (templateObject_1 = __makeTemplateObject(["\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  transition: all 1s ease-in-out;\n  form {\n    z-index: 10;\n    display: flex;\n    justify-content: center;\n    flex-wrap: wrap;\n    gap: 1rem;\n    button {\n      appearance: none;\n      height: fit-content;\n      width: fit-content;\n      padding: 0.25rem 0.75rem;\n      font: inherit;\n      background-color: ", ";\n      color: ", ";\n      border-radius: 0.5rem;\n      cursor: pointer;\n  }\n  }\n"], ["\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  transition: all 1s ease-in-out;\n  form {\n    z-index: 10;\n    display: flex;\n    justify-content: center;\n    flex-wrap: wrap;\n    gap: 1rem;\n    button {\n      appearance: none;\n      height: fit-content;\n      width: fit-content;\n      padding: 0.25rem 0.75rem;\n      font: inherit;\n      background-color: ", ";\n      color: ", ";\n      border-radius: 0.5rem;\n      cursor: pointer;\n  }\n  }\n"])), function (_a) {
     var theme = _a.theme;
     return theme.colors.cardBg;
 }, function (_a) {
     var theme = _a.theme;
     return theme.colors.primaryText;
 });
-var SelectBar = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].div(templateObject_2 || (templateObject_2 = __makeTemplateObject(["\n  display: flex;\n  justify-content: center;\n  gap: 1rem;\n  text-align: center;\n"], ["\n  display: flex;\n  justify-content: center;\n  gap: 1rem;\n  text-align: center;\n"])));
+var Message = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].div(templateObject_2 || (templateObject_2 = __makeTemplateObject(["\n  position: relative;\n  bottom: 15rem;\n  text-align: center;\n  opacity: 0;\n  font-family: 'Poppins', sans-serif;\n  font-size: 2rem;\n  color: white;\n\n  ", "\n"], ["\n  position: relative;\n  bottom: 15rem;\n  text-align: center;\n  opacity: 0;\n  font-family: 'Poppins', sans-serif;\n  font-size: 2rem;\n  color: white;\n\n  ", "\n"])), function (p) { return p.$isShow === 'true'
+    && "\n      animation: show 4s ease-out;\n    @keyframes show{\n    0% {\n        opacity: 0;\n    }\n    50% {\n        opacity: 1;\n    }\n    100% {\n        opacity: 0;\n    }}"; });
+var SelectBar = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].div(templateObject_3 || (templateObject_3 = __makeTemplateObject(["\n  display: flex;\n  justify-content: center;\n  gap: 1rem;\n  text-align: center;\n"], ["\n  display: flex;\n  justify-content: center;\n  gap: 1rem;\n  text-align: center;\n"])));
 var Input = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].input.attrs(function (_a) {
     var type = _a.type, name = _a.name, onChange = _a.onChange, value = _a.value, required = _a.required, placeholder = _a.placeholder, pattern = _a.pattern, maxLength = _a.maxLength;
     return ({
@@ -42893,7 +42979,7 @@ var Input = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].input.attr
         required: required !== null && required !== void 0 ? required : true,
         placeholder: placeholder !== null && placeholder !== void 0 ? placeholder : '0.000',
     });
-})(templateObject_3 || (templateObject_3 = __makeTemplateObject(["\n  &[type='number']::-webkit-inner-spin-button,\n  &[type='number']::-webkit-outer-spin-button {\n    -webkit-appearance: none;\n    margin: 0;\n  }\n  margin-left: 0.5rem;\n  appearance: none;\n  font: inherit;\n  background-color: ", ";\n  color: ", ";\n  width: 5rem;\n  padding: 0.25rem 0.5rem;\n  border: 0.1rem solid ", ";\n  border-radius: 0.5rem;\n\n"], ["\n  &[type='number']::-webkit-inner-spin-button,\n  &[type='number']::-webkit-outer-spin-button {\n    -webkit-appearance: none;\n    margin: 0;\n  }\n  margin-left: 0.5rem;\n  appearance: none;\n  font: inherit;\n  background-color: ", ";\n  color: ", ";\n  width: 5rem;\n  padding: 0.25rem 0.5rem;\n  border: 0.1rem solid ", ";\n  border-radius: 0.5rem;\n\n"])), function (_a) {
+})(templateObject_4 || (templateObject_4 = __makeTemplateObject(["\n  &[type='number']::-webkit-inner-spin-button,\n  &[type='number']::-webkit-outer-spin-button {\n    -webkit-appearance: none;\n    margin: 0;\n  }\n  margin-left: 0.5rem;\n  appearance: none;\n  font: inherit;\n  background-color: ", ";\n  color: ", ";\n  width: 5rem;\n  padding: 0.25rem 0.5rem;\n  border: 0.1rem solid ", ";\n  border-radius: 0.5rem;\n"], ["\n  &[type='number']::-webkit-inner-spin-button,\n  &[type='number']::-webkit-outer-spin-button {\n    -webkit-appearance: none;\n    margin: 0;\n  }\n  margin-left: 0.5rem;\n  appearance: none;\n  font: inherit;\n  background-color: ", ";\n  color: ", ";\n  width: 5rem;\n  padding: 0.25rem 0.5rem;\n  border: 0.1rem solid ", ";\n  border-radius: 0.5rem;\n"])), function (_a) {
     var theme = _a.theme;
     return theme.colors.bg;
 }, function (_a) {
@@ -42903,8 +42989,13 @@ var Input = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].input.attr
     var theme = _a.theme;
     return theme.colors.primaryText;
 });
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({ TimelineWrapper: TimelineWrapper, SelectBar: SelectBar, Input: Input });
-var templateObject_1, templateObject_2, templateObject_3;
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+    TimelineWrapper: TimelineWrapper,
+    SelectBar: SelectBar,
+    Input: Input,
+    Message: Message,
+});
+var templateObject_1, templateObject_2, templateObject_3, templateObject_4;
 
 
 /***/ }),
@@ -42941,7 +43032,7 @@ var Navigation = function () { return (react__WEBPACK_IMPORTED_MODULE_5___defaul
         react__WEBPACK_IMPORTED_MODULE_5___default().createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_6__.Route, { path: "/timeline", element: react__WEBPACK_IMPORTED_MODULE_5___default().createElement(_pages_Timeline__WEBPACK_IMPORTED_MODULE_4__["default"], null) }),
         react__WEBPACK_IMPORTED_MODULE_5___default().createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_6__.Route, { path: "/bank-card", element: react__WEBPACK_IMPORTED_MODULE_5___default().createElement(_pages_BankCard__WEBPACK_IMPORTED_MODULE_1__["default"], null) }),
         react__WEBPACK_IMPORTED_MODULE_5___default().createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_6__.Route, { path: "/contacts", element: react__WEBPACK_IMPORTED_MODULE_5___default().createElement(_pages_Contact__WEBPACK_IMPORTED_MODULE_2__["default"], null) }),
-        react__WEBPACK_IMPORTED_MODULE_5___default().createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_6__.Route, { path: "/*", element: react__WEBPACK_IMPORTED_MODULE_5___default().createElement("h1", null, "Page not Found") })))); };
+        react__WEBPACK_IMPORTED_MODULE_5___default().createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_6__.Route, { path: "*", element: react__WEBPACK_IMPORTED_MODULE_5___default().createElement("h1", null, "Page not Found") })))); };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Navigation);
 
 
