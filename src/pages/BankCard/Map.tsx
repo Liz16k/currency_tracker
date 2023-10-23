@@ -7,6 +7,7 @@ import { MAPBOX_KEY } from '@utils/environment';
 import { Map, Marker, Popup } from 'mapbox-gl';
 import React, { useContext, useEffect, useRef } from 'react';
 
+import StyledMap from './styled';
 import { type MapComponentProps } from './types';
 
 const MapComponent: React.FC<MapComponentProps> = ({ points }) => {
@@ -53,7 +54,7 @@ const MapComponent: React.FC<MapComponentProps> = ({ points }) => {
   return (
     <>
       {isLoading && <h3>Loading...</h3>}
-      <div ref={mapContainer} className="map" />
+      <StyledMap ref={mapContainer} />
     </>
   );
 };

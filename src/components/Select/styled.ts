@@ -32,7 +32,7 @@ const SelectLabelInput = styled.input`
 `;
 
 const DropdownStyle = styled.div`
-  z-index: 1000;
+  z-index: 1;
   position: absolute;
   top: 2rem;
   margin: 0 auto;

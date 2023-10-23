@@ -25,8 +25,10 @@ const GlobalStyle = createGlobalStyle`
     padding: 3rem;
   }
 
-  .map {
-    height: 30rem;
+  input[type='number']::-webkit-inner-spin-button,
+  input[type='number']::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
   }
 
   .marker-popup-content {

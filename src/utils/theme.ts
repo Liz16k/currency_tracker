@@ -7,6 +7,7 @@ const baseTheme = {
       headline: '5.65rem',
     },
   },
+  symbolFont: '\'Chakra Petch\', sans-serif',
   gradient: { first: '#030304', second: '#184F2840', third: '#030304' },
 };
 

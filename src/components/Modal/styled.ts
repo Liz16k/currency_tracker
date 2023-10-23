@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 
 const ModalWrapper = styled.div`
-  z-index: 1000;
   position: fixed;
   top: 0;
   left: 0;
@@ -12,7 +11,6 @@ const ModalWrapper = styled.div`
 `;
 
 const ModalContent = styled.div`
-  z-index: 1001;
   position: fixed;
   left: 50%;
   top: 50%;
