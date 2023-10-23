@@ -54,4 +54,4 @@ const Copyright = styled.div`
   text-align: center;
 `;
 
-export default { FooterWrapper, Copyright };
+export { Copyright, FooterWrapper };

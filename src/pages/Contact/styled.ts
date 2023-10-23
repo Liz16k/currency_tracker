@@ -85,9 +85,9 @@ const Textarea = styled.textarea`
   }
 `;
 
-export default {
-  ContactWrapper,
+export {
   Button,
+  ContactWrapper,
   Input,
   Textarea,
 };

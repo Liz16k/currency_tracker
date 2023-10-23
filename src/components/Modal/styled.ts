@@ -34,4 +34,4 @@ const ModalContent = styled.div`
   }
 `;
 
-export default { ModalWrapper, ModalContent };
+export { ModalContent, ModalWrapper };

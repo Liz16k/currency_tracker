@@ -2,19 +2,19 @@ import { HEADER } from '@utils/constants';
 import React from 'react';
 
 import Logo from '../../assets/Logo';
-import S from './style';
+import { Caption, HeaderWrapper, Quote } from './styled';
 
 const Header = () => {
   const { SUBTITLE, QUOTE, TITLE } = HEADER;
   return (
-    <S.HeaderWrapper>
-      <S.Caption>
+    <HeaderWrapper>
+      <Caption>
         <h3>{SUBTITLE}</h3>
         <h2>{TITLE}</h2>
-        <S.Quote>{QUOTE}</S.Quote>
-      </S.Caption>
+        <Quote>{QUOTE}</Quote>
+      </Caption>
       <Logo width={252} height={288} />
-    </S.HeaderWrapper>
+    </HeaderWrapper>
   );
 };
 

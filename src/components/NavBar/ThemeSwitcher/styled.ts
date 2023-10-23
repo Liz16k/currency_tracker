@@ -43,4 +43,4 @@ const SwitchSlider = styled.span`
   }
 `;
 
-export default { SwitchWrapper, SwitchInput, SwitchSlider };
+export { SwitchInput, SwitchSlider, SwitchWrapper };

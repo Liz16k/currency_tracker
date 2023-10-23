@@ -40,4 +40,4 @@ const Quote = styled.blockquote`
   line-height: 2.9rem;
 `;
 
-export default { HeaderWrapper, Caption, Quote };
+export { Caption, HeaderWrapper, Quote };

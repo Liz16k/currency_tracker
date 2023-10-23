@@ -4,7 +4,9 @@ import { generateSuccessReceiptMessage } from '@utils/index';
 import React, { type FormEvent } from 'react';
 
 import IconMail from '../../assets/IconMail';
-import S from './styled';
+import {
+  Button, ContactWrapper, Input, Textarea,
+} from './styled';
 
 const Contact: React.FC = () => {
   const {
@@ -27,14 +29,14 @@ const Contact: React.FC = () => {
     }
   };
   return (
-    <S.ContactWrapper>
+    <ContactWrapper>
       <div>
         <h3>{TITLE}</h3>
         <form onSubmit={handleSubmit}>
-          <S.Input type="text" name="name" placeholder={PLACEHOLDERS.NAME} />
-          <S.Input type="email" name="email" placeholder={PLACEHOLDERS.EMAIL} />
-          <S.Textarea name="msg" id="msg" cols={30} rows={6} placeholder={PLACEHOLDERS.MSG} />
-          <S.Button type="submit">{BUTTON}</S.Button>
+          <Input type="text" name="name" placeholder={PLACEHOLDERS.NAME} />
+          <Input type="email" name="email" placeholder={PLACEHOLDERS.EMAIL} />
+          <Textarea name="msg" id="msg" cols={30} rows={6} placeholder={PLACEHOLDERS.MSG} />
+          <Button type="submit">{BUTTON}</Button>
         </form>
       </div>
       <div>
@@ -46,7 +48,7 @@ const Contact: React.FC = () => {
           {ADDRESS_PREFIX} <p>{APP_CONTACT_ADDRESS}</p>
         </p>
       </div>
-    </S.ContactWrapper>
+    </ContactWrapper>
   );
 };
 

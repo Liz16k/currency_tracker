@@ -36,4 +36,4 @@ const Icon = styled.div`
   border: 1px solid #fff;
   border-radius: 1rem;
 `;
-export default { Wrapper, Icon };
+export { Icon, Wrapper };

@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 
-import S from './styled';
+import {
+  DropdownItem, DropdownStyle, SelectLabelInput, SelectWrapper,
+} from './styled';
 import { type SelectProps } from './types';
 
 const Select: React.FC<SelectProps> = ({
@@ -26,8 +28,8 @@ const Select: React.FC<SelectProps> = ({
   };
 
   return (
-    <S.SelectWrapper>
-      <S.SelectLabelInput
+    <SelectWrapper>
+      <SelectLabelInput
         value={currentValue}
         onClick={handleOpen}
         onChange={handleChange}
@@ -35,9 +37,9 @@ const Select: React.FC<SelectProps> = ({
         placeholder="choose option"
       />
       {open && (
-        <S.DropdownStyle>
+        <DropdownStyle>
           {values.map((value) => (
-            <S.DropdownItem
+            <DropdownItem
               onClick={() => {
                 handleClick(value);
               }}
@@ -45,11 +47,11 @@ const Select: React.FC<SelectProps> = ({
               key={value}
             >
               {value}
-            </S.DropdownItem>
+            </DropdownItem>
           ))}
-        </S.DropdownStyle>
+        </DropdownStyle>
       )}
-    </S.SelectWrapper>
+    </SelectWrapper>
   );
 };
 

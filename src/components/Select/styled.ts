@@ -70,7 +70,7 @@ const DropdownItem = styled.div<{ $active?: string }>`
   }
 `;
 
-export default {
+export {
   DropdownItem,
   DropdownStyle,
   SelectLabelInput,

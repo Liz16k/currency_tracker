@@ -8,7 +8,9 @@ import { CHART_FORM_DATA, currencies, intervals } from '@utils/constants';
 import { LastUpdateContext, type LastUpdateContextType } from '@utils/Contexts';
 import React, { type ChangeEvent, Component, type FormEvent } from 'react';
 
-import S from './styled';
+import {
+  Input, SelectBar, TimelineWrapper,
+} from './styled';
 import SuccessMessage from './SuccessMsg';
 import { type DailyData, type DailyDataTuple, type ISelectedCurrencies } from './types';
 
@@ -148,8 +150,8 @@ class Timeline extends Component<{}, TimelineState> {
     const { DATETIME: { PLACEHOLDER, TITLE, PATTERN } } = CHART_FORM_DATA;
     const { selectedCurrencies, chartData, userData } = this.state;
     return (
-      <S.TimelineWrapper>
-        <S.SelectBar>
+      <TimelineWrapper>
+        <SelectBar>
           <div>
             from:
             <Select
@@ -195,7 +197,7 @@ class Timeline extends Component<{}, TimelineState> {
               values={intervals}
             />
           </div>
-        </S.SelectBar>
+        </SelectBar>
         <ErrorBoundary fallbackUI={<h1>Chart cannot be drawn</h1>}>
           <CandlestickChart data={chartData} />
         </ErrorBoundary>
@@ -206,7 +208,7 @@ class Timeline extends Component<{}, TimelineState> {
         <form onSubmit={this.handleSubmit}>
           <div>
             <label htmlFor="datetime">Datetime:</label>
-            <S.Input
+            <Input
               id="datetime"
               name="datetime"
               value={userData.datetime}
@@ -219,7 +221,7 @@ class Timeline extends Component<{}, TimelineState> {
           </div>
           <div>
             <label htmlFor="open">Open:</label>
-            <S.Input
+            <Input
               id="open"
               name="open"
               value={userData.open}
@@ -228,7 +230,7 @@ class Timeline extends Component<{}, TimelineState> {
           </div>
           <div>
             <label htmlFor="close">Close:</label>
-            <S.Input
+            <Input
               id="close"
               name="close"
               value={userData.close}
@@ -237,7 +239,7 @@ class Timeline extends Component<{}, TimelineState> {
           </div>
           <div>
             <label htmlFor="low">Low:</label>
-            <S.Input
+            <Input
               id="low"
               name="low"
               value={userData.low}
@@ -246,7 +248,7 @@ class Timeline extends Component<{}, TimelineState> {
           </div>
           <div>
             <label htmlFor="high">High:</label>
-            <S.Input
+            <Input
               id="high"
               name="high"
               value={userData.high}
@@ -256,7 +258,7 @@ class Timeline extends Component<{}, TimelineState> {
           </div>
           <button type="submit">Submit</button>
         </form>
-      </S.TimelineWrapper>
+      </TimelineWrapper>
     );
   }
 }

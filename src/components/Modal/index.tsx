@@ -1,6 +1,6 @@
 import React, { type MouseEvent } from 'react';
 
-import S from './styled';
+import { ModalContent, ModalWrapper } from './styled';
 import type ModalProps from './types';
 
 const Modal: React.FC<ModalProps> = ({ onClose, children }) => {
@@ -11,9 +11,9 @@ const Modal: React.FC<ModalProps> = ({ onClose, children }) => {
     }
   };
   return (
-    <S.ModalWrapper onClick={handleClick}>
-      <S.ModalContent id="modal">{children}</S.ModalContent>
-    </S.ModalWrapper>
+    <ModalWrapper onClick={handleClick}>
+      <ModalContent id="modal">{children}</ModalContent>
+    </ModalWrapper>
   );
 };
 

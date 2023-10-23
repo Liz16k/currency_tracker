@@ -85,6 +85,7 @@ const Input = styled.input.attrs(({
   border-radius: 0.5rem;
 `;
 
-export default {
-  TimelineWrapper, SelectBar, Input, Message,
+export {
+  Input, Message,
+  SelectBar, TimelineWrapper,
 };

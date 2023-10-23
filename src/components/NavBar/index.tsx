@@ -3,7 +3,7 @@ import React from 'react';
 import { Link, NavLink } from 'react-router-dom';
 
 import Logo from '../../assets/Logo';
-import S from './styled';
+import { Nav, NavRoutes } from './styled';
 import ThemeSwitcher from './ThemeSwitcher';
 
 const NavBar = () => {
@@ -11,11 +11,11 @@ const NavBar = () => {
     HOME, TIMELINE, BANK_CARD, CONTACTS,
   } = NAVIGATION_LINKS;
   return (
-    <S.Nav>
+    <Nav>
       <Link to="/">
         <Logo width={38} height={39} />
       </Link>
-      <S.NavRoutes>
+      <NavRoutes>
         <li>
           <NavLink to="/" className={({ isActive }) => (isActive ? 'active' : '')}>
             {HOME}
@@ -30,9 +30,9 @@ const NavBar = () => {
         <li>
           <NavLink to="/contacts">{CONTACTS}</NavLink>
         </li>
-      </S.NavRoutes>
+      </NavRoutes>
       <ThemeSwitcher />
-    </S.Nav>
+    </Nav>
   );
 };
 

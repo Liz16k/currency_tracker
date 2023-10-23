@@ -2,7 +2,7 @@ import { FOOTER } from '@utils/constants';
 import React from 'react';
 
 import Logo from '../../assets/Logo';
-import S from './styled';
+import { Copyright, FooterWrapper } from './styled';
 
 const Footer = () => {
   const {
@@ -10,7 +10,7 @@ const Footer = () => {
   } = FOOTER;
   return (
     <>
-      <S.FooterWrapper>
+      <FooterWrapper>
         <div>
           <h4>
             <Logo width={28} height={29} />
@@ -49,8 +49,8 @@ const Footer = () => {
             </li>
           </ul>
         </nav>
-      </S.FooterWrapper>
-      <S.Copyright>{COPYRIGHT}</S.Copyright>
+      </FooterWrapper>
+      <Copyright>{COPYRIGHT}</Copyright>
     </>
   );
 };

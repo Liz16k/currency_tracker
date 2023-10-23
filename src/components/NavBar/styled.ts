@@ -41,4 +41,4 @@ const NavRoutes = styled.ul`
   }
 `;
 
-export default { Nav, NavRoutes };
+export { Nav, NavRoutes };
