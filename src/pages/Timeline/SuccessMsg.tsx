@@ -1,4 +1,4 @@
-import { SUCCESS_MSG } from '@utils/constants';
+import { SUCCESS_MSG } from '@config/constants';
 import React, { Component } from 'react';
 
 import { Message } from './styled';

@@ -1,7 +1,7 @@
 import Quotes from '@components/Quotes';
+import { currencies as currenciesList, LOADING } from '@config/constants';
 import { fetchCurrencies } from '@services/currencies';
 import { useQuery } from '@tanstack/react-query';
-import { currencies as currenciesList, LOADING } from '@utils/constants';
 import { LastUpdateContext } from '@utils/Contexts';
 import { type LastUpdateContextType } from '@utils/Contexts';
 import React, { useContext, useEffect } from 'react';

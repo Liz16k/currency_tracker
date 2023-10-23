@@ -1,4 +1,4 @@
-import { currencies as currenciesList } from './constants';
+import { currencies as currenciesList } from '@config/constants';
 
 const generateRandomCurrencyList = (currencies = currenciesList) => {
   const randomCount = Math.floor(Math.random() * (currencies.length + 1));

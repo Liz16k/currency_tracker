@@ -1,9 +1,9 @@
-import { CONTACTS } from '@utils/constants';
-import { APP_CONTACT_ADDRESS, APP_CONTACT_EMAIL } from '@utils/environment';
+import IconMail from '@assets/IconMail';
+import { CONTACTS } from '@config/constants';
+import { APP_CONTACT_ADDRESS, APP_CONTACT_EMAIL } from '@config/environment';
 import { generateSuccessReceiptMessage } from '@utils/index';
 import React, { type FormEvent } from 'react';
 
-import IconMail from '../../assets/IconMail';
 import {
   Button, ContactWrapper, Input, Textarea,
 } from './styled';

@@ -1,9 +1,9 @@
 import Layout from '@components/Layout';
+import { PAGE_NOT_FOUND } from '@config/constants';
 import BankCard from '@pages/BankCard';
 import Contacts from '@pages/Contact';
 import Home from '@pages/Home';
 import Timeline from '@pages/Timeline';
-import { PAGE_NOT_FOUND } from '@utils/constants';
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 

@@ -1,7 +1,7 @@
-import { ERRORS_MSG } from '@utils/constants';
+import { ERRORS_MSG } from '@config/constants';
 import {
   GEOAPIFY_API_KEY, GEOAPIFY_BASE_URL,
-} from '@utils/environment';
+} from '@config/environment';
 import { generateRandomCurrencyList } from '@utils/index';
 import memoizeOne from 'memoize-one';
 

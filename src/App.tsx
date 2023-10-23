@@ -1,11 +1,11 @@
+import { darkTheme, lightTheme } from '@config/theme';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { LastUpdateProvider, ThemeContext } from '@utils/Contexts';
 import React, { useMemo, useState } from 'react';
 import { ThemeProvider } from 'styled-components';
 
 import GlobalStyle from './GlobalStyle';
-import Navigation from './routes';
-import { LastUpdateProvider, ThemeContext } from './utils/Contexts';
-import { darkTheme, lightTheme } from './utils/theme';
+import Navigation from './navigation';
 
 const App = () => {
   const [theme, setTheme] = useState('dark');

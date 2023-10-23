@@ -1,4 +1,4 @@
-import { symbols } from '@utils/constants';
+import { symbols } from '@config/constants';
 import React from 'react';
 
 import { Icon, Wrapper } from './styled';

@@ -1,9 +1,9 @@
 import 'mapbox-gl/dist/mapbox-gl.css';
 
+import { MAPBOX_KEY } from '@config/environment';
 import { fetchGeolocation } from '@services/geoapify';
 import { useQuery } from '@tanstack/react-query';
 import { LastUpdateContext, type LastUpdateContextType } from '@utils/Contexts';
-import { MAPBOX_KEY } from '@utils/environment';
 import { Map, Marker, Popup } from 'mapbox-gl';
 import React, { useContext, useEffect, useRef } from 'react';
 

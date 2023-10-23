@@ -1,5 +1,5 @@
+import { currencies } from '@config/constants';
 import { fetchExchangeRate } from '@services/currencies';
-import { currencies } from '@utils/constants';
 import React, {
   type ChangeEvent, type FocusEvent, useEffect, useState,
 } from 'react';

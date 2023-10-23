@@ -1,19 +1,21 @@
-import { FOOTER } from '@utils/constants';
+import Logo from '@assets/Logo';
+import { FOOTER } from '@config/constants';
+import logoSize from '@config/index';
 import React from 'react';
 
-import Logo from '../../assets/Logo';
 import { Copyright, FooterWrapper } from './styled';
 
 const Footer = () => {
   const {
     COPYRIGHT, DESCRIPTION, GROUPS: { GENERAL, COMMUNITY, PRODUCT }, TITLE,
   } = FOOTER;
+  const { footerSize: { width, height } } = logoSize;
   return (
     <>
       <FooterWrapper>
         <div>
           <h4>
-            <Logo width={28} height={29} />
+            <Logo width={width} height={height} />
             {TITLE}
           </h4>
           <p>

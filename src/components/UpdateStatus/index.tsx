@@ -1,4 +1,4 @@
-import { LAST_UPDATED } from '@utils/constants';
+import { LAST_UPDATED } from '@config/constants';
 import React from 'react';
 
 import { Indicator, UpdateWrapper } from './styled';

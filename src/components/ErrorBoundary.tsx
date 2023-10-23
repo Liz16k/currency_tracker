@@ -1,5 +1,5 @@
 /* eslint-disable react/destructuring-assignment */
-import { ERRORS_MSG } from '@utils/constants';
+import { ERRORS_MSG } from '@config/constants';
 import React, { Component, type ErrorInfo, type ReactNode } from 'react';
 
 interface Props {

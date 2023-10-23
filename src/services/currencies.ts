@@ -1,10 +1,10 @@
 /* eslint-disable consistent-return */
 
-import { type Interval } from '@pages/Timeline/types';
-import { ERRORS_MSG, prefMap } from '@utils/constants';
+import { ERRORS_MSG, prefMap } from '@config/constants';
 import {
   ALPHAVENTAGE_KEY, ALPHAVENTAGE_URL, OPENEXCHANGERATE_KEY, OPENEXCHANGERATE_URL,
-} from '@utils/environment';
+} from '@config/environment';
+import { type Interval } from '@pages/Timeline/types';
 import memoizeOne from 'memoize-one';
 
 import { type RawDailyData } from './types';
