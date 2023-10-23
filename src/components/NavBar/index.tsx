@@ -2,7 +2,7 @@ import { NAVIGATION_LINKS } from '@utils/constants';
 import React from 'react';
 import { Link, NavLink } from 'react-router-dom';
 
-import Logo from './Logo';
+import Logo from '../../assets/Logo';
 import S from './styled';
 import ThemeSwitcher from './ThemeSwitcher';
 

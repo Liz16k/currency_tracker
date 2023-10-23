@@ -3,7 +3,7 @@ import { APP_CONTACT_ADDRESS, APP_CONTACT_EMAIL } from '@utils/environment';
 import { generateSuccessReceiptMessage } from '@utils/index';
 import React, { type FormEvent } from 'react';
 
-import IconMail from './IconMail';
+import IconMail from '../../assets/IconMail';
 import S from './styled';
 
 const Contact: React.FC = () => {

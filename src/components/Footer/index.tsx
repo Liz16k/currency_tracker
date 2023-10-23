@@ -1,7 +1,7 @@
 import { FOOTER } from '@utils/constants';
 import React from 'react';
 
-import Logo from '../NavBar/Logo';
+import Logo from '../../assets/Logo';
 import S from './styled';
 
 const Footer = () => {

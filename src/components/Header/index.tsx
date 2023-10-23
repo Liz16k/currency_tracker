@@ -1,7 +1,7 @@
 import { HEADER } from '@utils/constants';
 import React from 'react';
 
-import Logo from '../NavBar/Logo';
+import Logo from '../../assets/Logo';
 import S from './style';
 
 const Header = () => {
