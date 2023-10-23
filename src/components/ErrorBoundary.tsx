@@ -1,4 +1,5 @@
 /* eslint-disable react/destructuring-assignment */
+import { ERRORS_MSG } from '@utils/constants';
 import React, { Component, type ErrorInfo, type ReactNode } from 'react';
 
 interface Props {
@@ -22,7 +23,7 @@ class ErrorBoundary extends Component<Props, State> {
   }
 
   componentDidCatch(error: Error, errorInfo: ErrorInfo) {
-    console.error('Uncaught error:', error, errorInfo);
+    console.error(ERRORS_MSG.boundary, error, errorInfo);
   }
 
   render() {

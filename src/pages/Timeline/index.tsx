@@ -4,7 +4,7 @@ import CandlestickChart from '@components/Chart';
 import ErrorBoundary from '@components/ErrorBoundary';
 import Select from '@components/Select';
 import { fetchTimeseries } from '@services/currencies';
-import { currencies, intervals } from '@utils/constants';
+import { CHART_FORM_DATA, currencies, intervals } from '@utils/constants';
 import { LastUpdateContext, type LastUpdateContextType } from '@utils/Contexts';
 import React, { type ChangeEvent, Component, type FormEvent } from 'react';
 
@@ -145,6 +145,7 @@ class Timeline extends Component<{}, TimelineState> {
   }
 
   render() {
+    const { DATETIME: { PLACEHOLDER, TITLE, PATTERN } } = CHART_FORM_DATA;
     const { selectedCurrencies, chartData, userData } = this.state;
     return (
       <S.TimelineWrapper>
@@ -210,9 +211,9 @@ class Timeline extends Component<{}, TimelineState> {
               name="datetime"
               value={userData.datetime}
               onChange={this.handleInputChange}
-              placeholder="01-01"
-              title="Введите дату в формате xx-xx (где x - число от 0 до 9)"
-              pattern="^(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$"
+              placeholder={PLACEHOLDER}
+              title={TITLE}
+              pattern={PATTERN}
               maxLength={5}
             />
           </div>

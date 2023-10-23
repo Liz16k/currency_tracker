@@ -1,3 +1,4 @@
+import { SUCCESS_MSG } from '@utils/constants';
 import React, { Component } from 'react';
 
 import S from './styled';
@@ -26,7 +27,7 @@ class SuccessMessage extends Component<SuccessMessageProps> {
   }
 
   handleThirtyCandlesBuilt = () => {
-    this.setState(({ successMessage: 'График успешно построен!' }));
+    this.setState(({ successMessage: SUCCESS_MSG }));
     setTimeout(() => {
       this.setState(() => ({ successMessage: null }));
     }, 5000);

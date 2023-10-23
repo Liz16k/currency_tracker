@@ -1,7 +1,7 @@
 import Quotes from '@components/Quotes';
 import { fetchCurrencies } from '@services/currencies';
 import { useQuery } from '@tanstack/react-query';
-import { currencies as currenciesList } from '@utils/constants';
+import { currencies as currenciesList, LOADING } from '@utils/constants';
 import { LastUpdateContext } from '@utils/Contexts';
 import { type LastUpdateContextType } from '@utils/Contexts';
 import React, { useContext, useEffect } from 'react';
@@ -29,7 +29,7 @@ const Home: React.FC = () => {
 
   return (
     <HomeWrapper>
-      { isLoading ? <h3>Loading...</h3> : <><h3>1 USD:</h3><Quotes quotes={data} /></>}
+      { isLoading ? <h3>{LOADING}</h3> : <><h3>1 USD:</h3><Quotes quotes={data} /></>}
     </HomeWrapper>
   );
 };
