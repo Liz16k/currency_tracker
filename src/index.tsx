@@ -8,9 +8,7 @@ const container = document.getElementById('root');
 const root = createRoot(container ?? document.createElement('div'));
 
 root.render(
-  // <React.StrictMode>
   <BrowserRouter basename="currency_tracker">
     <App />
   </BrowserRouter>,
-  // </React.StrictMode>,
 );

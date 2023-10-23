@@ -1,6 +1,6 @@
 import { darkTheme, lightTheme } from '@config/theme';
+import { LastUpdateProvider, ThemeContext } from '@contexts/index';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { LastUpdateProvider, ThemeContext } from '@utils/Contexts';
 import React, { useMemo, useState } from 'react';
 import { ThemeProvider } from 'styled-components';
 

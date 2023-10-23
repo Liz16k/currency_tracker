@@ -1,5 +1,5 @@
+import { ThemeContext } from '@contexts/index';
 import { type DailyDataTuple } from '@pages/Timeline/types';
-import { ThemeContext } from '@utils/Contexts';
 import React, { memo, useContext } from 'react';
 import { Chart } from 'react-google-charts';
 

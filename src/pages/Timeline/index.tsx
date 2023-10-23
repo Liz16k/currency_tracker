@@ -4,8 +4,8 @@ import CandlestickChart from '@components/Chart';
 import ErrorBoundary from '@components/ErrorBoundary';
 import Select from '@components/Select';
 import { CHART_FORM_DATA, currencies, intervals } from '@config/constants';
+import { LastUpdateContext, type LastUpdateContextType } from '@contexts/index';
 import { fetchTimeseries } from '@services/currencies';
-import { LastUpdateContext, type LastUpdateContextType } from '@utils/Contexts';
 import React, { type ChangeEvent, Component, type FormEvent } from 'react';
 
 import {

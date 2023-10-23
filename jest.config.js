@@ -11,5 +11,6 @@ module.exports = {
     "^@assets(.*)": "<rootDir>/src/assets/$1",
     "^@pages(.*)": "<rootDir>/src/pages/$1",
     "^@services(.*)": "<rootDir>/src/services/$1",
+    "^@contexts/*": "<rootDir>/src/contexts/$1",
   },
 };

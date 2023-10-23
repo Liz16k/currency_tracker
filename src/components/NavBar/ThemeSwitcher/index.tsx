@@ -1,4 +1,4 @@
-import { ThemeContext } from '@utils/Contexts';
+import { ThemeContext } from '@contexts/index';
 import React, { useContext } from 'react';
 
 import { SwitchInput, SwitchSlider, SwitchWrapper } from './styled';
