@@ -4,10 +4,10 @@ import { ERRORS_MSG, prefMap } from '@config/constants';
 import {
   ALPHAVENTAGE_KEY, ALPHAVENTAGE_URL, OPENEXCHANGERATE_KEY, OPENEXCHANGERATE_URL,
 } from '@config/environment';
-import { type Interval } from '@pages/Timeline/types';
+import { type DailyData, type DailyDataTuple, type Interval } from '@pages/Timeline/types';
 import memoizeOne from 'memoize-one';
 
-import { type RawDailyData } from './types';
+import { type ILoadChartDataProps, type RawDailyData } from './types';
 
 async function fetchCurrencies(currencies: string[]) {
   try {
@@ -111,6 +111,32 @@ async function fetchTimeseries(
   }
 }
 
+const loadChartData = async ({ selectedCurrencies, setChartData, setLastUpdate }: ILoadChartDataProps) => {
+  try {
+    const data: DailyData[] | undefined = await fetchTimeseries(
+      selectedCurrencies.interval,
+      {
+        from: selectedCurrencies.from,
+        to: selectedCurrencies.to,
+      },
+    );
+
+    if (data != null) {
+      const shortData: DailyDataTuple[] = data.map((record) => {
+        const {
+          datetime, low, open, close, high,
+        } = record;
+        return [datetime, low, open, close, high];
+      });
+
+      setChartData(shortData);
+      setLastUpdate();
+    }
+  } catch (error) {
+    console.error(error);
+  }
+};
+
 export {
-  fetchCurrencies, fetchCurrencyData, fetchExchangeRate, fetchTimeseries,
+  fetchCurrencies, fetchCurrencyData, fetchExchangeRate, fetchTimeseries, loadChartData,
 };

@@ -1,18 +1,17 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable @typescript-eslint/ban-types */
 import CandlestickChart from '@components/Chart';
-import ErrorBoundary from '@components/ErrorBoundary';
 import Select from '@components/Select';
 import { CHART_FORM_DATA, currencies, intervals } from '@config/constants';
 import { LastUpdateContext, type LastUpdateContextType } from '@contexts/index';
-import { fetchTimeseries } from '@services/currencies';
+import { loadChartData } from '@services/currencies';
 import React, { type ChangeEvent, Component, type FormEvent } from 'react';
 
 import {
   Input, SelectBar, TimelineWrapper,
 } from './styled';
 import SuccessMessage from './SuccessMsg';
-import { type DailyData, type DailyDataTuple, type ISelectedCurrencies } from './types';
+import { type DailyDataTuple, type ISelectedCurrencies } from './types';
 
 interface TimelineState {
   chartData: DailyDataTuple[]
@@ -65,6 +64,21 @@ class Timeline extends Component<{}, TimelineState> {
       userData: { ...prevState.userData, [name]: value },
     }));
   };
+
+  handleSelectChange = (value: string, param: 'from' | 'to' | 'interval') => {
+    this.setState((prevState) => ({
+      selectedCurrencies: {
+        ...prevState.selectedCurrencies,
+        [param]: value,
+      },
+    }));
+  };
+
+  handleSelectChangeFrom = (value: string) => { this.handleSelectChange(value, 'from'); };
+
+  handleSelectChangeTo = (value: string) => { this.handleSelectChange(value, 'to'); };
+
+  handleSelectChangeInterval = (value: string) => { this.handleSelectChange(value, 'interval'); };
 
   handleSubmit = (e: FormEvent) => {
     e.preventDefault();
@@ -121,29 +135,12 @@ class Timeline extends Component<{}, TimelineState> {
 
   async loadData() {
     const { selectedCurrencies } = this.state;
-    try {
-      const data: DailyData[] | undefined = await fetchTimeseries(
-        selectedCurrencies.interval,
-        {
-          from: selectedCurrencies.from,
-          to: selectedCurrencies.to,
-        },
-      );
+    const { setLastUpdate } = this;
+    const setChartData = (data: DailyDataTuple[]) => {
+      this.setState((prevState) => ({ ...prevState, chartData: data }));
+    };
 
-      if (data != null) {
-        const shortData: DailyDataTuple[] = data.map((record) => {
-          const {
-            datetime, low, open, close, high,
-          } = record;
-          return [datetime, low, open, close, high];
-        });
-
-        this.setState({ chartData: shortData });
-        this.setLastUpdate();
-      }
-    } catch (error) {
-      console.error(error);
-    }
+    await loadChartData({ selectedCurrencies, setChartData, setLastUpdate });
   }
 
   render() {
@@ -152,55 +149,26 @@ class Timeline extends Component<{}, TimelineState> {
     return (
       <TimelineWrapper>
         <SelectBar>
-          <div>
-            from:
-            <Select
-              onChange={(value) => {
-                this.setState((prevState) => ({
-                  selectedCurrencies: {
-                    ...prevState.selectedCurrencies,
-                    from: value,
-                  },
-                }));
-              }}
-              currentValue={selectedCurrencies.from}
-              values={currencies}
-            />
-          </div>
-          <div>
-            to:
-            <Select
-              onChange={(value) => {
-                this.setState((prevState) => ({
-                  selectedCurrencies: {
-                    ...prevState.selectedCurrencies,
-                    to: value,
-                  },
-                }));
-              }}
-              currentValue={selectedCurrencies.to}
-              values={currencies}
-            />
-          </div>
-          <div>
-            Interval
-            <Select
-              onChange={(value) => {
-                this.setState((prevState) => ({
-                  selectedCurrencies: {
-                    ...prevState.selectedCurrencies,
-                    interval: value as 'DAILY' | 'WEEKLY' | 'MONTHLY',
-                  },
-                }));
-              }}
-              currentValue={selectedCurrencies.interval}
-              values={intervals}
-            />
-          </div>
+          <Select
+            onChange={this.handleSelectChangeFrom}
+            currentValue={selectedCurrencies.from}
+            values={currencies}
+            label="from:"
+          />
+          <Select
+            onChange={this.handleSelectChangeTo}
+            currentValue={selectedCurrencies.to}
+            values={currencies}
+            label="to"
+          />
+          <Select
+            onChange={this.handleSelectChangeInterval}
+            currentValue={selectedCurrencies.interval}
+            values={intervals}
+            label="interval"
+          />
         </SelectBar>
-        <ErrorBoundary fallbackUI={<h1>Chart cannot be drawn</h1>}>
-          <CandlestickChart data={chartData} />
-        </ErrorBoundary>
+        <CandlestickChart data={chartData} />
         <SuccessMessage
           subscribe={this.subscribeOnChartBuilt}
           unsubscribe={this.unsubscribeFromChartBuilt}

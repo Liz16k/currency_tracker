@@ -38,6 +38,10 @@ const CurrencyModal: React.FC<CurrencyModalProps> = ({ onClose = () => {}, from 
     setExchangeValues((prevValues) => ({ ...prevValues, [name]: '' }));
   };
 
+  const handleSelectChange = (value: string) => {
+    setToCurrency(value);
+  };
+
   useEffect(() => {
     const loadExchangeRate = async () => {
       const newExchangeRate = await fetchExchangeRate({ from, to: toCurrency });
@@ -71,9 +75,7 @@ const CurrencyModal: React.FC<CurrencyModalProps> = ({ onClose = () => {}, from 
       <p>→</p>
       <Currency>
         <Select
-          onChange={(value) => {
-            setToCurrency(value);
-          }}
+          onChange={handleSelectChange}
           currentValue={toCurrency}
           values={currencies}
         />

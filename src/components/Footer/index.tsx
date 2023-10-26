@@ -10,6 +10,12 @@ const Footer = () => {
     COPYRIGHT, DESCRIPTION, GROUPS: { GENERAL, COMMUNITY, PRODUCT }, TITLE,
   } = FOOTER;
   const { footerSize: { width, height } } = logoSize;
+
+  const footerNavLinks = [
+    { title: GENERAL.TITLE, links: [GENERAL.LINK1, GENERAL.LINK2] },
+    { title: PRODUCT.TITLE, links: [PRODUCT.LINK1, PRODUCT.LINK2] },
+    { title: COMMUNITY.TITLE, links: [COMMUNITY.LINK1, COMMUNITY.LINK2] },
+  ];
   return (
     <>
       <FooterWrapper>
@@ -18,38 +24,19 @@ const Footer = () => {
             <Logo width={width} height={height} />
             {TITLE}
           </h4>
-          <p>
-            {DESCRIPTION}
-          </p>
+          <p>{DESCRIPTION}</p>
         </div>
         <nav>
-          <ul>
-            <h4>{GENERAL.TITLE}</h4>
-            <li>
-              <a href=".">{GENERAL.LINK1}</a>
-            </li>
-            <li>
-              <a href=".">{GENERAL.LINK2}</a>
-            </li>
-          </ul>
-          <ul>
-            <h4>{PRODUCT.TITLE}</h4>
-            <li>
-              <a href=".">{PRODUCT.LINK1}</a>
-            </li>
-            <li>
-              <a href=".">{PRODUCT.LINK2}</a>
-            </li>
-          </ul>
-          <ul>
-            <h4>{COMMUNITY.TITLE}</h4>
-            <li>
-              <a href=".">{COMMUNITY.LINK1}</a>
-            </li>
-            <li>
-              <a href=".">{COMMUNITY.LINK2}</a>
-            </li>
-          </ul>
+          {footerNavLinks.map((category) => (
+            <ul key={category.title}>
+              <h4>{category.title}</h4>
+              {category.links.map((link) => (
+                <li key={link}>
+                  <a href=".">{link}</a>
+                </li>
+              ))}
+            </ul>
+          ))}
         </nav>
       </FooterWrapper>
       <Copyright>{COPYRIGHT}</Copyright>

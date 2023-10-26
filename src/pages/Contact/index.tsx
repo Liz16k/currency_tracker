@@ -42,10 +42,10 @@ const Contact: React.FC = () => {
       <div>
         <IconMail />
         <p>
-          {EMAIL_PREFIX} <p>{APP_CONTACT_EMAIL}</p>
+          {EMAIL_PREFIX} <span>{APP_CONTACT_EMAIL}</span>
         </p>
         <p>
-          {ADDRESS_PREFIX} <p>{APP_CONTACT_ADDRESS}</p>
+          {ADDRESS_PREFIX} <span>{APP_CONTACT_ADDRESS}</span>
         </p>
       </div>
     </ContactWrapper>

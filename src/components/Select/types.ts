@@ -4,4 +4,5 @@ export interface SelectProps {
   currentValue: string
   onClickOption?: (value: string) => void
   onFocus?: () => void
+  label?: string
 }

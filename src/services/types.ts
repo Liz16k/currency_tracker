@@ -1,3 +1,4 @@
+import { type DailyDataTuple, type ISelectedCurrencies } from '@pages/Timeline/types';
 import { type LngLatLike } from 'mapbox-gl';
 
 type RawDailyData = Record<string, Record<string, string>>;
@@ -31,6 +32,13 @@ interface IBankPoint {
   available_currencies: string[]
 }
 
+interface ILoadChartDataProps {
+  selectedCurrencies: ISelectedCurrencies
+  setChartData: (data: DailyDataTuple[]) => void
+  setLastUpdate: () => void
+}
+
 export type {
-  IBankPoint, ICoordinates, IGeoData, RawDailyData,
+  IBankPoint, ICoordinates, IGeoData, ILoadChartDataProps,
+  RawDailyData,
 };

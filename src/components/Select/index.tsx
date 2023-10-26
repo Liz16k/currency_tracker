@@ -6,7 +6,7 @@ import {
 import { type SelectProps } from './types';
 
 const Select: React.FC<SelectProps> = ({
-  values, onChange, currentValue, onClickOption, onFocus,
+  values, onChange, currentValue, onClickOption, onFocus, label,
 }) => {
   const [open, setOpen] = useState(false);
 
@@ -29,6 +29,7 @@ const Select: React.FC<SelectProps> = ({
 
   return (
     <SelectWrapper>
+      {label}
       <SelectLabelInput
         value={currentValue}
         onClick={handleOpen}
