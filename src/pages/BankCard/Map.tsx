@@ -4,7 +4,9 @@ import { fetchGeolocation } from '@services/geoapify';
 import { useQuery } from '@tanstack/react-query';
 import { LastUpdateContext, type LastUpdateContextType } from '@utils/Contexts';
 import { MAPBOX_KEY } from '@utils/envrionment';
-import { Map, Marker, Popup } from 'mapbox-gl';
+import {
+  Map, Marker, NavigationControl, Popup,
+} from 'mapbox-gl';
 import React, { useContext, useEffect, useRef } from 'react';
 
 import { type MapComponentProps } from './types';
@@ -39,6 +41,8 @@ const MapComponent: React.FC<MapComponentProps> = ({ points }) => {
         .setPopup(new Popup({ offset: 25, className: 'marker-popup-content' }).setHTML(`<p>${properties.address_line2}<p>${available_currencies}</p></p>`))
         .addTo(map);
     });
+
+    map.addControl(new NavigationControl());
 
     return () => {
       map.remove();

@@ -100,7 +100,7 @@ class Timeline extends Component<{}, TimelineState> {
     });
   };
 
-  setLastUpdate = () => {
+  setLastUpdate = (): void => {
     const { setLastUpdate } = this.context as LastUpdateContextType;
     setLastUpdate((new Date()).toLocaleTimeString('it-IT'));
   };

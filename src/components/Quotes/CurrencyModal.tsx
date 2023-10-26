@@ -25,10 +25,10 @@ const CurrencyModal: React.FC<CurrencyModalProps> = ({ onClose = () => {}, from 
   const handleChangeValue = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     if (name === 'from') {
-      const convertValue = +(+value * exchangeRate.rate).toFixed(4);
+      const convertValue = value !== '' ? +(+value * exchangeRate.rate).toFixed(4) : '';
       setExchangeValues({ from: +value, to: convertValue });
     } else {
-      const convertValue = +(+value / exchangeRate.rate).toFixed(4);
+      const convertValue = value !== '' ? +(+value / exchangeRate.rate).toFixed(4) : '';
       setExchangeValues({ from: convertValue, to: +value });
     }
   };

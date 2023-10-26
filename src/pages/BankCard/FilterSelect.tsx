@@ -1,5 +1,5 @@
 import Select from '@components/Select';
-import React, { useEffect, useState } from 'react';
+import React, { useDeferredValue, useEffect, useState } from 'react';
 
 import type { FilterSelectProps } from './types';
 
@@ -10,10 +10,12 @@ const FilterSelect = ({
   const [inputValue, setInputValue] = useState('');
   const [suggestions, setSuggestions] = useState(values);
 
+  const deferredInputValue = useDeferredValue(inputValue);
+
   useEffect(() => {
-    const filteredSuggestions = values.filter((hint: string) => hint.toLowerCase().includes(inputValue.toLowerCase()));
+    const filteredSuggestions = values.filter((hint: string) => hint.toLowerCase().includes(deferredInputValue.toLowerCase()));
     setSuggestions(filteredSuggestions);
-  }, [inputValue, values]);
+  }, [deferredInputValue, values]);
 
   const handleChange = (value: string) => {
     setInputValue(value);
