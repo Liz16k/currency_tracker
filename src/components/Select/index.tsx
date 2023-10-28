@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React, { type ChangeEvent, type FC, useState } from 'react';
 
 import S from './styled';
 import { type SelectProps } from './types';
 
-const Select: React.FC<SelectProps> = ({
+const Select: FC<SelectProps> = ({
   values, onChange, currentValue, onClickOption, onFocus,
 }) => {
   const [open, setOpen] = useState(false);
@@ -21,7 +21,7 @@ const Select: React.FC<SelectProps> = ({
     handleClose();
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     onChange(e.target.value);
   };
 

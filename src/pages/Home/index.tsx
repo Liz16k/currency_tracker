@@ -8,7 +8,7 @@ import React, { useContext, useEffect } from 'react';
 
 import HomeWrapper from './styled';
 
-const Home: React.FC = () => {
+const Home = () => {
   const { setLastUpdate }: LastUpdateContextType = useContext(LastUpdateContext);
 
   const {

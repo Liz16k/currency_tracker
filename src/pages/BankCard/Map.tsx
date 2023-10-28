@@ -1,17 +1,20 @@
 import 'mapbox-gl/dist/mapbox-gl.css';
 
 import { fetchGeolocation } from '@services/geoapify';
+import { type IBankPoint } from '@services/types';
 import { useQuery } from '@tanstack/react-query';
 import { LastUpdateContext, type LastUpdateContextType } from '@utils/Contexts';
 import { MAPBOX_KEY } from '@utils/envrionment';
 import {
   Map, Marker, NavigationControl, Popup,
 } from 'mapbox-gl';
-import React, { useContext, useEffect, useRef } from 'react';
+import React, {
+  type FC, useContext, useEffect, useRef,
+} from 'react';
 
 import { type MapComponentProps } from './types';
 
-const MapComponent: React.FC<MapComponentProps> = ({ points }) => {
+const MapComponent: FC<MapComponentProps> = ({ points }) => {
   const mapContainer = useRef<HTMLDivElement>(null);
   const { setLastUpdate }: LastUpdateContextType = useContext(LastUpdateContext);
 
@@ -35,10 +38,10 @@ const MapComponent: React.FC<MapComponentProps> = ({ points }) => {
       zoom: 12,
     });
 
-    points.forEach(({ geometry, properties, available_currencies }: any) => {
+    points.forEach(({ geometry, properties, available_currencies }: IBankPoint) => {
       new Marker({ color: 'red' })
         .setLngLat(geometry.coordinates)
-        .setPopup(new Popup({ offset: 25, className: 'marker-popup-content' }).setHTML(`<p>${properties.address_line2}<p>${available_currencies}</p></p>`))
+        .setPopup(new Popup({ offset: 25, className: 'marker-popup-content' }).setHTML(`<p>${properties.formatted}, <span>${available_currencies.toString()}</span></p>`))
         .addTo(map);
     });
 

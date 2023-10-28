@@ -29,7 +29,7 @@ class Timeline extends Component<{}, TimelineState> {
 
   onChartSubs: Array<() => void> = [];
 
-  constructor(props: any) {
+  constructor(props: {}) {
     super(props);
     this.state = {
       chartData: [],

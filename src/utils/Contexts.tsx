@@ -1,15 +1,18 @@
 import React, {
-  createContext, type ReactNode, useMemo, useState,
+  createContext, type Dispatch,
+  type FC,
+  type ReactNode, type SetStateAction,
+  useMemo, useState,
 } from 'react';
 
-interface ThemeContextType {
+export interface ThemeContextType {
   theme: string
   switchTheme: () => void
 }
 
 interface LastUpdateContextType {
   lastUpdate: string
-  setLastUpdate: React.Dispatch<React.SetStateAction<string>>
+  setLastUpdate: Dispatch<SetStateAction<string>>
 }
 
 const ThemeContext = createContext<ThemeContextType>({ theme: 'dark', switchTheme: () => {} });
@@ -19,7 +22,7 @@ const LastUpdateContext = createContext<LastUpdateContextType>({
   setLastUpdate: () => {},
 });
 
-export const LastUpdateProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
+export const LastUpdateProvider: FC<{ children: ReactNode }> = ({ children }) => {
   const [lastUpdate, setLastUpdate] = useState<string>('');
   const contextValue = useMemo(() => ({ lastUpdate, setLastUpdate }), [lastUpdate]);
 

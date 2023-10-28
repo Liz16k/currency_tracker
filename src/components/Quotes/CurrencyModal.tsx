@@ -1,7 +1,8 @@
 import { fetchExchangeRate } from '@services/currencies';
 import { currencies } from '@utils/constants';
 import React, {
-  type ChangeEvent, type FocusEvent, useEffect, useState,
+  type ChangeEvent, type FC,
+  type FocusEvent, useEffect, useState,
 } from 'react';
 
 import Modal from '../Modal';
@@ -9,7 +10,7 @@ import Select from '../Select';
 import { Currency } from './styled';
 import { type CurrencyModalProps, type IExchangeRate, type IExchangeValue } from './types';
 
-const CurrencyModal: React.FC<CurrencyModalProps> = ({ onClose = () => {}, from }) => {
+const CurrencyModal: FC<CurrencyModalProps> = ({ onClose = () => {}, from }) => {
   const [toCurrency, setToCurrency] = useState(currencies[0]);
   const [exchangeValues, setExchangeValues] = useState<IExchangeValue>({
     from: '',

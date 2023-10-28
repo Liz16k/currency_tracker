@@ -12,7 +12,7 @@ interface State {
 }
 
 class ErrorBoundary extends Component<Props, State> {
-  constructor(props: any) {
+  constructor(props: Props) {
     super(props);
     this.state = { hasError: false };
   }
@@ -27,7 +27,6 @@ class ErrorBoundary extends Component<Props, State> {
 
   render() {
     if (this.state.hasError) {
-      // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
       return this.props.fallbackUI ?? <h1>Something went wrong.</h1>;
     }
 

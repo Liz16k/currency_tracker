@@ -9,17 +9,16 @@ import {
 } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { ThemeContext } from '@utils/Contexts';
-import { darkTheme, lightTheme } from '@utils/theme';
-import React from 'react';
+import React, { type ReactElement } from 'react';
 import { ThemeProvider } from 'styled-components';
 
 import GlobalStyle from '../GlobalStyle';
 // eslint-disable-next-line jest/no-mocks-import
-import { fakeContextValue } from './__mocks__';
+import { fakeContextValue, fakeLightTheme } from './__mocks__';
 
-const renderWithProviders = (component: any, theme?: any, contextValue?: any) => render(
-  <ThemeProvider theme={theme === 'light' ? lightTheme : darkTheme}>
-    <ThemeContext.Provider value={contextValue ?? fakeContextValue}>
+const renderWithProviders = (component: ReactElement) => render(
+  <ThemeProvider theme={fakeLightTheme}>
+    <ThemeContext.Provider value={fakeContextValue}>
       <GlobalStyle />
       {component}
     </ThemeContext.Provider>

@@ -23,8 +23,9 @@ const fakeLightTheme = {
   },
   transform: 'translateX(-1rem)',
 };
+
 const fakeContextValue = {
-  theme: fakeLightTheme,
+  theme: 'light',
   switchTheme: () => {},
 };
 

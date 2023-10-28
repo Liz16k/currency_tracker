@@ -1,4 +1,4 @@
-import React, { type MouseEvent, useState } from 'react';
+import React, { type FC, type MouseEvent, useState } from 'react';
 import { createPortal } from 'react-dom';
 
 import Card from '../Card';
@@ -6,7 +6,7 @@ import CurrencyModal from './CurrencyModal';
 import QuotesWrapper from './styled';
 import { type CardData, type QuotesProps } from './types';
 
-const Quotes: React.FC<QuotesProps> = ({ quotes }) => {
+const Quotes: FC<QuotesProps> = ({ quotes }) => {
   const [modal, setModal] = useState<{ isShow: boolean, modalData: CardData }>({
     isShow: false,
     modalData: { name: '', value: 0 },

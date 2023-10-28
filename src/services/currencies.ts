@@ -78,7 +78,7 @@ async function fetchTimeseries(
   { from = 'USD', to = 'EUR' },
 ) {
   try {
-    const prefMap: any = {
+    const prefMap: Record<string, 'FX_DAILY' | 'FX_WEEKLY' | 'FX_MONTHLY'> = {
       DAILY: 'FX_DAILY',
       WEEKLY: 'FX_WEEKLY',
       MONTHLY: 'FX_MONTHLY',

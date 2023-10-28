@@ -8,7 +8,7 @@ import MapComponent from './Map';
 import { type MapState } from './types';
 
 class BankCard extends Component<{}, MapState> {
-  constructor(props: any) {
+  constructor(props: {}) {
     super(props);
     this.state = {
       currency: '',

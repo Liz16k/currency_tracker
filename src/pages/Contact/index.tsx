@@ -3,7 +3,7 @@ import React, { type FormEvent } from 'react';
 import IconMail from './IconMail';
 import S from './styled';
 
-const Contact: React.FC = () => {
+const Contact = () => {
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const { name, email, msg } = e.currentTarget.elements as unknown as {

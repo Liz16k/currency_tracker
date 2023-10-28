@@ -4,7 +4,7 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { ThemeContext } from '@utils/Contexts';
 import { createMemoryHistory } from 'history';
-import React from 'react';
+import React, { type ReactElement } from 'react';
 import { MemoryRouter, Router } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
 
@@ -14,9 +14,9 @@ import GlobalStyle from '../GlobalStyle';
 // eslint-disable-next-line jest/no-mocks-import
 import { fakeContextValue, fakeLightTheme } from './__mocks__';
 
-const renderWithProviders = (component: any, theme?: any, contextValue?: any) => render(
-  <ThemeProvider theme={theme ?? fakeLightTheme}>
-    <ThemeContext.Provider value={contextValue ?? fakeContextValue}>
+const renderWithProviders = (component: ReactElement) => render(
+  <ThemeProvider theme={fakeLightTheme}>
+    <ThemeContext.Provider value={fakeContextValue}>
       <GlobalStyle />
       {component}
     </ThemeContext.Provider>
