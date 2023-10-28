@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/ban-types */
+import { currencies } from '@config/constants';
 import { fetchBanks } from '@services/geoapify';
-import { currencies } from '@utils/constants';
 import React, { Component } from 'react';
 
 import FilterSelect from './FilterSelect';

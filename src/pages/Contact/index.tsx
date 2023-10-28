@@ -1,9 +1,18 @@
+import IconMail from '@assets/IconMail';
+import { CONTACTS } from '@config/constants';
+import { APP_CONTACT_ADDRESS, APP_CONTACT_EMAIL } from '@config/environment';
+import { generateSuccessReceiptMessage } from '@utils/index';
 import React, { type FormEvent } from 'react';
 
-import IconMail from './IconMail';
-import S from './styled';
+import {
+  Button, ContactWrapper, Input, Textarea,
+} from './styled';
 
 const Contact = () => {
+  const {
+    FORM_DATA: { PLACEHOLDERS, BUTTON }, ADDRESS_PREFIX, EMAIL_PREFIX, TITLE,
+  } = CONTACTS;
+
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const { name, email, msg } = e.currentTarget.elements as unknown as {
@@ -13,35 +22,33 @@ const Contact = () => {
     };
 
     if (name.value !== '' && email.value !== '' && msg.value !== '') {
-      alert(
-        `We get your message, ${name.value}, thank you!\nYou are getting our response on email: ${email.value}`,
-      );
+      alert(generateSuccessReceiptMessage(name.value, email.value));
       name.value = '';
       email.value = '';
       msg.value = '';
     }
   };
   return (
-    <S.ContactWrapper>
+    <ContactWrapper>
       <div>
-        <h3>Contact us</h3>
+        <h3>{TITLE}</h3>
         <form onSubmit={handleSubmit}>
-          <S.Input type="text" name="name" placeholder="Full Name" />
-          <S.Input type="email" name="email" placeholder="E-mail" />
-          <S.Textarea name="msg" id="msg" cols={30} rows={6} placeholder="Your message" />
-          <S.Button type="submit">Contact us</S.Button>
+          <Input type="text" name="name" placeholder={PLACEHOLDERS.NAME} />
+          <Input type="email" name="email" placeholder={PLACEHOLDERS.EMAIL} />
+          <Textarea name="msg" id="msg" cols={30} rows={6} placeholder={PLACEHOLDERS.MSG} />
+          <Button type="submit">{BUTTON}</Button>
         </form>
       </div>
       <div>
         <IconMail />
         <p>
-          Contact <p>example@currency.com</p>
+          {EMAIL_PREFIX} <span>{APP_CONTACT_EMAIL}</span>
         </p>
         <p>
-          Based in <p>123 Main Street Anytown, USA Postal Code: 12345</p>
+          {ADDRESS_PREFIX} <span>{APP_CONTACT_ADDRESS}</span>
         </p>
       </div>
-    </S.ContactWrapper>
+    </ContactWrapper>
   );
 };
 

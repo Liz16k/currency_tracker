@@ -1,10 +1,12 @@
-import React, { type ChangeEvent, type FC, useState } from 'react';
+import React, { type ChangeEvent, useState } from 'react';
 
-import S from './styled';
+import {
+  DropdownItem, DropdownStyle, SelectLabelInput, SelectWrapper,
+} from './styled';
 import { type SelectProps } from './types';
 
-const Select: FC<SelectProps> = ({
-  values, onChange, currentValue, onClickOption, onFocus,
+const Select: React.FC<SelectProps> = ({
+  values, onChange, currentValue, onClickOption, onFocus, label,
 }) => {
   const [open, setOpen] = useState(false);
 
@@ -26,8 +28,9 @@ const Select: FC<SelectProps> = ({
   };
 
   return (
-    <S.SelectWrapper>
-      <S.SelectLabelInput
+    <SelectWrapper>
+      {label}
+      <SelectLabelInput
         value={currentValue}
         onClick={handleOpen}
         onChange={handleChange}
@@ -35,9 +38,9 @@ const Select: FC<SelectProps> = ({
         placeholder="choose option"
       />
       {open && (
-        <S.DropdownStyle>
+        <DropdownStyle>
           {values.map((value) => (
-            <S.DropdownItem
+            <DropdownItem
               onClick={() => {
                 handleClick(value);
               }}
@@ -45,11 +48,11 @@ const Select: FC<SelectProps> = ({
               key={value}
             >
               {value}
-            </S.DropdownItem>
+            </DropdownItem>
           ))}
-        </S.DropdownStyle>
+        </DropdownStyle>
       )}
-    </S.SelectWrapper>
+    </SelectWrapper>
   );
 };
 

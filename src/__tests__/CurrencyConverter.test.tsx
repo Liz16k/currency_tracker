@@ -1,9 +1,9 @@
 import '@testing-library/jest-dom';
 
 import CurrencyModal from '@components/Quotes/CurrencyModal';
+import { ThemeContext } from '@contexts/index';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { ThemeContext } from '@utils/Contexts';
 import React, { type ReactElement } from 'react';
 import { ThemeProvider } from 'styled-components';
 

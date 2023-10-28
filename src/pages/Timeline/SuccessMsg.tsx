@@ -1,6 +1,7 @@
+import { SUCCESS_MSG } from '@config/constants';
 import React, { Component } from 'react';
 
-import S from './styled';
+import { Message } from './styled';
 
 interface SuccessMessageProps {
   subscribe: (callback: () => void) => void
@@ -26,7 +27,7 @@ class SuccessMessage extends Component<SuccessMessageProps> {
   }
 
   handleThirtyCandlesBuilt = () => {
-    this.setState(({ successMessage: 'График успешно построен!' }));
+    this.setState(({ successMessage: SUCCESS_MSG }));
     setTimeout(() => {
       this.setState(() => ({ successMessage: null }));
     }, 5000);
@@ -35,7 +36,7 @@ class SuccessMessage extends Component<SuccessMessageProps> {
   render() {
     const { successMessage } = this.state as { successMessage: string | null };
     return (
-      <S.Message $isShow={successMessage != null ? 'true' : ''}>{successMessage ?? 'msg'}</S.Message>
+      <Message $isShow={successMessage != null ? 'true' : ''}>{successMessage ?? 'msg'}</Message>
     );
   }
 }

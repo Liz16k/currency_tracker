@@ -29,11 +29,11 @@ const Icon = styled.div`
   width: 5rem;
   height: 5rem;
   font-size: 3rem;
-  font-family: 'Chakra Petch', sans-serif;
+  font-family: ${({ theme }) => theme.symbolFont};
   display: flex;
   align-items: center;
   justify-content: center;
   border: 1px solid #fff;
   border-radius: 1rem;
 `;
-export default { Wrapper, Icon };
+export { Icon, Wrapper };

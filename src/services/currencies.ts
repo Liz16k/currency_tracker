@@ -1,22 +1,24 @@
 /* eslint-disable consistent-return */
 
-import { type Interval } from '@pages/Timeline/types';
-import { ALPHAVENTAGE_KEY, OPENEXCHANGERATE_KEY } from '@utils/envrionment';
+import { ERRORS_MSG, prefMap } from '@config/constants';
+import {
+  ALPHAVENTAGE_KEY, ALPHAVENTAGE_URL, OPENEXCHANGERATE_KEY, OPENEXCHANGERATE_URL,
+} from '@config/environment';
+import { type DailyData, type DailyDataTuple, type Interval } from '@pages/Timeline/types';
 import memoizeOne from 'memoize-one';
 
-import { type RawDailyData } from './types';
+import { type ILoadChartDataProps, type RawDailyData } from './types';
 
 async function fetchCurrencies(currencies: string[]) {
   try {
     const params = new URLSearchParams({ symbols: currencies.join(',') });
     if (OPENEXCHANGERATE_KEY != null) params.set('app_id', OPENEXCHANGERATE_KEY);
 
-    // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
-    const response = await fetch(`https://openexchangerates.org/api/latest.json?${params}`);
+    const response = await fetch(`${OPENEXCHANGERATE_URL}${params.toString()}`);
     const data = await response.json();
     return data?.rates;
   } catch (error) {
-    throw new Error(`Failed to fetch currencies: ${(error as Error).message}`);
+    throw new Error([ERRORS_MSG.currencies, (error as Error).message].join('\n'));
   }
 }
 
@@ -34,14 +36,15 @@ async function fetchCurrencyData(
     const params = new URLSearchParams({ function: dataType, ...extraParams });
     if (ALPHAVENTAGE_KEY != null) params.set('apikey', ALPHAVENTAGE_KEY);
 
-    const baseUrl = 'https://www.alphavantage.co/query?';
-    const queryString = params.toString();
-    const url = `${baseUrl}${queryString}`;
+    const baseUrl = ALPHAVENTAGE_URL;
+    const url = `${baseUrl}${params.toString()}`;
+
     const memoizedFetch = memoizeOne(async (url) => fetch(url));
+
     const data = await memoizedFetch(url);
     return await data.json();
   } catch (error) {
-    throw new Error(`Failed to fetch currency data: ${(error as Error).message}`);
+    throw new Error([ERRORS_MSG.currencyData, (error as Error).message].join('\n'));
   }
 }
 
@@ -53,7 +56,7 @@ async function fetchExchangeRate({ from, to }: Record<string, string>) {
     });
     const rawData = await response?.['Realtime Currency Exchange Rate'];
     if (rawData == null) {
-      throw new Error('Exchange rate data is empty');
+      throw new Error(ERRORS_MSG.exchangeRateIsNull);
     }
     const {
       '1. From_Currency Code': fromCode,
@@ -69,7 +72,7 @@ async function fetchExchangeRate({ from, to }: Record<string, string>) {
     };
     return data;
   } catch (error) {
-    throw new Error(`Error fetching exchange rate: ${(error as Error).message}`);
+    throw new Error([ERRORS_MSG.exchangeRate, (error as Error).message].join('\n'));
   }
 }
 
@@ -78,11 +81,6 @@ async function fetchTimeseries(
   { from = 'USD', to = 'EUR' },
 ) {
   try {
-    const prefMap: Record<string, 'FX_DAILY' | 'FX_WEEKLY' | 'FX_MONTHLY'> = {
-      DAILY: 'FX_DAILY',
-      WEEKLY: 'FX_WEEKLY',
-      MONTHLY: 'FX_MONTHLY',
-    };
     const response = await fetchCurrencyData(prefMap[interval], {
       from_symbol: from,
       to_symbol: to,
@@ -109,10 +107,36 @@ async function fetchTimeseries(
         };
       }).reverse();
   } catch (error) {
-    throw new Error(`Failed to fetch data for chart: ${(error as Error).message}`);
+    throw new Error([ERRORS_MSG.chartData, (error as Error).message].join('\n'));
   }
 }
 
+const loadChartData = async ({ selectedCurrencies, setChartData, setLastUpdate }: ILoadChartDataProps) => {
+  try {
+    const data: DailyData[] | undefined = await fetchTimeseries(
+      selectedCurrencies.interval,
+      {
+        from: selectedCurrencies.from,
+        to: selectedCurrencies.to,
+      },
+    );
+
+    if (data != null) {
+      const shortData: DailyDataTuple[] = data.map((record) => {
+        const {
+          datetime, low, open, close, high,
+        } = record;
+        return [datetime, low, open, close, high];
+      });
+
+      setChartData(shortData);
+      setLastUpdate();
+    }
+  } catch (error) {
+    console.error(error);
+  }
+};
+
 export {
-  fetchCurrencies, fetchCurrencyData, fetchExchangeRate, fetchTimeseries,
+  fetchCurrencies, fetchCurrencyData, fetchExchangeRate, fetchTimeseries, loadChartData,
 };

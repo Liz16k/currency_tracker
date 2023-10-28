@@ -1,17 +1,23 @@
+import Logo from '@assets/Logo';
+import { HEADER } from '@config/constants';
+import logoSize from '@config/index';
 import React from 'react';
 
-import Logo from '../NavBar/Logo';
-import S from './style';
+import { Caption, HeaderWrapper, Quote } from './styled';
 
-const Header = () => (
-  <S.HeaderWrapper>
-    <S.Caption>
-      <h3>Modsen Currency</h3>
-      <h2>Tracker</h2>
-      <S.Quote>Quotes for the dollar and other international currencies.</S.Quote>
-    </S.Caption>
-    <Logo width={252} height={288} />
-  </S.HeaderWrapper>
-);
+const Header = () => {
+  const { SUBTITLE, QUOTE, TITLE } = HEADER;
+  const { headerSize: { width, height } } = logoSize;
+  return (
+    <HeaderWrapper>
+      <Caption>
+        <h3>{SUBTITLE}</h3>
+        <h2>{TITLE}</h2>
+        <Quote>{QUOTE}</Quote>
+      </Caption>
+      <Logo width={width} height={height} />
+    </HeaderWrapper>
+  );
+};
 
 export default Header;

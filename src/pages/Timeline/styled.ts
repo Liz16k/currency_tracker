@@ -6,7 +6,6 @@ const TimelineWrapper = styled.div`
   justify-content: center;
   transition: all 1s ease-in-out;
   form {
-    z-index: 10;
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
@@ -21,7 +20,7 @@ const TimelineWrapper = styled.div`
       color: ${({ theme }) => theme.colors.primaryText};
       border-radius: 0.5rem;
       cursor: pointer;
-  }
+    }
   }
 `;
 
@@ -30,7 +29,7 @@ const Message = styled.div<{ $isShow?: string }>`
   bottom: 15rem;
   text-align: center;
   opacity: 0;
-  font-family: 'Poppins', sans-serif;
+  font-family: inherit;
   font-size: 2rem;
   color: white;
 
@@ -69,11 +68,6 @@ const Input = styled.input.attrs(({
   placeholder: placeholder ?? '0.000',
 
 }))`
-  &[type='number']::-webkit-inner-spin-button,
-  &[type='number']::-webkit-outer-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
-  }
   margin-left: 0.5rem;
   appearance: none;
   font: inherit;
@@ -85,6 +79,7 @@ const Input = styled.input.attrs(({
   border-radius: 0.5rem;
 `;
 
-export default {
-  TimelineWrapper, SelectBar, Input, Message,
+export {
+  Input, Message,
+  SelectBar, TimelineWrapper,
 };

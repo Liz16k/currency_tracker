@@ -1,16 +1,17 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable @typescript-eslint/ban-types */
 import CandlestickChart from '@components/Chart';
-import ErrorBoundary from '@components/ErrorBoundary';
 import Select from '@components/Select';
-import { fetchTimeseries } from '@services/currencies';
-import { currencies, intervals } from '@utils/constants';
-import { LastUpdateContext, type LastUpdateContextType } from '@utils/Contexts';
+import { CHART_FORM_DATA, currencies, intervals } from '@config/constants';
+import { LastUpdateContext, type LastUpdateContextType } from '@contexts/index';
+import { loadChartData } from '@services/currencies';
 import React, { type ChangeEvent, Component, type FormEvent } from 'react';
 
-import S from './styled';
+import {
+  Input, SelectBar, TimelineWrapper,
+} from './styled';
 import SuccessMessage from './SuccessMsg';
-import { type DailyData, type DailyDataTuple, type ISelectedCurrencies } from './types';
+import { type DailyDataTuple, type ISelectedCurrencies } from './types';
 
 interface TimelineState {
   chartData: DailyDataTuple[]
@@ -63,6 +64,21 @@ class Timeline extends Component<{}, TimelineState> {
       userData: { ...prevState.userData, [name]: value },
     }));
   };
+
+  handleSelectChange = (value: string, param: 'from' | 'to' | 'interval') => {
+    this.setState((prevState) => ({
+      selectedCurrencies: {
+        ...prevState.selectedCurrencies,
+        [param]: value,
+      },
+    }));
+  };
+
+  handleSelectChangeFrom = (value: string) => { this.handleSelectChange(value, 'from'); };
+
+  handleSelectChangeTo = (value: string) => { this.handleSelectChange(value, 'to'); };
+
+  handleSelectChangeInterval = (value: string) => { this.handleSelectChange(value, 'interval'); };
 
   handleSubmit = (e: FormEvent) => {
     e.preventDefault();
@@ -119,85 +135,40 @@ class Timeline extends Component<{}, TimelineState> {
 
   async loadData() {
     const { selectedCurrencies } = this.state;
-    try {
-      const data: DailyData[] | undefined = await fetchTimeseries(
-        selectedCurrencies.interval,
-        {
-          from: selectedCurrencies.from,
-          to: selectedCurrencies.to,
-        },
-      );
+    const { setLastUpdate } = this;
+    const setChartData = (data: DailyDataTuple[]) => {
+      this.setState((prevState) => ({ ...prevState, chartData: data }));
+    };
 
-      if (data != null) {
-        const shortData: DailyDataTuple[] = data.map((record) => {
-          const {
-            datetime, low, open, close, high,
-          } = record;
-          return [datetime, low, open, close, high];
-        });
-
-        this.setState({ chartData: shortData });
-        this.setLastUpdate();
-      }
-    } catch (error) {
-      console.error(error);
-    }
+    await loadChartData({ selectedCurrencies, setChartData, setLastUpdate });
   }
 
   render() {
+    const { DATETIME: { PLACEHOLDER, TITLE, PATTERN } } = CHART_FORM_DATA;
     const { selectedCurrencies, chartData, userData } = this.state;
     return (
-      <S.TimelineWrapper>
-        <S.SelectBar>
-          <div>
-            from:
-            <Select
-              onChange={(value) => {
-                this.setState((prevState) => ({
-                  selectedCurrencies: {
-                    ...prevState.selectedCurrencies,
-                    from: value,
-                  },
-                }));
-              }}
-              currentValue={selectedCurrencies.from}
-              values={currencies}
-            />
-          </div>
-          <div>
-            to:
-            <Select
-              onChange={(value) => {
-                this.setState((prevState) => ({
-                  selectedCurrencies: {
-                    ...prevState.selectedCurrencies,
-                    to: value,
-                  },
-                }));
-              }}
-              currentValue={selectedCurrencies.to}
-              values={currencies}
-            />
-          </div>
-          <div>
-            Interval
-            <Select
-              onChange={(value) => {
-                this.setState((prevState) => ({
-                  selectedCurrencies: {
-                    ...prevState.selectedCurrencies,
-                    interval: value as 'DAILY' | 'WEEKLY' | 'MONTHLY',
-                  },
-                }));
-              }}
-              currentValue={selectedCurrencies.interval}
-              values={intervals}
-            />
-          </div>
-        </S.SelectBar>
-        <ErrorBoundary fallbackUI={<h1>Chart cannot be drawn</h1>}>
-          <CandlestickChart data={chartData} />
-        </ErrorBoundary>
+      <TimelineWrapper>
+        <SelectBar>
+          <Select
+            onChange={this.handleSelectChangeFrom}
+            currentValue={selectedCurrencies.from}
+            values={currencies}
+            label="from:"
+          />
+          <Select
+            onChange={this.handleSelectChangeTo}
+            currentValue={selectedCurrencies.to}
+            values={currencies}
+            label="to"
+          />
+          <Select
+            onChange={this.handleSelectChangeInterval}
+            currentValue={selectedCurrencies.interval}
+            values={intervals}
+            label="interval"
+          />
+        </SelectBar>
+        <CandlestickChart data={chartData} />
         <SuccessMessage
           subscribe={this.subscribeOnChartBuilt}
           unsubscribe={this.unsubscribeFromChartBuilt}
@@ -205,20 +176,20 @@ class Timeline extends Component<{}, TimelineState> {
         <form onSubmit={this.handleSubmit}>
           <div>
             <label htmlFor="datetime">Datetime:</label>
-            <S.Input
+            <Input
               id="datetime"
               name="datetime"
               value={userData.datetime}
               onChange={this.handleInputChange}
-              placeholder="01-01"
-              title="Введите дату в формате xx-xx (где x - число от 0 до 9)"
-              pattern="^(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$"
+              placeholder={PLACEHOLDER}
+              title={TITLE}
+              pattern={PATTERN}
               maxLength={5}
             />
           </div>
           <div>
             <label htmlFor="open">Open:</label>
-            <S.Input
+            <Input
               id="open"
               name="open"
               value={userData.open}
@@ -227,7 +198,7 @@ class Timeline extends Component<{}, TimelineState> {
           </div>
           <div>
             <label htmlFor="close">Close:</label>
-            <S.Input
+            <Input
               id="close"
               name="close"
               value={userData.close}
@@ -236,7 +207,7 @@ class Timeline extends Component<{}, TimelineState> {
           </div>
           <div>
             <label htmlFor="low">Low:</label>
-            <S.Input
+            <Input
               id="low"
               name="low"
               value={userData.low}
@@ -245,7 +216,7 @@ class Timeline extends Component<{}, TimelineState> {
           </div>
           <div>
             <label htmlFor="high">High:</label>
-            <S.Input
+            <Input
               id="high"
               name="high"
               value={userData.high}
@@ -255,7 +226,7 @@ class Timeline extends Component<{}, TimelineState> {
           </div>
           <button type="submit">Submit</button>
         </form>
-      </S.TimelineWrapper>
+      </TimelineWrapper>
     );
   }
 }

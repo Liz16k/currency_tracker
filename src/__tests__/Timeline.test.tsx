@@ -3,12 +3,12 @@
 import '@testing-library/jest-dom';
 import 'jest-styled-components';
 
+import { ThemeContext } from '@contexts/index';
 import Timeline from '@pages/Timeline';
 import {
   render, screen, waitFor,
 } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { ThemeContext } from '@utils/Contexts';
 import React, { type ReactElement } from 'react';
 import { ThemeProvider } from 'styled-components';
 

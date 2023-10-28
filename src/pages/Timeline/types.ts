@@ -1,4 +1,4 @@
-import { type intervals } from '@utils/constants';
+import { type intervals } from '@config/constants';
 
 interface DailyData {
   datetime: string

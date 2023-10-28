@@ -1,9 +1,8 @@
 import Quotes from '@components/Quotes';
+import { currencies as currenciesList, LOADING } from '@config/constants';
+import { LastUpdateContext, type LastUpdateContextType } from '@contexts/index';
 import { fetchCurrencies } from '@services/currencies';
 import { useQuery } from '@tanstack/react-query';
-import { currencies as currenciesList } from '@utils/constants';
-import { LastUpdateContext } from '@utils/Contexts';
-import { type LastUpdateContextType } from '@utils/Contexts';
 import React, { useContext, useEffect } from 'react';
 
 import HomeWrapper from './styled';
@@ -29,7 +28,7 @@ const Home = () => {
 
   return (
     <HomeWrapper>
-      { isLoading ? <h3>Loading...</h3> : <><h3>1 USD:</h3><Quotes quotes={data} /></>}
+      { isLoading ? <h3>{LOADING}</h3> : <><h3>1 USD:</h3><Quotes quotes={data} /></>}
     </HomeWrapper>
   );
 };

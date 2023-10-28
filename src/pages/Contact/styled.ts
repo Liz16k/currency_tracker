@@ -71,6 +71,8 @@ const Input = styled.input`
 `;
 
 const Textarea = styled.textarea`
+  font-family: inherit;
+  
   appearance: none;
   background-color: ${({ theme }) => theme.colors.cardBg};
   resize: none;
@@ -81,13 +83,13 @@ const Textarea = styled.textarea`
   font-size: 1.2rem;
   color: ${({ theme }) => theme.colors.primaryText};
   &::placeholder {
-    font-family: Poppins, sans-serif;
+    font-family: inherit;
   }
 `;
 
-export default {
-  ContactWrapper,
+export {
   Button,
+  ContactWrapper,
   Input,
   Textarea,
 };

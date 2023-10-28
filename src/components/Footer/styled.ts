@@ -48,10 +48,10 @@ const FooterWrapper = styled.div`
   }
 `;
 
-const Copyright = styled.div`
+const Copyright = styled.p`
   color: ${({ theme: { colors } }) => colors.tertiaryText};
   margin: 1rem auto 2rem;
   text-align: center;
 `;
 
-export default { FooterWrapper, Copyright };
+export { Copyright, FooterWrapper };

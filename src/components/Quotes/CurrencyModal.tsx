@@ -1,5 +1,5 @@
+import { currencies } from '@config/constants';
 import { fetchExchangeRate } from '@services/currencies';
-import { currencies } from '@utils/constants';
 import React, {
   type ChangeEvent, type FC,
   type FocusEvent, useEffect, useState,
@@ -39,6 +39,10 @@ const CurrencyModal: FC<CurrencyModalProps> = ({ onClose = () => {}, from }) => 
     setExchangeValues((prevValues) => ({ ...prevValues, [name]: '' }));
   };
 
+  const handleSelectChange = (value: string) => {
+    setToCurrency(value);
+  };
+
   useEffect(() => {
     const loadExchangeRate = async () => {
       const newExchangeRate = await fetchExchangeRate({ from, to: toCurrency });
@@ -72,9 +76,7 @@ const CurrencyModal: FC<CurrencyModalProps> = ({ onClose = () => {}, from }) => 
       <p>→</p>
       <Currency>
         <Select
-          onChange={(value) => {
-            setToCurrency(value);
-          }}
+          onChange={handleSelectChange}
           currentValue={toCurrency}
           values={currencies}
         />

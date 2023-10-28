@@ -1,4 +1,5 @@
 import Layout from '@components/Layout';
+import { PAGE_NOT_FOUND } from '@config/constants';
 import BankCard from '@pages/BankCard';
 import Contacts from '@pages/Contact';
 import Home from '@pages/Home';
@@ -13,7 +14,7 @@ const Navigation = () => (
       <Route path="/timeline" element={<Timeline />} />
       <Route path="/bank-card" element={<BankCard />} />
       <Route path="/contacts" element={<Contacts />} />
-      <Route path="*" element={<h1>Page not Found</h1>} />
+      <Route path="*" element={<h1>{PAGE_NOT_FOUND}</h1>} />
     </Route>
   </Routes>
 );

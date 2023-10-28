@@ -1,10 +1,10 @@
 import '@testing-library/jest-dom';
 import 'jest-styled-components';
 
+import { darkTheme, lightTheme } from '@config/theme';
+import { ThemeContext, type ThemeContextType } from '@contexts/index';
 import { render } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { ThemeContext, type ThemeContextType } from '@utils/Contexts';
-import { darkTheme, lightTheme } from '@utils/theme';
 import React, { type ReactElement } from 'react';
 import { ThemeProvider } from 'styled-components';
 

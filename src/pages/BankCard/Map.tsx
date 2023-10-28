@@ -1,10 +1,10 @@
 import 'mapbox-gl/dist/mapbox-gl.css';
 
+import { MAPBOX_KEY } from '@config/environment';
+import { LastUpdateContext, type LastUpdateContextType } from '@contexts/index';
 import { fetchGeolocation } from '@services/geoapify';
 import { type IBankPoint } from '@services/types';
 import { useQuery } from '@tanstack/react-query';
-import { LastUpdateContext, type LastUpdateContextType } from '@utils/Contexts';
-import { MAPBOX_KEY } from '@utils/envrionment';
 import {
   Map, Marker, NavigationControl, Popup,
 } from 'mapbox-gl';
@@ -12,6 +12,7 @@ import React, {
   type FC, useContext, useEffect, useRef,
 } from 'react';
 
+import StyledMap from './styled';
 import { type MapComponentProps } from './types';
 
 const MapComponent: FC<MapComponentProps> = ({ points }) => {
@@ -60,7 +61,7 @@ const MapComponent: FC<MapComponentProps> = ({ points }) => {
   return (
     <>
       {isLoading && <h3>Loading...</h3>}
-      <div ref={mapContainer} className="map" />
+      <StyledMap ref={mapContainer} />
     </>
   );
 };

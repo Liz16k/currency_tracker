@@ -3,7 +3,6 @@ import styled from 'styled-components';
 const SelectWrapper = styled.div`
   width: 12rem;
   position: relative;
-  margin: 0 auto;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -31,8 +30,8 @@ const SelectLabelInput = styled.input`
   }
 `;
 
-const DropdownStyle = styled.div`
-  z-index: 1000;
+const DropdownStyle = styled.ul`
+  z-index: 1;
   position: absolute;
   top: 2rem;
   margin: 0 auto;
@@ -48,7 +47,7 @@ const DropdownStyle = styled.div`
   overflow: auto;
 `;
 
-const DropdownItem = styled.div<{ $active?: string }>`
+const DropdownItem = styled.li<{ $active?: string }>`
   display: flex;
   align-items: center;
   margin: 0.15rem 0;
@@ -70,7 +69,7 @@ const DropdownItem = styled.div<{ $active?: string }>`
   }
 `;
 
-export default {
+export {
   DropdownItem,
   DropdownStyle,
   SelectLabelInput,
